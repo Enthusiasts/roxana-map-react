@@ -1,0 +1,22 @@
+{
+  "name": "roxana-map-react",
+  "description": "",
+  "main": "public/index.html",
+  "authors": [
+    "debalid <debalid@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrap-social": "^4.12.0"
+  }
+}

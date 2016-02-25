@@ -1,0 +1,34 @@
+{
+  "name": "roxana-map-react",
+  "version": "0.0.1",
+  "dependencies": {
+    "leaflet": "^0.7.7",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-leaflet": "^0.10.1"
+  },
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "browserify": "^13.0.0",
+    "grunt": "^0.4.5",
+    "grunt-bower": "^0.21.0",
+    "grunt-cli": "^0.1.13",
+    "http-server": "^0.9.0",
+    "reactify": "^1.1.1",
+    "uglifyify": "^3.0.1"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "scripts": {
+    "postinstall": "npm run setup-vendor",
+    "presetup-vendor": "bower install",
+    "setup-vendor": "grunt bower",
+    "start": "npm run build-dev | npm run build-min",
+    "poststart": "http-server -a 127.0.0.1 -p 8080 -o",
+    "build-dev": "browserify -e public/scripts/app.js -o public/scripts/build/bundle.dev.js -d",
+    "build-min": "browserify -e public/scripts/build/bundle.dev.js -t uglifyify -o public/scripts/build/bundle.min.js"
+  }
+}
