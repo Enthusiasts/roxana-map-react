@@ -55,9 +55,11 @@ var AuthInstagram = React.createClass({
         if (!this.state.isPopouted)
         {
             return (
-                <div>
-                    <a onClick= {this.popoutOpen} className="btn btn-block btn-social btn-instagram">
-                        <span className="fa fa-instagram" /> Войти
+
+                <div className="authButton">
+                    <a onClick= {this.popoutOpen} className="pure-button">
+                        <i className="fa fa-instagram"> </i>
+                        <spam>&nbsp;&nbsp; Войти</spam>
                     </a>
                 </div>
             );
@@ -65,9 +67,10 @@ var AuthInstagram = React.createClass({
         else
         {
             return (
-                <div>
-                    <a className="btn btn-block btn-social btn-instagram">
-                        <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate" /> Подождите...
+                <div className="authButton">
+                    <a className="pure-button">
+                        <i className="fa fa-cog"> </i>
+                        <spam>&nbsp;&nbsp; Подождите...</spam>
                     </a>
                 </div>
             );

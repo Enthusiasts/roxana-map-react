@@ -10,8 +10,8 @@ module.exports = function(grunt) {
                 options: {
                     expand: true,
                     packageSpecific: {
-                        bootstrap: {
-                            files: ['dist/**']
+                        purecss: {
+                            files: ['build/**']
                         },
                         'font-awesome': {
                             files: ['fonts/**', 'css/**']

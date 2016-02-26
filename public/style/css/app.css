@@ -1,0 +1,37 @@
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+#application{
+    position: absolute;
+}
+#search-form {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    margin: 0.6em 0 0.6em 0.6em;
+    padding: 2px 0px 2px 0.6em;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(252,252,252,1);
+}
+#map { height: 100px; }
