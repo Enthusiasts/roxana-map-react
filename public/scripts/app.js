@@ -6,9 +6,9 @@ var ReactDOM = require('react-dom');
 var RoxanaApp = require('./components/roxana-app');
 
 //TODO: move to another layer or smth
-if (window.opener) {
-    console.log("popup closing");
-    window.close()
+if (window.opener)
+{
+    // ?
 } else {
     ReactDOM.render(<RoxanaApp />, document.getElementById("application"));
 }
