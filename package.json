@@ -30,7 +30,6 @@
     "start": "npm run build-dev",
     "poststart": "http-server -a 127.0.0.1 -p 8100 -o",
     "build-dev": "browserify -e src/app.js -o public/scripts/build/bundle.dev.js -d",
-    "postbuild-dev": "npm run build-min",
     "build-min": "browserify -e public/scripts/build/bundle.dev.js -t uglifyify -o public/scripts/build/bundle.min.js"
   }
 }
