@@ -4,6 +4,8 @@
 var React = require('react');
 var $ = require('jquery');
 
+const url = "http://127.0.0.1:8100/";
+
 var AuthInstagramSpring = React.createClass({
     getInitialState: function()
     {
@@ -12,26 +14,12 @@ var AuthInstagramSpring = React.createClass({
         });
     },
 
-    componentDidMount: function()
-    {
-        $.ajax({
-            url: "http://127.0.0.1:8100/user",
-            dataType: "json"
-        })
-            .done(function (data) {
-                console.log(data);
-            })
-            .fail(function(){
-                console.log("failed");
-            });
-    },
-
     popoutOpen: function()
     {
         //Открываем попаут. Окно будет сохранено в состоянии компонента.
         var popout = window
             .open(
-                "http://127.0.0.1:8100/login/instagram",
+                url + "login/instagram?target=" + encodeURIComponent(url),
                 "Sign In",
                 "width=400,height=400"
             );
@@ -46,8 +34,6 @@ var AuthInstagramSpring = React.createClass({
             }
             else
             {
-                var code;
-                var state;
                 if (this.state.popout.location.hostname == window.location.hostname
                         && this.state.popout.location.port == window.location.port
                         && this.state.popout.location.pathname == "/")
@@ -55,7 +41,9 @@ var AuthInstagramSpring = React.createClass({
                     console.log("redirected back");
                     console.log(this.state.popout.location.search);
 
-                    //this.authorize(code, state);
+                    // TODO: write custom event!!!
+                    //this.props.authCallback();
+                    $('#authcallback').click();
 
                     this.state.popout.close();
                 }
@@ -79,19 +67,6 @@ var AuthInstagramSpring = React.createClass({
         });
     },
 
-    fetchUserInfo: function()
-    {
-        $.ajax({
-                url: "http://127.0.0.1:8100/user",
-                method: "GET",
-                dataType: "json",
-                success: function(data)
-                {
-                    //Yay!
-                }
-            })
-    },
-
     render: function()
     {
         if (!this.state.isPopouted)
@@ -101,6 +76,7 @@ var AuthInstagramSpring = React.createClass({
                     <a onClick= {this.popoutOpen} className="btn btn-block btn-social btn-instagram">
                         <span className="fa fa-instagram" /> <p>Войти</p>
                     </a>
+                    <input id="authcallback" type="hidden" onClick={this.props.authCallback}/>
                 </div>
             );
         }
@@ -111,6 +87,7 @@ var AuthInstagramSpring = React.createClass({
                     <a className="btn btn-block btn-social btn-instagram">
                         <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate" /> <p>Подождите...</p>
                     </a>
+                    <input id="authcallback" type="hidden" onClick={this.props.authCallback}/>
                 </div>
             );
         }

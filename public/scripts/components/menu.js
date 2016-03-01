@@ -4,7 +4,7 @@
 
 var React = require('react');
 var MenuElem = require('./menu-elem');
-var AuthInstagram = require('./auth-instagram-spring');
+var UserMenu = require('./usermenu-instagram');
 
 var Menu = React.createClass({
     render: function(){
@@ -25,11 +25,10 @@ var Menu = React.createClass({
                         <MenuElem bname="Фастфуд"/>
                     </ul>
                 </div>
-                <AuthInstagram />
+                <UserMenu />
             </div>
         );
     }
-
 });
 
 module.exports = Menu;
