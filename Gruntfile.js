@@ -18,6 +18,9 @@ module.exports = function(grunt) {
                         },
                         'font-awesome': {
                             files: ['fonts/**', 'css/**']
+                        },
+                        leaflet: {
+                            files: ['dist/images/**', 'dist/leaflet.css']
                         }
                     }
                 }
