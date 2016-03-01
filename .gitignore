@@ -3,3 +3,4 @@ bower_components
 .idea
 public/scripts/build
 *.log
+vendor
