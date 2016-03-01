@@ -4,7 +4,7 @@
 var React = require('react');
 var $ = require('jquery');
 
-var UserInfo = require('./userinfo-instagram');
+var UserInfo = require('./info-instagram');
 var AuthInstagram = require('./auth-instagram-spring');
 
 const url = "http://127.0.0.1:8100/";

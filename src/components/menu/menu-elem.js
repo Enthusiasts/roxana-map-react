@@ -7,11 +7,9 @@ var React = require('react');
 var MenuElem = React.createClass({
     render: function(){
         return  (
-
             <li className="pure-menu-item">
                 <a href="" className="pure-menu-link">{this.props.bname}</a>
             </li>
-
         );
     }
 

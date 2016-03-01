@@ -13,6 +13,9 @@ module.exports = function(grunt) {
                         bootstrap: {
                             files: ['dist/**']
                         },
+                        pure: {
+                            files: ['pure.css']
+                        },
                         'font-awesome': {
                             files: ['fonts/**', 'css/**']
                         }

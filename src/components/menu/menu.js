@@ -4,7 +4,7 @@
 
 var React = require('react');
 var MenuElem = require('./menu-elem');
-var UserMenu = require('./user-menu/usermenu-instagram');
+var UserInstagram = require('../user/user-instagram');
 
 var Menu = React.createClass({
     render: function(){
@@ -12,7 +12,7 @@ var Menu = React.createClass({
             <div id="menu">
 
                 <div className="pure-menu">
-                    <a className="pure-menu-heading" href="#"><img src="/image/logo.png" alt=""/></a>
+                    <a className="pure-menu-heading" href="#"><img src="style/image/logo.png" alt=""/></a>
 
                     <form>
                         <input id="search-form" type="search"  placeholder="Поиск" />
@@ -25,7 +25,7 @@ var Menu = React.createClass({
                         <MenuElem bname="Фастфуд"/>
                     </ul>
                 </div>
-                <UserMenu />
+                <UserInstagram />
             </div>
         );
     }
