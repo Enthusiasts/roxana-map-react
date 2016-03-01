@@ -1,6 +1,6 @@
 node_modules
 bower_components
 .idea
-public/scripts/build
+public/scripts/build/*
 *.log
-vendor
+vendor/*
