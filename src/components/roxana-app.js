@@ -6,7 +6,8 @@ var Menu = require('./menu/menu');
 var Lmap = require('./map/lmap');
 
 var RoxanaApp = React.createClass({
-    render: function() {
+    render: function()
+    {
         return (
             <div id="layout">
                 <a href="#menu" id="menuLink" className="menu-link">

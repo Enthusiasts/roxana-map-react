@@ -6,11 +6,13 @@ var $ = require('jquery');
 
 var UserInfo = require('./info-instagram');
 var AuthInstagram = require('./auth-instagram-spring');
+var Properies = require('../../properties');
 
-const url = "http://127.0.0.1:8100/";
+const url = Properies.API_ROOT;
 
 var UserMenu = React.createClass({
-    getInitialState: function() {
+    getInitialState: function()
+    {
         return {
             isAuthenticated: false
         };

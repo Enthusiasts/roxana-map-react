@@ -3,15 +3,13 @@
  */
 var React = require('react');
 var RL = require('react-leaflet');
-
-const MAP_CENTER = [55.75, 37.61];
-const MAP_ZOOM = 11;
+var Properties = require('../../properties');
 
 var LMap = React.createClass({
     render: function()
     {
         return  (
-            <RL.Map className="roxana-map" center={MAP_CENTER} zoom={MAP_ZOOM}>
+            <RL.Map className="roxana-map" center={Properties.MAP_CENTER} zoom={Properties.MAP_ZOOM}>
                 <RL.TileLayer
                     url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

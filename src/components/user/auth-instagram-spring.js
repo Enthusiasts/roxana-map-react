@@ -4,7 +4,9 @@
 var React = require('react');
 var $ = require('jquery');
 
-const url = "http://127.0.0.1:8100/";
+var Properties = require('../../properties');
+
+const url = Properties.API_ROOT;
 
 var AuthInstagramSpring = React.createClass({
     getInitialState: function()
