@@ -9,7 +9,7 @@ var RoxanaApp = React.createClass({
     render: function()
     {
         return (
-            <div>
+            <div className="heighted">
                 <div className="header">
                     <img src="style/image/logo.png" alt=""/>
                 </div>

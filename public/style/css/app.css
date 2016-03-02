@@ -55,6 +55,12 @@ body, html {
     overflow-y: hidden;
     min-height: 355px;
 }
+#application {
+    height: 100%;
+}
+#application .heighted{
+    height: 100%;
+}
 
 .header{
     position: fixed;
