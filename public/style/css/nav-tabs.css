@@ -1,0 +1,55 @@
+/*Here we go to change navbar default bootstrap */
+#navTabs{
+    margin: 0px;
+    height: 100%;
+}
+#navTabs > ul{
+    border-bottom: 3px solid rgba(0,150,200,0.6);
+}
+#navTabs > ul > li{
+    width: 50%;
+    text-align: center;
+    margin: 0px;
+}
+#tabList .active a{
+    background: rgba(0,150,200,0.6);
+}
+#tabList .active a:hover{
+    background: rgba(0,150,200,0.6);
+}
+#tabList a{
+    color: #FFF;
+    border: 0px;
+    margin-right: 0px;
+    border-radius: 0px;
+}
+#tabList a:hover{
+    background: rgba(0,150,200,0.2);
+}
+#unknownMenuList{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,150,200,0.6);
+    margin: 0px;
+    padding: 5px;
+}
+#unknownMenuList > ul{
+    width: 33%;
+}
+#unknownMenuList >ul >li {
+    color: white;
+}
+#unknownMenuList >ul >li >a{
+    color: white;
+    text-decoration: none;
+}
+#unknownMenuList >ul >li >a:hover{
+    background: rgba(0,200,200,0.6);
+}
+#knownMenuList{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,150,200,0.6);
+    margin: auto;
+    padding: 50px;
+}

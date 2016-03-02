@@ -9,9 +9,9 @@
 .menu-link{
         position: fixed;
         top: 60px;
-        left: 336px;
+        left: 453px;
         background: #000;
-        background: rgba(0,200,250,0.7);
+        background: rgba(36,35,37,0.5);
         font-size: 10px;
         z-index: 10;
         width: 2em;
@@ -23,7 +23,7 @@
 }
         .menu-link:hover,
         .menu-link:focus {
-            background: rgba(0,200,250,0.5);
+            background: rgba(36,35,37,0.5);
         }
 
         .menu-link span {
@@ -55,15 +55,15 @@
 
 #menu{
     position:fixed;
-    width: 333px;
+    width: 450px;
     height: 100%;
     top: 60px;
     z-index: 1000;
     left: 0px;
-    background-color: rgba(0,200,250,0.7);
+    background-color: rgba(36,35,37,0.5);
 }
 #menu.active{
-    left: -333px;
+    left: -450px;
 }
 #navTabs{
     margin: 3px;
@@ -99,17 +99,18 @@
 }
 @media (max-width: 48em){
     #menu{
-        left: -333px;
+        left: -450px;
     }
     #menu.active{
         left: 0px;
+
     }
 
     #menuLink{
         left: 0px;
     }
     #menuLink.active{
-        left: 336px;
+        left: 453px;
     }
 }
 

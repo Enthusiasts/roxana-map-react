@@ -4,7 +4,7 @@
 
 var React = require('react');
 
-var MenuElem = React.createClass({
+var NavUnknownElem = React.createClass({
     render: function(){
         return  (
             <li className="pure-menu-item">
@@ -15,4 +15,4 @@ var MenuElem = React.createClass({
 
 });
 
-module.exports = MenuElem;
+module.exports = NavUnknownElem;
