@@ -9,7 +9,10 @@ var RoxanaApp = React.createClass({
     render: function()
     {
         return (
-            <div id="layout">
+            <div>
+                <div className="header">
+                    <img src="style/image/logo.png" alt=""/>
+                </div>
                 <a href="#menu" id="menuLink" className="menu-link">
                     <span></span>
                 </a>

@@ -6,7 +6,7 @@ var $ = require('jquery');
 
 var UserInfo = require('./info-instagram');
 var AuthInstagram = require('./auth-instagram-spring');
-var Properies = require('../../const/properties');
+var Properies = require('../../properties');
 
 const url = Properies.API_ROOT;
 

@@ -1,4 +1,7 @@
 .roxana-map {
-    min-width: 800px;
-    min-height: 600px;
+    top: 60px;
+    overflow: hidden;
+    width: 100%;
+    height: 1080px;
+    max-height: 1080px;
 }

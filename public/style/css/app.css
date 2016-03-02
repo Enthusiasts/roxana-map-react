@@ -1,36 +1,77 @@
-.glyphicon-refresh-animate {
-    -animation: spin .7s infinite linear;
-    -webkit-animation: spin2 .7s infinite linear;
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.animated.infinite {
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
 }
 
-@-webkit-keyframes spin2 {
-    from { -webkit-transform: rotate(0deg);}
-    to { -webkit-transform: rotate(360deg);}
+@-webkit-keyframes rotateIn {
+    from {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: rotateZ(-360deg);
+        transform: rotateZ(-360deg);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: none;
+        transform: none;
+        opacity: 1;
+    }
+}
+@keyframes rotateIn {
+    from {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: rotateZ(-360deg);
+        transform: rotateZ(-360deg);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transform: none;
+        transform: none;
+        opacity: 1;
+    }
+}
+.rotateIn {
+    -webkit-animation-name: rotateIn;
+    animation-name: rotateIn;
 }
 
-@keyframes spin {
-    from { transform: scale(1) rotate(0deg);}
-    to { transform: scale(1) rotate(360deg);}
-}
 body, html {
+    font-size: 100%;
+    background-color: transparent;
     height: 100%;
-    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-y: hidden;
+    min-height: 355px;
 }
 
-#application{
-    position: absolute;
+.header{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    min-height: 30px;
+    height: 60px;
+    width: 100%;
+    background: rgba(0,200,250,0.8);
+
 }
-#search-form {
-    display: inline-block;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    margin: 0.6em 0 0.6em 0.6em;
-    padding: 2px 0px 2px 0.6em;
-    border: 1px solid #b7b7b7;
-    -webkit-border-radius: 16px;
-    border-radius: 16px;
-    -o-text-overflow: clip;
-    text-overflow: clip;
-    background: rgba(252,252,252,1);
+.header img{
+    margin: 5px;
+    height: 50px;
+}
+.header span{
+    font-size: 150%;
+    color: white;
+
 }
