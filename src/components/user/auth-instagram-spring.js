@@ -4,7 +4,7 @@
 var React = require('react');
 var $ = require('jquery');
 
-var Properties = require('../../properties');
+var Properties = require('../../const/properties');
 
 const url = Properties.API_ROOT;
 
