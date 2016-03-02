@@ -3,7 +3,7 @@
  */
 var React = require('react');
 var ReactLeaflet = require('react-leaflet');
-var Properties = require('../../properties');
+var Properties = require('../../const/properties');
 
 const Map = ReactLeaflet.Map;
 const TileLayer = ReactLeaflet.TileLayer;
