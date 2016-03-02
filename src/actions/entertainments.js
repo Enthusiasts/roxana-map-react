@@ -1,6 +1,8 @@
 /**
  * Created by debal on 02.03.2016.
  */
+var $ = require('jquery');
+
 const REQUEST_ENTERTAINMENTS = 'GET_ENTERTAINMENTS';
 const requestEntertainments = function (entertainmentsType)
 {
@@ -34,6 +36,15 @@ const errorEntertainments = function (entertainmentsType)
         error: 'Невозможно загрузить заведения "' + entertainmentsType + '" :('
     };
 };
+
+function fetchEntertainments(entertainmentsType)
+{
+    return function (dispatch)
+    {
+        dispatch(requestEntertainments(entertainmentsType))
+    }
+}
+
 
 module.exports = {
     REQUEST_ENTERTAINMENTS,
