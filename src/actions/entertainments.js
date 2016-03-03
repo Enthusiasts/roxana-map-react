@@ -1,7 +1,7 @@
 /**
  * Created by debal on 02.03.2016.
  */
-var $ = require('jquery');
+var Properties = require('../const/properties');
 
 const REQUEST_ENTERTAINMENTS = 'GET_ENTERTAINMENTS';
 const requestEntertainments = function (entertainmentsType)
@@ -15,13 +15,13 @@ const requestEntertainments = function (entertainmentsType)
 };
 
 const RECEIVE_ENTERTAINMENTS = 'RECEIVE_ENTERTAINMENTS';
-const receiveEntertainments = function (entertainmentsType)
+const receiveEntertainments = function (entertainmentsType, entertainments)
 {
     return {
         type: RECEIVE_ENTERTAINMENTS,
         payload: {
             entertainmentsType,
-            entertainments: [],
+            entertainments,
             receivedAt: Date.now()
         }
     };
@@ -41,16 +41,44 @@ function fetchEntertainments(entertainmentsType)
 {
     return function (dispatch)
     {
-        dispatch(requestEntertainments(entertainmentsType))
+        dispatch(requestEntertainments(entertainmentsType));
+
+        var ent_type = Properties.ENTERTAINMENT_TYPE;
+
+        /*return fetch(Properties.API_ROOT + "entertainments/search/findByType/?type=" + ent_type.translate(entertainmentsType))
+            .then(
+                response =>
+                    response.json()
+            )
+            .then(
+                json => {
+                    var ents = json._embedded.entertainments;
+                    console.log(ents);
+                    dispatch(receiveEntertainments(entertainmentsType, ents));
+                }
+            );*/
+
+
+        return fetch("http://ec2-52-18-236-104.eu-west-1.compute.amazonaws.com/rona/api/entertainment/?type=bar")
+            .then(
+                response =>
+                    response.json()
+            )
+            .then(
+                json => {
+                    var ents = json.results;
+                    console.log(ents);
+                    dispatch(receiveEntertainments(entertainmentsType, ents));
+                }
+            );
     }
 }
 
 
 module.exports = {
     REQUEST_ENTERTAINMENTS,
-    requestEntertainments,
     RECEIVE_ENTERTAINMENTS,
-    receiveEntertainments,
     ERROR_ENTERTAINMENTS,
-    errorEntertainments
+    errorEntertainments,
+    fetchEntertainments
 };

@@ -27,6 +27,6 @@ module.exports = {
                 case this.CLUB:
                     return "Клуб";
             }
-        }.bind(this)
+        }
     }
 };
