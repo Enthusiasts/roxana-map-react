@@ -3,6 +3,7 @@
  */
 var React = require('react');
 var NavUnknownElem = require('./nav-unknown-elem');
+var RouteTrace = require('../route/route-trace');
 
 var NavUnknown = React.createClass({
 
@@ -17,6 +18,8 @@ var NavUnknown = React.createClass({
                     <NavUnknownElem bname="Ресторан"/>
                     <NavUnknownElem bname="Клуб"/>
                 </ul>
+
+                <RouteTrace/>
             </div>
         )
     }

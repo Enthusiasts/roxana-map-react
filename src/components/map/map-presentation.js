@@ -6,10 +6,18 @@ var ReactLeaflet = require('react-leaflet');
 var Properties = require('../../const/properties');
 
 const Map = ReactLeaflet.Map;
+const Marker = ReactLeaflet.Marker;
 const TileLayer = ReactLeaflet.TileLayer;
 const ZoomControl = ReactLeaflet.ZoomControl;
 
-var LMap = React.createClass({
+var map = React.createClass({
+    renderEntertainments: function()
+    {
+        return this.props.entertainments.map(
+            ent => <Marker key={ent.id} position={[ent.longitude, ent.latitude]}/>
+        );
+    },
+
     render: function()
     {
         return  (
@@ -22,10 +30,11 @@ var LMap = React.createClass({
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
                 <ZoomControl position="topright" zoomInTitle="Увеличить" zoomOutTitle="Уменьшить"/>
+                {this.renderEntertainments()}
             </Map>
         );
     }
 
 });
 
-module.exports = LMap;
+module.exports = map;

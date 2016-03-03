@@ -3,7 +3,7 @@
  */
 var React = require('react');
 var Menu = require('./menu/menu');
-var Lmap = require('./map/lmap');
+var MapContainer = require('./map/map-container');
 
 var RoxanaApp = React.createClass({
     render: function()
@@ -17,7 +17,7 @@ var RoxanaApp = React.createClass({
                     <span></span>
                 </a>
                 <Menu />
-                <Lmap />
+                <MapContainer />
             </div>
         );
     }
