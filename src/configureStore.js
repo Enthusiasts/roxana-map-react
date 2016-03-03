@@ -4,11 +4,12 @@
 var Redux = require('redux');
 var Thunk = require('redux-thunk');
 var EntertainmentsReducer = require('./reducers/entertainments');
+var RoutesReducer = require('./reducers/routes');
 
 function configureStore(initialState)
 {
     return Redux.createStore(
-        EntertainmentsReducer.entertainments,
+        Redux.combineReducers(EntertainmentsReducer.entertainments, RoutesReducer.routes),
         initialState,
         Redux.applyMiddleware(Thunk)
     );

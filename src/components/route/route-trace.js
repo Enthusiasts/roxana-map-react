@@ -9,7 +9,7 @@ var RouteTrace = React.createClass({
     {
         return (
             <div>
-                <RouteList items={[{id: 0, title: "СОХО", zoneTitle: "район замоскворечье", longitude: 55.75, latitude: 37.61}]}/>
+                <RouteList isAuthorized = {true} items={[{id: 0, title: "СОХО", zoneTitle: "район замоскворечье", longitude: 55.75, latitude: 37.61}]}/>
             </div>
         );
     }
