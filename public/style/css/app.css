@@ -70,15 +70,24 @@ body, html {
     min-height: 30px;
     height: 60px;
     width: 100%;
-    background: rgba(36,35,37,1);
+    background: black;
 
 }
 .header img{
-    margin: 5px;
-    height: 50px;
+    position: relative;
+
+    margin: 0px  5px 0 15px ;
+    height: 60px;
+
 }
+/*Жуткий хедер спан, думаю ндо подругому написать*/
 .header span{
-    font-size: 150%;
+    height: 60px;
+    position: fixed;
+    top: 5px;
+    font-size: 3em;
     color: white;
+    margin: auto 0px;
+    line-height: 1;
 
 }

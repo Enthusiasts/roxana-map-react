@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="640" height="479.99999999999994" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+ <g>
+  <title>Layer 1</title>
+  <line id="svg_1" y2="363.124987" x2="198.000008" y1="103.124984" x1="104.999997" stroke-width="12" stroke="#ffffff" fill="none"/>
+  <ellipse ry="8" rx="8" id="svg_3" cy="377" cx="202" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="25" stroke="#ffffff" fill="none"/>
+  <ellipse id="svg_5" ry="8" rx="8" cy="91.5" cx="101" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="25" stroke="#ffffff" fill="none"/>
+  <line id="svg_7" y2="340.177451" x2="340.13607" y1="190.072571" x1="183.863987" stroke-width="12" stroke="#ffffff" fill="none" transform="rotate(76.0878, 262, 265.125)"/>
+  <ellipse id="svg_8" ry="8" rx="8" cy="163.5" cx="323" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="25" stroke="#ffffff" fill="none"/>
+  <line id="svg_9" y2="354.242164" x2="453.095117" y1="197.382919" x1="306.40488" stroke-width="12" stroke="#ffffff" fill="none" transform="rotate(18.0616, 379.75, 275.813)"/>
+  <ellipse id="svg_10" ry="8" rx="8" cy="379.5" cx="429" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="25" stroke="#ffffff" fill="none"/>
+  <line id="svg_11" y2="346.596774" x2="575.706474" y1="150.153235" x1="391.668595" stroke-width="12" stroke="#ffffff" fill="none" transform="rotate(64.2705, 483.688, 248.375)"/>
+  <ellipse id="svg_12" ry="8" rx="8" cy="108.5" cx="537" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="25" stroke="#ffffff" fill="none"/>
+  <path fill="#000000" stroke="#ffffff" stroke-width="12" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m18.5625,14.97493l71.001038,248.935349l-45.027527,163.423157l230.653015,44.041565l161.242279,-45.536865l176.213043,24.522125l19.480652,-125.318085l-41.843994,-121.828766l39.110779,-131.565735l-71.201599,-66.397655l-153.033203,55.778507l-89.052124,-50.860161l-111.214844,44.712219l-186.327515,-39.905655z" id="svg_4" fill-opacity="0"/>
+ </g>
+</svg>
