@@ -10,7 +10,11 @@ var RouteItem = React.createClass({
         return (
             // TODO: здесь
             <div>
+
                 {entertainment.title}
+
+
+
             </div>
         );
     }
@@ -25,5 +29,6 @@ RouteItem.propTypes = {
     // }
     info: React.PropTypes.object.isRequired
 };
+
 
 module.exports = RouteItem;

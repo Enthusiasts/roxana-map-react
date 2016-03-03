@@ -70,6 +70,4 @@ function entertainments(state = {
     }
 }
 
-module.exports = {
-    entertainments
-};
+module.exports = entertainments;

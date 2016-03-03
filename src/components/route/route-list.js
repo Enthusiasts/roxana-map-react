@@ -7,15 +7,38 @@ var RouteItem = require('./route-item');
 var RouteList = React.createClass({
     renderEntertainments: function ()
     {
-        // TODO: здесь
         var entertainments = this.props.items;
-        return entertainments.map(
-            ent => {
-                return (
-                    <RouteItem key={"ri-" + ent.id} info={ent}/>
-                );
-            }
-        );
+        if (entertainments)
+        {
+            return entertainments.map(
+                ent => {
+                    return (
+                        <RouteItem key={"ri-" + ent.id} info={ent}/>
+                    );
+                }
+            );
+        } else return null;
+    },
+
+    shura: function(props){
+
+        if (props == true){
+            return(
+                <div>
+                    <button>Привет ЛОХ</button>
+                    <button>Привет НЛОХ</button>
+                </div>
+            );
+
+        }else
+        {
+            return(
+                <div >
+                    <button>Привет НелоХ</button>
+
+                </div>
+            );
+        }
     },
 
     render: function()
@@ -24,19 +47,31 @@ var RouteList = React.createClass({
             // TODO: здесь
             <div>
                 {this.renderEntertainments()}
+                {this.shura(this.props.isAuthorized)}
+
+
             </div>
         );
     }
 });
 
 RouteList.propTypes = {
-    // Массив объектов вида
-    // [{
-    //  id: 0,
-    //  title: 'Сохо'
-    //  zoneTitle: 'район замоскворечье',
-    // }]
+
+    /* Массив объектов вида
+     [{
+      id: 0,
+      title: 'Сохо'
+      zoneTitle: 'район замоскворечье',
+
+     }]*/
+
+
+    isAuthorized: React.PropTypes.bool.isRequired,
     items: React.PropTypes.array.isRequired
 };
+
+
+
+
 
 module.exports = RouteList;

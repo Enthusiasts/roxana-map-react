@@ -4,7 +4,7 @@
 //Spring
 module.exports = {
     // Roxana Web Api settings
-    API_ROOT: "http://127.0.0.1:8100/",
+    API_ROOT: "http://127.0.0.1:8080/",
 
     // Map settings
     MAP_CENTER: [55.75, 37.61],
@@ -23,7 +23,7 @@ module.exports = {
                 case this.RESTAURANT:
                     return "Ресторан";
                 case this.BAR:
-                    return "Бар";
+                    return "Бары";
                 case this.CLUB:
                     return "Клуб";
             }

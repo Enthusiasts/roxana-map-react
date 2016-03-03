@@ -10,16 +10,30 @@ const Marker = ReactLeaflet.Marker;
 const TileLayer = ReactLeaflet.TileLayer;
 const ZoomControl = ReactLeaflet.ZoomControl;
 
-var map = React.createClass({
+var MapPresentation = React.createClass({
     renderEntertainments: function()
     {
-        return this.props.entertainments.map(
-            ent => <Marker key={ent.id} position={[ent.longitude, ent.latitude]}/>
-        );
+        if (this.props.entertainments)
+        {
+            return this.props.entertainments.map(
+                ent => {
+                    if (ent) {
+                        return this.props.entertainments
+                        (
+                            <Marker
+                                key={ent.id}
+                                position={{lon: ent.longitude, lat: ent.latitude}}>
+                            </Marker>
+                        );
+                    }
+                }
+            );
+        } else return null;
     },
 
     render: function()
     {
+        var entertainments = this.renderEntertainments();
         return  (
             <Map className="roxana-map"
                  center={Properties.MAP_CENTER}
@@ -29,12 +43,20 @@ var map = React.createClass({
                     url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
-                <ZoomControl position="topright" zoomInTitle="Увеличить" zoomOutTitle="Уменьшить"/>
-                {this.renderEntertainments()}
+                <ZoomControl
+                    position="topright"
+                    zoomInTitle="Увеличить"
+                    zoomOutTitle="Уменьшить"
+                />
+                {entertainments}
             </Map>
         );
     }
 
 });
 
-module.exports = map;
+MapPresentation.propTypes = {
+    entertainments: React.PropTypes.array.isRequired
+};
+
+module.exports = MapPresentation;

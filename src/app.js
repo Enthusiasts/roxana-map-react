@@ -22,7 +22,11 @@ if (window.opener)
         document.getElementById("application"));
 
     //TODO: delete
-    var Actions = require('./actions/entertainments');
+    var EntActions = require('./actions/entertainments');
+    var RouteActions = require('./actions/routes');
     var Properties = require('./const/properties');
-    store.dispatch(Actions.fetchEntertainments(Properties.ENTERTAINMENT_TYPE.CAFE));
+    store.dispatch(EntActions.fetchEntertainments(Properties.ENTERTAINMENT_TYPE.BAR));
+
+    var t = RouteActions.addRouteItem({id: 0, title: "It works", zoneTitle: "it works district"});
+    store.dispatch(t);
 }
