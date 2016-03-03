@@ -24,5 +24,5 @@ if (window.opener)
     //TODO: delete
     var Actions = require('./actions/entertainments');
     var Properties = require('./const/properties');
-    store.dispatch(Actions.fetchEntertainments(Properties.ENTERTAINMENT_TYPE.CAFE));
+    store.dispatch(Actions.fetchEntertainments(Properties.ENTERTAINMENT_TYPE.BAR));
 }

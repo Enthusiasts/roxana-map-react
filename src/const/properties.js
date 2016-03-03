@@ -23,7 +23,7 @@ module.exports = {
                 case this.RESTAURANT:
                     return "Ресторан";
                 case this.BAR:
-                    return "Бар";
+                    return "Бары";
                 case this.CLUB:
                     return "Клуб";
             }
