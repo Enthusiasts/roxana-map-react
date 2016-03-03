@@ -11,7 +11,7 @@ var RoxanaApp = React.createClass({
         return (
             <div className="heighted">
                 <div className="header">
-                    <img src="style/image/logo.png" alt=""/>
+                    <img src="style/image/logo.svg" alt=""/><span><b>ay To Go!</b></span>
                 </div>
                 <a href="#menu" id="menuLink" className="menu-link">
                     <span></span>
