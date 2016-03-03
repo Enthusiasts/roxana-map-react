@@ -14,6 +14,8 @@ var MapContainer = React.createClass({
 });
 */
 
+// State может быть undefined
+// TODO: выяснить, почему он может быть undefined
 const mapStateToProps = (state) =>
 {
     return {

@@ -17,13 +17,15 @@ var MapPresentation = React.createClass({
         {
             return this.props.entertainments.map(
                 ent => {
-                    return this.props.entertainments
-                    (
-                        <Marker
-                            key={ent.id}
-                            position={{lon: ent.longitude, lat: ent.latitude}}>
-                        </Marker>
-                    );
+                    if (ent) {
+                        return this.props.entertainments
+                        (
+                            <Marker
+                                key={ent.id}
+                                position={{lon: ent.longitude, lat: ent.latitude}}>
+                            </Marker>
+                        );
+                    }
                 }
             );
         } else return null;
