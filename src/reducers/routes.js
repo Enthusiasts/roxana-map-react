@@ -8,6 +8,12 @@ function routes(state = {
     items: []
 }, action)
 {
+    /*
+    console.log("Routes reduced \n State:");
+    console.log(state);
+    console.log("Action:");
+    console.log(action);
+    */
     switch(action.type)
     {
         case Actions.ADD_ROUTE_ITEM:

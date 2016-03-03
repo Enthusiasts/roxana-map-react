@@ -5,25 +5,16 @@ var React = require('react');
 var ReactRedux = require('react-redux');
 var Map = require('./map-presentation');
 
-/*
-var MapContainer = React.createClass({
-    render: function()
-    {
-        return <Map entertainments={[{id: 0, longitude: 55.75, latitude: 37.61}]}/>;
-    }
-});
-*/
-
-// State может быть undefined
-// TODO: выяснить, почему он может быть undefined
 const mapStateToProps = (state) =>
 {
+    console.log(state);
     return {
         entertainments: [].concat(
-            state.cafe ? state.cafe : [],
-            state.restaurant? state.restaurant : [],
-            state.bar ? state.bar : [],
-            state.club ? state.club : [])
+            state.Entertainments.cafe,
+            state.Entertainments.restaurant,
+            state.Entertainments.bar,
+            state.Entertainments.club
+        )
     };
 };
 

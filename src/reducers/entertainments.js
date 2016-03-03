@@ -12,6 +12,8 @@ function entertainments(state = {
     club: []
 }, action)
 {
+    /*console.log("Ents reduced");
+    console.log(state);*/
     switch(action.type)
     {
         case Actions.REQUEST_ENTERTAINMENTS:

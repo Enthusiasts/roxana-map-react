@@ -17,15 +17,12 @@ var MapPresentation = React.createClass({
         {
             return this.props.entertainments.map(
                 ent => {
-                    if (ent) {
-                        return this.props.entertainments
-                        (
-                            <Marker
-                                key={ent.id}
-                                position={{lon: ent.longitude, lat: ent.latitude}}>
-                            </Marker>
-                        );
-                    }
+                    return (
+                        <Marker
+                            key={ent.id}
+                            position={{lon: ent.longitude, lat: ent.latitude}}>
+                        </Marker>
+                    );
                 }
             );
         } else return null;
@@ -33,7 +30,6 @@ var MapPresentation = React.createClass({
 
     render: function()
     {
-        var entertainments = this.renderEntertainments();
         return  (
             <Map className="roxana-map"
                  center={Properties.MAP_CENTER}
@@ -48,7 +44,7 @@ var MapPresentation = React.createClass({
                     zoomInTitle="Увеличить"
                     zoomOutTitle="Уменьшить"
                 />
-                {entertainments}
+                {this.renderEntertainments()}
             </Map>
         );
     }
