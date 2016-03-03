@@ -54,7 +54,6 @@ function fetchEntertainments(entertainmentsType)
             .then(
                 json => {
                     var ents = json._embedded.entertainments;
-                    console.log(ents);
                     dispatch(receiveEntertainments(entertainmentsType, ents));
                 }
             );

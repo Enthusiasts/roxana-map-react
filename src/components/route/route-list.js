@@ -7,20 +7,21 @@ var RouteItem = require('./route-item');
 var RouteList = React.createClass({
     renderEntertainments: function ()
     {
-        // TODO: здесь
         var entertainments = this.props.items;
-        return entertainments.map(
-            ent => {
-                return (
-                    <RouteItem key={"ri-" + ent.id} info={ent}/>
-                );
-            }
-        );
+        if (entertainments)
+        {
+            return entertainments.map(
+                ent => {
+                    return (
+                        <RouteItem key={"ri-" + ent.id} info={ent}/>
+                    );
+                }
+            );
+        } else return null;
     },
 
     shura: function(props){
 
-        alert(props);
         if (props == true){
             return(
                 <div>
@@ -65,8 +66,7 @@ RouteList.propTypes = {
      }]*/
 
 
-    //isAuthorized: React.PropTypes.bool.isRequired,
-    isAuthorized: false ,
+    isAuthorized: React.PropTypes.bool.isRequired,
     items: React.PropTypes.array.isRequired
 };
 

@@ -2,17 +2,21 @@
  * Created by debal on 03.03.2016.
  */
 var React = require('react');
+var ReactRedux = require('react-redux');
 var RouteList = require('./route-list');
 
-var RouteTrace = React.createClass({
-    render: function()
-    {
-        return (
-            <div>
-                <RouteList isAuthorized = {true} items={[{id: 0, title: "СОХО", zoneTitle: "район замоскворечье", longitude: 55.75, latitude: 37.61}]}/>
-            </div>
-        );
-    }
-});
+const mapStateToProps = (state) =>
+{
+    return {
+        isAuthorized: state.isAuthorized
+            ? state.authorized
+            : false,
+        items: state.items
+            ? state.items
+            : []
+    };
+};
+
+const RouteTrace = ReactRedux.connect(mapStateToProps)(RouteList);
 
 module.exports = RouteTrace;

@@ -17,7 +17,11 @@ var MapContainer = React.createClass({
 const mapStateToProps = (state) =>
 {
     return {
-        entertainments: [].concat(state.cafe, state.restaurant, state.bar, state.club)
+        entertainments: [].concat(
+            state.cafe ? state.cafe : [],
+            state.restaurant? state.restaurant : [],
+            state.bar ? state.bar : [],
+            state.club ? state.club : [])
     };
 };
 

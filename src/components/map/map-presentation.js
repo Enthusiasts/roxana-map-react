@@ -10,20 +10,23 @@ const Marker = ReactLeaflet.Marker;
 const TileLayer = ReactLeaflet.TileLayer;
 const ZoomControl = ReactLeaflet.ZoomControl;
 
-var map = React.createClass({
+var MapPresentation = React.createClass({
     renderEntertainments: function()
     {
-        return this.props.entertainments.map(
-            ent => {
-                //console.log(ent);
-                return (
-                    <Marker
-                        key={ent.id}
-                        position={{lon: ent.longitude, lat: ent.latitude}}>
-                    </Marker>
-                );
-            }
-        );
+        if (this.props.entertainments)
+        {
+            return this.props.entertainments.map(
+                ent => {
+                    return this.props.entertainments
+                    (
+                        <Marker
+                            key={ent.id}
+                            position={{lon: ent.longitude, lat: ent.latitude}}>
+                        </Marker>
+                    );
+                }
+            );
+        } else return null;
     },
 
     render: function()
@@ -50,4 +53,8 @@ var map = React.createClass({
 
 });
 
-module.exports = map;
+MapPresentation.propTypes = {
+    entertainments: React.PropTypes.array.isRequired
+};
+
+module.exports = MapPresentation;

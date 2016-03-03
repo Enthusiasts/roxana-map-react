@@ -3,13 +3,18 @@
  */
 var Redux = require('redux');
 var Thunk = require('redux-thunk');
-var EntertainmentsReducer = require('./reducers/entertainments');
-var RoutesReducer = require('./reducers/routes');
+var Entertainments = require('./reducers/entertainments');
+var Routes = require('./reducers/routes');
+
+const rootReducer = Redux.combineReducers({
+    Entertainments,
+    Routes
+});
 
 function configureStore(initialState)
 {
     return Redux.createStore(
-        Redux.combineReducers(EntertainmentsReducer.entertainments, RoutesReducer.routes),
+        rootReducer,
         initialState,
         Redux.applyMiddleware(Thunk)
     );
