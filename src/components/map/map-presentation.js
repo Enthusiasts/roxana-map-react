@@ -5,12 +5,19 @@ var React = require('react');
 var ReactLeaflet = require('react-leaflet');
 var Properties = require('../../const/properties');
 
+var EntertainmentInfo = require('./entertainment-info');
+
 const Map = ReactLeaflet.Map;
 const Marker = ReactLeaflet.Marker;
+const Popup = ReactLeaflet.Popup;
 const TileLayer = ReactLeaflet.TileLayer;
 const ZoomControl = ReactLeaflet.ZoomControl;
 
 var MapPresentation = React.createClass({
+    contextTypes: {
+        store: React.PropTypes.object.isRequired
+    },
+
     renderEntertainments: function()
     {
         if (this.props.entertainments)
@@ -21,6 +28,11 @@ var MapPresentation = React.createClass({
                         <Marker
                             key={ent.id}
                             position={{lon: ent.longitude, lat: ent.latitude}}>
+                            <Popup>
+                                <EntertainmentInfo
+                                    store={this.context.store}
+                                    entertainment={ent} />
+                            </Popup>
                         </Marker>
                     );
                 }

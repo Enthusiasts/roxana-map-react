@@ -7,7 +7,6 @@ var Map = require('./map-presentation');
 
 const mapStateToProps = (state) =>
 {
-    console.log(state);
     return {
         entertainments: [].concat(
             state.Entertainments.cafe,
