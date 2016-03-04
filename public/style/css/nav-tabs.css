@@ -33,19 +33,6 @@
     margin: 0px;
     padding: 5px;
 }
-#unknownMenuList > ul{
-    width: 33%;
-}
-#unknownMenuList >ul >li {
-    color: white;
-}
-#unknownMenuList >ul >li >a{
-    color: white;
-    text-decoration: none;
-}
-#unknownMenuList >ul >li >a:hover{
-    background: rgba(100,250,100,0.6);
-}
 #knownMenuList{
     width: 100%;
     height: 100%;
@@ -53,14 +40,18 @@
     margin: auto;
     padding: 50px;
 }
-#knownMenuList.searchForm {
-    padding: 10px;
-    margin: auto;
-}
-#knownMenuList.searchForm div{
+
+#knownMenuList > ul{
     width: 75%;
-    margin: 15px auto;
 }
-#knownMenuList.searchForm input{
-    border-radius: 0px;
+#knownMenuList >ul >li {
+    width: 118px;
+    color: white;
+}
+#knownMenuList >ul >li >a{
+    color: white;
+    text-decoration: none;
+}
+#knownMenuList >ul >li >a:hover{
+    background: rgba(100,250,100,0.6);
 }

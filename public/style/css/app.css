@@ -91,3 +91,7 @@ body, html {
     line-height: 1;
 
 }
+/*for all that have to be squared углы*/
+.squaredBorders{
+    border-radius: 0px;
+}

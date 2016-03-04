@@ -33,21 +33,21 @@ var RouteList = React.createClass({
 
     renderSaveButton: function(){
             return this.context.store.getState().User.isAuthorized
-                ? <button>Сохранить</button>
+                ? <button id="saveBtn "className="btn btn-success squaredBorders">Сохранить</button>
                 : null;
     },
 
     renderClearButton: function(){
         return this.props.items.length > 0
-            ? <button onClick={this.clearList}>Очистить</button>
+            ? <button id="clrBtn" className="btn btn-danger squaredBorders" onClick={this.clearList}>Очистить</button>
             : null;
     },
 
-    render: function()
-    {
+    render: function() {
+        if (this.props.items.length <= 0) return null;
         return (
-            // TODO: здесь
-            <div>
+
+            <div id="routeList">
                 {this.renderEntertainments()}
                 {this.renderClearButton()}
                 {this.renderSaveButton()}

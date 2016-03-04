@@ -4,7 +4,7 @@
 var React = require('react');
 var Properties = require('../../const/properties');
 
-var NavUnknownElem = require('./nav-unknown-elem');
+var NavKnownElem = require('./nav-known-elem');
 var RouteTrace = require('../route/route-container');
 var UserInfo = require('../user/user-instagram');
 
@@ -14,17 +14,7 @@ var NavUnknown = React.createClass({
         return (
             <div id="unknownMenuList" className="pure-menu">
 
-                <ul className="pure-menu-list">
-                    <li className="pure-menu-heading"><b>Заведения</b></li>
-                    <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.CAFE} />
-                    <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.BAR} />
-                    <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.RESTAURANT} />
-                    <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.CLUB}/>
-                </ul>
 
-
-
-                <RouteTrace/>
             </div>
         )
     }

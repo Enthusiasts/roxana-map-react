@@ -1,0 +1,20 @@
+#routeList {
+    background: rgba(44,44,44,0.7);
+
+    padding: 5px;
+    margin-top: 15px;
+}
+#routeList .routeListElem{
+    border-bottom: 1px solid  white;
+    padding: 10px 0;
+    color: white;
+
+}
+#routeList .routeListElem > small {
+    float: right;
+
+}
+#routeList #clrBtn{
+    margin-top: 15px;
+    width: 48%;
+}
