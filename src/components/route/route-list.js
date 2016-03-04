@@ -20,25 +20,16 @@ var RouteList = React.createClass({
         } else return null;
     },
 
-    shura: function(props){
+    renderSaveButton: function(){
+            return this.props.isAuthorized
+                ? <button>Сохранить</button>
+                : null;
+    },
 
-        if (props == true){
-            return(
-                <div>
-                    <button>Привет ЛОХ</button>
-                    <button>Привет НЛОХ</button>
-                </div>
-            );
-
-        }else
-        {
-            return(
-                <div >
-                    <button>Привет НелоХ</button>
-
-                </div>
-            );
-        }
+    renderClearButton: function(){
+        return this.props.items.length > 0
+            ? <button>Очистить</button>
+            : null;
     },
 
     render: function()
@@ -47,9 +38,8 @@ var RouteList = React.createClass({
             // TODO: здесь
             <div>
                 {this.renderEntertainments()}
-                {this.shura(this.props.isAuthorized)}
-
-
+                {this.renderClearButton()}
+                {this.renderSaveButton()}
             </div>
         );
     }
