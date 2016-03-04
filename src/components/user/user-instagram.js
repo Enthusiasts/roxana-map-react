@@ -8,7 +8,7 @@ var UserInfo = require('./info-instagram');
 var AuthInstagram = require('./auth-instagram-spring');
 var Properies = require('../../const/properties');
 
-const url = Properies.API_ROOT;
+const url = Properies.API.ROOT;
 
 var UserMenu = React.createClass({
     getInitialState: function()

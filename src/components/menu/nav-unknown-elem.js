@@ -22,7 +22,7 @@ var NavUnknownElem = React.createClass({
         return  (
             <li className="pure-menu-item">
                 <a onClick={this.testActionDispatch} className="pure-menu-link">
-                    {Properties.ENTERTAINMENT_TYPE.translate(this.props.type)}
+                    {Properties.ENTERTAINMENT.TYPE.translate(this.props.type)}
                 </a>
             </li>
         );

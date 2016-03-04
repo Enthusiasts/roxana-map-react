@@ -44,8 +44,8 @@ var MapPresentation = React.createClass({
     {
         return  (
             <Map className="roxana-map"
-                 center={Properties.MAP_CENTER}
-                 zoom={Properties.MAP_ZOOM}
+                 center={Properties.MAP.CENTER}
+                 zoom={Properties.MAP.ZOOM}
                  zoomControl={false}>
                 <TileLayer
                     url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

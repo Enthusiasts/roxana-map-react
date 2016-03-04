@@ -14,10 +14,10 @@ var NavUnknown = React.createClass({
 
                 <ul className="pure-menu-list">
                     <li className="pure-menu-heading"><b>Заведения</b></li>
-                    <NavUnknownElem type={Properties.ENTERTAINMENT_TYPE.CAFE} />
-                    <NavUnknownElem type={Properties.ENTERTAINMENT_TYPE.BAR} />
-                    <NavUnknownElem type={Properties.ENTERTAINMENT_TYPE.RESTAURANT} />
-                    <NavUnknownElem type={Properties.ENTERTAINMENT_TYPE.CLUB}/>
+                    <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.CAFE} />
+                    <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.BAR} />
+                    <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.RESTAURANT} />
+                    <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.CLUB}/>
                 </ul>
 
                 <RouteTrace/>

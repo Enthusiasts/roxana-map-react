@@ -6,7 +6,7 @@ var $ = require('jquery');
 
 var Properties = require('../../const/properties');
 
-const url = Properties.API_ROOT;
+const url = Properties.API.ROOT;
 
 var AuthInstagramSpring = React.createClass({
     getInitialState: function()

@@ -2,9 +2,15 @@
  * Created by debal on 03.03.2016.
  */
 var React = require('react');
+var Actions = require('../../actions/routes');
+
 var RouteItem = require('./route-item');
 
 var RouteList = React.createClass({
+    contextTypes: {
+        store: React.PropTypes.object.isRequired
+    },
+
     renderEntertainments: function ()
     {
         var entertainments = this.props.items;
@@ -20,6 +26,11 @@ var RouteList = React.createClass({
         } else return null;
     },
 
+    clearList: function()
+    {
+        this.context.store.dispatch(Actions.clearRouteList());
+    },
+
     renderSaveButton: function(){
             return this.props.isAuthorized
                 ? <button>Сохранить</button>
@@ -28,7 +39,7 @@ var RouteList = React.createClass({
 
     renderClearButton: function(){
         return this.props.items.length > 0
-            ? <button>Очистить</button>
+            ? <button onClick={this.clearList}>Очистить</button>
             : null;
     },
 
