@@ -75,9 +75,9 @@ var AuthInstagramSpring = React.createClass({
         {
             return (
                 <div>
-                    <a onClick= {this.popoutOpen} className="btn btn-block btn-social btn-instagram">
-                        <span className="fa fa-instagram" /> <p>Войти</p>
-                    </a>
+                    <button onClick= {this.popoutOpen} className="pure-button pure-button-primary">
+                        <i className="fa fa-instagram" /> &nbsp;Войти
+                    </button>
                     <input id="authcallback" type="hidden" onClick={this.props.authCallback}/>
                 </div>
             );
@@ -86,11 +86,13 @@ var AuthInstagramSpring = React.createClass({
         {
             return (
                 <div>
-                    <a className="btn btn-block btn-social btn-instagram">
-                        <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate" /> <p>Подождите...</p>
-                    </a>
+                    <button className="pure-button pure-button-primary">
+                        <i className="fa fa-cog animated rotateIn"></i>
+                        &nbsp;Подождите...
+                    </button>
                     <input id="authcallback" type="hidden" onClick={this.props.authCallback}/>
                 </div>
+
             );
         }
     }

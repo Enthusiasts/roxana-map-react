@@ -21,25 +21,25 @@ var MenuElem = React.createClass({
     },
 
     submenu: function(){
-        if (this.state.unSelected) return <NavUnknown/>
-        else return <NavKnown/>
+        if (this.state.unSelected) return <NavKnown/>
+        else return <NavUnknown/>
 
     },
 
     render: function(){
         var unKnownClass = classNames({
-            'active': this.state.unSelected,
-            '': !this.state.unSelected
-        });
-        var knownClass = classNames({
             'active': !this.state.unSelected,
             '': this.state.unSelected
+        });
+        var knownClass = classNames({
+            'active': this.state.unSelected,
+            '': !this.state.unSelected
         });
         return  (
             <div id="navTabs">
                 <ul id="tabList" className="nav nav-tabs">
-                    <li role="presentation" className={unKnownClass}><a onClick = {this.onclick1}><b>Я не знаю,что ищу</b></a></li>
-                    <li role="presentation" className={knownClass}><a onClick = {this.onclick2}><b>Я знаю,что ищу</b></a></li>
+                    <li role="presentation" className={knownClass}><a onClick = {this.onclick1}><b>Маршруты</b></a></li>
+                    <li role="presentation" className={unKnownClass}><a onClick = {this.onclick2}><b>Личный кабинет</b></a></li>
                 </ul>
                 {this.submenu()}
             </div>

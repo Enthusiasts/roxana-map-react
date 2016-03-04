@@ -41,17 +41,35 @@
     padding: 50px;
 }
 
-#knownMenuList > ul{
-    width: 75%;
-}
-#knownMenuList >ul >li {
+#knownMenuList .typeFilter > ul >li {
     width: 118px;
     color: white;
 }
-#knownMenuList >ul >li >a{
+#knownMenuList .typeFilter > ul >li >a{
     color: white;
     text-decoration: none;
 }
-#knownMenuList >ul >li >a:hover{
+#knownMenuList .typeFilter > ul >li >a:hover{
     background: rgba(100,250,100,0.6);
+}
+#knownMenuList .typeFilter > ul >li >a.active{
+    background: rgba(100,250,100,0.6);
+}
+#knownMenuList .cpFilter{
+    color: white;
+    padding: .5em 1em;
+}
+#knownMenuList .cpFilter b {
+    text-transform: uppercase;
+
+}
+#knownMenuList #priceRange {
+    margin: 1em 0;
+    cursor: default;
+}
+#knownMenuList #priceRange >i:hover {
+    color: red;
+}
+#knownMenuList #priceRange >i.chosen {
+    color: black;
 }
