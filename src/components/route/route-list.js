@@ -2,9 +2,15 @@
  * Created by debal on 03.03.2016.
  */
 var React = require('react');
+var Actions = require('../../actions/routes');
+
 var RouteItem = require('./route-item');
 
 var RouteList = React.createClass({
+    contextTypes: {
+        store: React.PropTypes.object.isRequired
+    },
+
     renderEntertainments: function ()
     {
         var entertainments = this.props.items;
@@ -20,25 +26,21 @@ var RouteList = React.createClass({
         } else return null;
     },
 
-    shura: function(props){
+    clearList: function()
+    {
+        this.context.store.dispatch(Actions.clearRouteList());
+    },
 
-        if (props == true){
-            return(
-                <div>
-                    <button>Привет ЛОХ</button>
-                    <button>Привет НЛОХ</button>
-                </div>
-            );
+    renderSaveButton: function(){
+            return this.context.store.getState().User.isAuthorized
+                ? <button>Сохранить</button>
+                : null;
+    },
 
-        }else
-        {
-            return(
-                <div >
-                    <button>Привет НелоХ</button>
-
-                </div>
-            );
-        }
+    renderClearButton: function(){
+        return this.props.items.length > 0
+            ? <button onClick={this.clearList}>Очистить</button>
+            : null;
     },
 
     render: function()
@@ -47,9 +49,8 @@ var RouteList = React.createClass({
             // TODO: здесь
             <div>
                 {this.renderEntertainments()}
-                {this.shura(this.props.isAuthorized)}
-
-
+                {this.renderClearButton()}
+                {this.renderSaveButton()}
             </div>
         );
     }
@@ -65,8 +66,6 @@ RouteList.propTypes = {
 
      }]*/
 
-
-    isAuthorized: React.PropTypes.bool.isRequired,
     items: React.PropTypes.array.isRequired
 };
 

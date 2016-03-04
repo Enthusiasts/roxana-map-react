@@ -1,8 +1,6 @@
 /**
  * Created by User on 03.03.2016.
  */
-var Properties = require('../const/properties');
-
 const ADD_ROUTE_ITEM = 'ADD_ROUTE_ITEM';
 const addRouteItem = function (entertainment)
 {
@@ -14,4 +12,17 @@ const addRouteItem = function (entertainment)
     };
 };
 
-module.exports={addRouteItem, ADD_ROUTE_ITEM};
+const CLEAR_ROUTE_LIST = 'CLEAR_ROUTE_LIST';
+const clearRouteList = function ()
+{
+    return {
+        type: CLEAR_ROUTE_LIST
+    };
+};
+
+module.exports = {
+    addRouteItem,
+    ADD_ROUTE_ITEM,
+    clearRouteList,
+    CLEAR_ROUTE_LIST
+};

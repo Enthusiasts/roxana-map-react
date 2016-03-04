@@ -12,55 +12,27 @@ function entertainments(state = {
     club: []
 }, action)
 {
+    /*console.log("Ents reduced");
+    console.log(state);*/
     switch(action.type)
     {
         case Actions.REQUEST_ENTERTAINMENTS:
             return Object.assign({}, state, {isFetching: true});
-            /*{
-                isFetching: true,
-                cafe: state.cafe,
-                restaurant: state.restaurant,
-                bar: state.bar,
-                club: state.club
-            };*/
+
         case Actions.RECEIVE_ENTERTAINMENTS:
             switch (action.payload.entertainmentsType) {
-                case Properties.ENTERTAINMENT_TYPE.CAFE:
+                case Properties.ENTERTAINMENT.TYPE.CAFE:
                     return Object.assign({}, state, {isFetching: false, cafe: action.payload.entertainments});
-                    /*return {
-                        isFetching: false,
-                        cafe: action.payload.entertainments,
-                        restaurant: state.restaurant,
-                        bar: state.bar,
-                        club: state.club
-                    };*/
-                case Properties.ENTERTAINMENT_TYPE.RESTAURANT:
+
+                case Properties.ENTERTAINMENT.TYPE.RESTAURANT:
                     return Object.assign({}, state, {isFetching: false, restaurant: action.payload.entertainments});
-                    /*return {
-                        isFetching: false,
-                        cafe: state.cafe,
-                        restaurant: action.payload.entertainments,
-                        bar: state.bar,
-                        club: state.club
-                    };*/
-                case Properties.ENTERTAINMENT_TYPE.BAR:
+
+                case Properties.ENTERTAINMENT.TYPE.BAR:
                     return Object.assign({}, state, {isFetching: false, bar: action.payload.entertainments});
-                    /*return {
-                        isFetching: false,
-                        cafe: state.cafe,
-                        restaurant: state.restaurant,
-                        bar: action.payload.entertainments,
-                        club: state.club
-                    };*/
-                case Properties.ENTERTAINMENT_TYPE.CLUB:
+
+                case Properties.ENTERTAINMENT.TYPE.CLUB:
                     return Object.assign({}, state, {isFetching: false, club: action.payload.entertainments});
-                    /*return {
-                        isFetching: false,
-                        cafe: state.cafe,
-                        restaurant: state.restaurant,
-                        bar: state.bar,
-                        club: action.payload.entertainments
-                    };*/
+
                 default:
                     return state;
             }

@@ -5,27 +5,36 @@ var React = require('react');
 var ReactLeaflet = require('react-leaflet');
 var Properties = require('../../const/properties');
 
+var EntertainmentInfo = require('./entertainment-info');
+
 const Map = ReactLeaflet.Map;
 const Marker = ReactLeaflet.Marker;
+const Popup = ReactLeaflet.Popup;
 const TileLayer = ReactLeaflet.TileLayer;
 const ZoomControl = ReactLeaflet.ZoomControl;
 
 var MapPresentation = React.createClass({
+    contextTypes: {
+        store: React.PropTypes.object.isRequired
+    },
+
     renderEntertainments: function()
     {
         if (this.props.entertainments)
         {
             return this.props.entertainments.map(
                 ent => {
-                    if (ent) {
-                        return this.props.entertainments
-                        (
-                            <Marker
-                                key={ent.id}
-                                position={{lon: ent.longitude, lat: ent.latitude}}>
-                            </Marker>
-                        );
-                    }
+                    return (
+                        <Marker
+                            key={ent.id}
+                            position={{lon: ent.longitude, lat: ent.latitude}}>
+                            <Popup>
+                                <EntertainmentInfo
+                                    store={this.context.store}
+                                    entertainment={ent} />
+                            </Popup>
+                        </Marker>
+                    );
                 }
             );
         } else return null;
@@ -33,11 +42,10 @@ var MapPresentation = React.createClass({
 
     render: function()
     {
-        var entertainments = this.renderEntertainments();
         return  (
             <Map className="roxana-map"
-                 center={Properties.MAP_CENTER}
-                 zoom={Properties.MAP_ZOOM}
+                 center={Properties.MAP.CENTER}
+                 zoom={Properties.MAP.ZOOM}
                  zoomControl={false}>
                 <TileLayer
                     url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -48,7 +56,7 @@ var MapPresentation = React.createClass({
                     zoomInTitle="Увеличить"
                     zoomOutTitle="Уменьшить"
                 />
-                {entertainments}
+                {this.renderEntertainments()}
             </Map>
         );
     }

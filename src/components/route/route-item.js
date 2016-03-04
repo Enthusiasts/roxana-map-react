@@ -8,13 +8,10 @@ var RouteItem = React.createClass({
     {
         var entertainment = this.props.info;
         return (
-            // TODO: здесь
             <div>
-
-                {entertainment.title}
-
-
-
+                <b>{entertainment.title}</b>, {entertainment.zoneTitle}
+                <br/>
+                <span>{entertainment.cost}</span>
             </div>
         );
     }

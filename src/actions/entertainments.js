@@ -43,10 +43,10 @@ function fetchEntertainments(entertainmentsType)
     {
         dispatch(requestEntertainments(entertainmentsType));
 
-        var ent_type = Properties.ENTERTAINMENT_TYPE;
+        var ent_type = Properties.ENTERTAINMENT.TYPE;
 
 
-        return fetch(Properties.API_ROOT + "entertainments/search/findByType/?type=" + ent_type.translate(entertainmentsType))
+        return fetch(Properties.API.ROOT + "entertainments/search/findByType/?type=" + ent_type.translate(entertainmentsType))
             .then(
                 response =>
                     response.json()
@@ -57,22 +57,6 @@ function fetchEntertainments(entertainmentsType)
                     dispatch(receiveEntertainments(entertainmentsType, ents));
                 }
             );
-
-
-        /* OLD API
-        return fetch("http://ec2-52-18-236-104.eu-west-1.compute.amazonaws.com/rona/api/entertainment/?type=bar")
-            .then(
-                response =>
-                    response.json()
-            )
-            .then(
-                json => {
-                    var ents = json.results;
-                    console.log(ents);
-                    dispatch(receiveEntertainments(entertainmentsType, ents));
-                }
-            );
-            */
     }
 }
 

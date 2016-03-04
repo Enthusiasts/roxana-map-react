@@ -10,6 +10,8 @@ var configureStore = require('./configureStore');
 const Provider = ReactRedux.Provider;
 const store = configureStore();
 
+console.log(store.getState());
+
 //TODO: move to another layer or smth
 if (window.opener)
 {
@@ -20,13 +22,4 @@ if (window.opener)
             <RoxanaApp />
         </Provider>,
         document.getElementById("application"));
-
-    //TODO: delete
-    var EntActions = require('./actions/entertainments');
-    var RouteActions = require('./actions/routes');
-    var Properties = require('./const/properties');
-    store.dispatch(EntActions.fetchEntertainments(Properties.ENTERTAINMENT_TYPE.BAR));
-
-    var t = RouteActions.addRouteItem({id: 0, title: "It works", zoneTitle: "it works district"});
-    store.dispatch(t);
 }

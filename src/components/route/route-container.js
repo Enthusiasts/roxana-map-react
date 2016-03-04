@@ -5,17 +5,10 @@ var React = require('react');
 var ReactRedux = require('react-redux');
 var RouteList = require('./route-list');
 
-// State может быть undefined
-// TODO: выяснить, почему он может быть undefined
 const mapStateToProps = (state) =>
 {
     return {
-        isAuthorized: state.isAuthorized
-            ? state.authorized
-            : false,
-        items: state.items
-            ? state.items
-            : []
+        items: state.Routes.items
     };
 };
 
