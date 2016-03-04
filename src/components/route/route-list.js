@@ -44,7 +44,7 @@ var RouteList = React.createClass({
     renderSaveButton: function(){
         //Рисуем кнопку если пользователь авторизован и если ещё не сохранили маршрут
         return /*this.context.store.getState().User.isAuthorized && */_.isEmpty(this.props.saved)
-            ? (<button id="saveBtn "className="btn btn-success squaredBorders" onClick={this.saveRouteList}>
+            ? (<button id="saveBtn"className="btn btn-success squaredBorders" onClick={this.saveRouteList}>
                     {!this.props.isSaving ? "Сохранить" : "Сохраняем..."}
                 </button>)
             : null;
@@ -67,7 +67,7 @@ var RouteList = React.createClass({
     renderSaveMessage: function()
     {
         return !_.isEmpty(this.props.saved)
-            ? <div> Маршрут успешно сохранён! </div>
+            ? <div className="successSave"> <b>Маршрут успешно сохранён!</b> </div>
             : null;
     },
 

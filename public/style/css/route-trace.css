@@ -6,7 +6,7 @@
 }
 #routeList .routeListElem{
     border-bottom: 1px solid  white;
-    padding: 10px 0;
+    margin: 10px 10px;
     color: white;
 
 }
@@ -17,4 +17,15 @@
 #routeList #clrBtn{
     margin-top: 15px;
     width: 48%;
+    margin-right: 10px ;
+}
+#routeList #saveBtn{
+    margin-top: 15px;
+    width: 48%;
+}
+#routeList br{
+    line-height: 50%;
+}
+#routeList .successSave{
+    color: white;
 }
