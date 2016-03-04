@@ -66,7 +66,7 @@ var RouteList = React.createClass({
     renderErrorMessage: function()
     {
         return !_.isEmpty(this.props.error)
-            ? <div> {this.props.error.reason} </div>
+            ? <div className="successSave"> {this.props.error.reason} </div>
             : null;
     },
 
@@ -82,9 +82,9 @@ var RouteList = React.createClass({
         return (
             <div id="routeList">
                 {this.renderSaveMessage()}
+                {this.renderErrorMessage()}
                 {this.renderEntertainments()}
                 {this.renderClearButton()}
-                {this.renderErrorMessage()}
                 {this.renderSaveButton()}
             </div>
         );

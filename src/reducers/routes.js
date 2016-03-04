@@ -32,7 +32,7 @@ function routes(state = {
             return Object.assign({}, state, {isSaving: false, saved: action.payload.savedRouteList, error: {}});
 
         case Actions.SAVE_ROUTE_LIST_ERROR:
-            return Object.assign({}, state, {isSaving: false, error: action.error.reason, saved: {}});
+            return Object.assign({}, state, {isSaving: false, error: action.error, saved: {}});
 
         default:
             return state;

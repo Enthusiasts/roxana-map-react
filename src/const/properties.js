@@ -39,7 +39,7 @@ module.exports = {
     //Route setting
     ROUTE: {
         LIST: {
-            MAX_NUMBER: 10
+            MAX_NUMBER: 7
         }
     }
 };
