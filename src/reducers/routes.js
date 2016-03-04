@@ -5,7 +5,6 @@ var Actions = require('../actions/routes');
 var Properties = require('../const/properties');
 
 function routes(state = {
-    isAuthorized: false,
     items: []
 }, action)
 {
@@ -17,7 +16,7 @@ function routes(state = {
                 : state;
 
         case Actions.CLEAR_ROUTE_LIST:
-            return {isAuthorized: false, items: []};
+            return {items: []};
 
         default:
             return state;

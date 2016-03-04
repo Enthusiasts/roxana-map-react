@@ -8,7 +8,6 @@ var RouteList = require('./route-list');
 const mapStateToProps = (state) =>
 {
     return {
-        isAuthorized: state.Routes.isAuthorized,
         items: state.Routes.items
     };
 };

@@ -32,7 +32,7 @@ var RouteList = React.createClass({
     },
 
     renderSaveButton: function(){
-            return this.props.isAuthorized
+            return this.context.store.getState().User.isAuthorized
                 ? <button>Сохранить</button>
                 : null;
     },
@@ -66,8 +66,6 @@ RouteList.propTypes = {
 
      }]*/
 
-
-    isAuthorized: React.PropTypes.bool.isRequired,
     items: React.PropTypes.array.isRequired
 };
 

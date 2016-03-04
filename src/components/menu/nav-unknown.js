@@ -2,9 +2,11 @@
  * Created by Vlad on 03.03.2016.
  */
 var React = require('react');
+var Properties = require('../../const/properties');
+
 var NavUnknownElem = require('./nav-unknown-elem');
 var RouteTrace = require('../route/route-container');
-var Properties = require('../../const/properties');
+var UserInfo = require('../user/user-instagram');
 
 var NavUnknown = React.createClass({
 
@@ -19,6 +21,8 @@ var NavUnknown = React.createClass({
                     <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.RESTAURANT} />
                     <NavUnknownElem type={Properties.ENTERTAINMENT.TYPE.CLUB}/>
                 </ul>
+
+
 
                 <RouteTrace/>
             </div>
