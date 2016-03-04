@@ -8,24 +8,30 @@ var Actions = require('../../actions/entertainments');
 var Properties = require('../../const/properties');
 
 var NavUnknownElem = React.createClass({
-   /* contextTypes: {
+   contextTypes: {
         store: React.PropTypes.object.isRequired
-    },*/
+    },
 
     testActionDispatch: function ()
     {
-        console.log("clicked");
-        //this.store.dispatch(Actions.fetchEntertainments(Properties.ENTERTAINMENT_TYPE.CAFE));
+        console.log(this.props.type + " requested.");
+        this.context.store.dispatch(Actions.fetchEntertainments(this.props.type));
     },
 
     render: function(){
         return  (
             <li className="pure-menu-item">
-                <a onClick={this.testActionDispatch} className="pure-menu-link">{this.props.bname}</a>
+                <a onClick={this.testActionDispatch} className="pure-menu-link">
+                    {Properties.ENTERTAINMENT_TYPE.translate(this.props.type)}
+                </a>
             </li>
         );
     }
 
 });
+
+NavUnknownElem.propTypes = {
+    type: React.PropTypes.string.isRequired
+};
 
 module.exports = NavUnknownElem;
