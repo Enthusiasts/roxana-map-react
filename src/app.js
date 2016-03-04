@@ -10,8 +10,6 @@ var configureStore = require('./configureStore');
 const Provider = ReactRedux.Provider;
 const store = configureStore();
 
-console.log(store.getState());
-
 //TODO: move to another layer or smth
 if (window.opener)
 {
