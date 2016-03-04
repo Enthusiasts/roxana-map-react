@@ -66,10 +66,10 @@ var NavKnown = React.createClass({
                     <div className="col-xs-12 col-sm-6 cpFilter">
                         <b>Стоимость</b>
                         <div id="priceRange">
-                            <i onClick={this.onclick1} className={classi1}/> &nbsp;
-                            <i onClick={this.onclick2} className={classi2}/> &nbsp;
-                            <i onClick={this.onclick3} className={classi3}/> &nbsp;
-                            <i onClick={this.onclick4} className={classi4}/>
+                            <i onClick={this.onclick1} className={classi1} title="Менее 700"/> &nbsp;
+                            <i onClick={this.onclick2} className={classi2} title="700-1500"/> &nbsp;
+                            <i onClick={this.onclick3} className={classi3} title="1500-2500"/> &nbsp;
+                            <i onClick={this.onclick4} className={classi4} title="Более 2500"/>
                         </div>
                     </div>
                 </div>
