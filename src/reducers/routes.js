@@ -5,7 +5,10 @@ var Actions = require('../actions/routes');
 var Properties = require('../const/properties');
 
 function routes(state = {
-    items: []
+    items: [],
+    isSaving: false,
+    saved: {},
+    error: {}
 }, action)
 {
     switch(action.type)
@@ -16,7 +19,16 @@ function routes(state = {
                 : state;
 
         case Actions.CLEAR_ROUTE_LIST:
-            return {items: []};
+            return {items: [], saved: {}, error: {}, isSaving: false};
+
+        case Actions.SAVE_ROUTE_LIST_BEGIN:
+            return Object.assign({}, state, {isSaving: true, error: {}, saved: {}});
+
+        case Actions.SAVE_ROUTE_LIST_VALIDATE:
+            return Object.assign({}, state, {isSaving: false, saved: action.payload.savedRouteList, error: {}});
+
+        case Actions.SAVE_ROUTE_LIST_ERROR:
+            return Object.assign({}, state, {isSaving: false, error: action.error.reason, saved: {}});
 
         default:
             return state;

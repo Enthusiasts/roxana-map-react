@@ -8,7 +8,10 @@ var RouteList = require('./route-list');
 const mapStateToProps = (state) =>
 {
     return {
-        items: state.Routes.items
+        items: state.Routes.items,
+        saved: state.Routes.saved,
+        isSaving: state.Routes.isSaving,
+        error: state.Routes.error
     };
 };
 
