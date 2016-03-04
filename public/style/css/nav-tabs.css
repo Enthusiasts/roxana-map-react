@@ -53,3 +53,14 @@
     margin: auto;
     padding: 50px;
 }
+#knownMenuList.searchForm {
+    padding: 10px;
+    margin: auto;
+}
+#knownMenuList.searchForm div{
+    width: 75%;
+    margin: 15px auto;
+}
+#knownMenuList.searchForm input{
+    border-radius: 0px;
+}

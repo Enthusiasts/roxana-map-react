@@ -114,3 +114,12 @@
     }
 }
 
+@media (max-width: 35.5em){
+    #menu{
+        width: 300px;
+        left: -300px;
+    }
+    #menuLink.active{
+        left: 303px;
+    }
+}

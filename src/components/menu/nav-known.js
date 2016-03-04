@@ -4,24 +4,33 @@
 var React = require('react');
 
 var NavKnown = React.createClass({
+    getInitialState: function(){
+        return {searchNum: 3}
+    },
+
+    fieldElem: function(){
+      return (
+          <div className="form-group has-feedback">
+              <input type="text" className="form-control" placeholder="Выберите место" />
+              <i className="glyphicon glyphicon-search form-control-feedback"/>
+          </div>
+      )
+    },
+
+    menuMaker: function(){
+        var fields =[]
+        for (var i=0; i<this.state.searchNum; i++){
+            fields.push(this.fieldElem())
+            //fields.push(<br/>)
+        }
+        return (<div className="searchForm">{fields}</div>)
+    },
+
     render: function(){
+
         return (
             <div id="knownMenuList">
-                <div className="input-group">
-                    <input type="text" className="form-control" placeholder="" aria-describedby="basic-addon2"/>
-                    <span className="input-group-addon" id="basic-addon2">.!.</span>
-                </div>
-                <br/>
-                <div className="input-group">
-                    <input type="text" className="form-control" placeholder="" aria-describedby="basic-addon2"/>
-                    <span className="input-group-addon" id="basic-addon2">.!.</span>
-                </div>
-                <br/>
-                <div className="input-group">
-                    <input type="text" className="form-control" placeholder="" aria-describedby="basic-addon2"/>
-                    <span className="input-group-addon" id="basic-addon2">.!.</span>
-                </div>
-                <br/>
+                {this.menuMaker()}
             </div>
         )
     }
