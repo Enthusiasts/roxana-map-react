@@ -4,8 +4,6 @@
 var React = require('react');
 var Properties = require('../../const/properties');
 
-var NavKnownElem = require('./nav-known-elem');
-var RouteTrace = require('../route/route-container');
 var UserInfo = require('../user/user-instagram');
 
 var NavUnknown = React.createClass({
