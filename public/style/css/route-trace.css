@@ -27,5 +27,6 @@
     line-height: 50%;
 }
 #routeList .successSave{
+    font-size: 110%;
     color: white;
 }
