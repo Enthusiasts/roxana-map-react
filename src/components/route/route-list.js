@@ -3,7 +3,6 @@
  */
 var React = require('react');
 var _ = require('underscore');
-var LeafletRouting = require('leaflet-routing-machine');
 
 var Actions = require('../../actions/routes');
 
