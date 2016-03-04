@@ -13,7 +13,8 @@ const mapStateToProps = (state) =>
             state.Entertainments.restaurant,
             state.Entertainments.bar,
             state.Entertainments.club
-        )
+        ),
+        polyLine: state.Routes.polyLine
     };
 };
 

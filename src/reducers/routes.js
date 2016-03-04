@@ -8,18 +8,22 @@ function routes(state = {
     items: [],
     isSaving: false,
     saved: {},
-    error: {}
+    error: {},
+    polyLine: []
 }, action)
 {
     switch(action.type)
     {
-        case Actions.ADD_ROUTE_ITEM:
+        case Actions.ADD_ROUTE_ITEM_TO_LIST:
             return state.items.length + 1 <= Properties.ROUTE.LIST.MAX_NUMBER
                 ? Object.assign({}, state, {items: state.items.concat([action.payload.entertainment])})
                 : state;
 
         case Actions.CLEAR_ROUTE_LIST:
-            return {items: [], saved: {}, error: {}, isSaving: false};
+            return {items: [], saved: {}, error: {}, isSaving: false, polyLine: []};
+
+        case Actions.SET_POLYLINE:
+            return Object.assign({}, state, {polyLine: action.payload.polyLine});
 
         case Actions.SAVE_ROUTE_LIST_BEGIN:
             return Object.assign({}, state, {isSaving: true, error: {}, saved: {}});

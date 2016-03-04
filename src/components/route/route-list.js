@@ -3,6 +3,7 @@
  */
 var React = require('react');
 var _ = require('underscore');
+var LeafletRouting = require('leaflet-routing-machine');
 
 var Actions = require('../../actions/routes');
 
@@ -11,6 +12,11 @@ var RouteItem = require('./route-item');
 var RouteList = React.createClass({
     contextTypes: {
         store: React.PropTypes.object.isRequired
+    },
+
+    componentWillMount: function()
+    {
+       //var t = LeafletRouting.Control
     },
 
     renderEntertainments: function ()

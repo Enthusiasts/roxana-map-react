@@ -10,6 +10,7 @@ var EntertainmentInfo = require('./entertainment-info');
 const Map = ReactLeaflet.Map;
 const Marker = ReactLeaflet.Marker;
 const Popup = ReactLeaflet.Popup;
+const Polyline = ReactLeaflet.Polyline;
 const TileLayer = ReactLeaflet.TileLayer;
 const ZoomControl = ReactLeaflet.ZoomControl;
 
@@ -56,6 +57,7 @@ var MapPresentation = React.createClass({
                     zoomInTitle="Увеличить"
                     zoomOutTitle="Уменьшить"
                 />
+                <Polyline positions={this.props.polyLine} color={"red"}/>
                 {this.renderEntertainments()}
             </Map>
         );
@@ -64,7 +66,8 @@ var MapPresentation = React.createClass({
 });
 
 MapPresentation.propTypes = {
-    entertainments: React.PropTypes.array.isRequired
+    entertainments: React.PropTypes.array.isRequired,
+    polyLine: React.PropTypes.array.isRequired
 };
 
 module.exports = MapPresentation;
