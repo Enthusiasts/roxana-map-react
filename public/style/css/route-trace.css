@@ -16,12 +16,12 @@
 }
 #routeList #clrBtn{
     margin-top: 15px;
-    width: 48%;
-    margin-right: 10px ;
+    width: 49%;
+    margin-right: 2% ;
 }
 #routeList #saveBtn{
     margin-top: 15px;
-    width: 48%;
+    width: 49%;
 }
 #routeList br{
     line-height: 50%;
