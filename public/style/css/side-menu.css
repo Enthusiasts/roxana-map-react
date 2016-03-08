@@ -93,13 +93,13 @@
 
 
 
-@media (min-width: 48em){
+@media (min-width: 768px){
     #menu{
         left: 0px;
     }
 
 }
-@media (max-width: 48em){
+@media (max-width: 768px){
     #menu{
         left: -450px;
     }
@@ -116,12 +116,12 @@
     }
 }
 
-@media (max-width: 35.5em){
+@media (max-width: 375px){
     #menu{
-        width: 330px;
-        left: -330px;
+        width: 100%;
+        left: -375px;
     }
     #menuLink.active{
-        left: 333px;
+        visibility: hidden;
     }
 }

@@ -9,7 +9,7 @@ var UserInstagram = require('../user/user-instagram');
 var Menu = React.createClass({
     render: function(){
         return  (
-            <nav id="menu">
+            <nav id="menu" className={this.props.propClass}>
                 <MenuElems/>
 
             </nav>
