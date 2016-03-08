@@ -3,6 +3,7 @@
     overflow: auto;
     padding: 5px;
     margin-top: 15px;
+    margin-bottom: 20px;
 }
 #routeList .routeListElem{
     border-bottom: 1px solid  white;

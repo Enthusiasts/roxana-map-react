@@ -56,11 +56,13 @@
 #menu{
     position:fixed;
     width: 450px;
-    height: 100%;
+    height: -moz-calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
     top: 60px;
     z-index: 1000;
     left: 0px;
-    background-color: rgba(33,33,33,0.2);
+    background: rgba(33, 33, 33, 0.7);
+    overflow-y: auto;
 }
 #menu.active{
     left: -450px;
@@ -116,10 +118,10 @@
 
 @media (max-width: 35.5em){
     #menu{
-        width: 300px;
-        left: -300px;
+        width: 330px;
+        left: -330px;
     }
     #menuLink.active{
-        left: 303px;
+        left: 333px;
     }
 }
