@@ -10,7 +10,15 @@ var MapContainer = require('./map/map-container');
 
 var RoxanaApp = React.createClass({
     getInitialState: function(){
-        return {menuOpen: false}
+        var mq = window.matchMedia( "(max-width: 500px)" );
+        if (mq.matches){
+            console.log("qwerty")
+            return {menuOpen: false}
+        }
+        else {
+            return {menuOpen: true}
+        }
+
     },
     swipedRight: function(){
         console.log("I work")
@@ -27,12 +35,12 @@ var RoxanaApp = React.createClass({
     render: function()
     {
         var classname = classNames({
-            'active': !this.state.menuOpen,
-            '': this.state.menuOpen
+            'active': this.state.menuOpen,
+            '': !this.state.menuOpen
         });
         var linkClass = classNames({
-            'menu-link active': !this.state.menuOpen,
-            'menu-link': this.state.menuOpen
+            'menu-link active': this.state.menuOpen,
+            'menu-link': !this.state.menuOpen
         });
         return (
             <Swipable onSwipedRight={this.swipedRight} onSwipedLeft={this.swipedLeft}>
