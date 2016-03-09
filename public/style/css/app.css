@@ -6,7 +6,6 @@
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
 }
-
 @-webkit-keyframes rotateIn {
     from {
         -webkit-transform-origin: center;
@@ -43,7 +42,6 @@
     -webkit-animation-name: rotateIn;
     animation-name: rotateIn;
 }
-
 body, html {
     font-size: 100%;
     background-color: transparent;
@@ -60,7 +58,6 @@ body, html {
 #application .heighted{
     height: 100%;
 }
-
 .header{
     position: absolute;
     top: 0px;
@@ -69,14 +66,12 @@ body, html {
     height: 60px;
     width: 100%;
     background: black;
-
 }
 .header img{
     position: relative;
 
     margin: 0px  5px 0 15px ;
     height: 60px;
-
 }
 /*Жуткий хедер спан, думаю ндо подругому написать*/
 .header span{
@@ -87,11 +82,225 @@ body, html {
     color: white;
     margin: auto 0px;
     line-height: 1;
-
 }
 /*for all that have to be squared углы*/
 .squaredBorders{
     border-radius: 0px;
+}
+.roxana-map {
+    position: fixed;
+    top: 60px;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+
+}
+#menu,
+#menuLink{
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -ms-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+.menu-link{
+    position: fixed;
+    top: 60px;
+    left: 0px;
+    background: #000;
+    background: rgba(55,55,55,0.5);
+    font-size: 10px;
+    z-index: 10;
+    width: 2em;
+    height: auto;
+    padding: 2.1em 1.6em;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.menu-link:hover,
+.menu-link:focus {
+    background: rgba(55,55,55,0.5);
+}
+
+.menu-link span {
+    position: relative;
+    display: block;
+}
+.menu-link span,
+.menu-link span:before,
+.menu-link span:after {
+    background-color: #fff;
+    width: 100%;
+    height: 0.2em;
+}
+.menu-link span:before,
+.menu-link span:after {
+    position: absolute;
+    margin-top: -0.6em;
+    content: " ";
+}
+.menu-link span:after {
+    margin-top: 0.6em;
+}
+#menuLink.active{
+    left: 453px;
+}
+#menu{
+    position:fixed;
+    width: 450px;
+    height: -moz-calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
+    top: 60px;
+    z-index: 1000;
+    left: -500px;
+    background: rgba(33, 33, 33, 0.7);
+    overflow-y: auto;
+}
+#menu.active{
+    left: 0px;
+}
+#navTabs{
+    margin: 3px;
+    width: 100%;
+}
+#search-form {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    margin: 0.6em 0 0.6em 0.6em;
+    padding: 2px 0px 2px 0.6em;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(252,252,252,1);
+}
+/*Here we go to change navbar default bootstrap */
+#navTabs{
+    margin: 0px;
+    height: 100%;
+}
+#navTabs > ul{
+    border-bottom: 0px;
+}
+#navTabs > ul > li{
+    width: 50%;
+    text-align: center;
+    margin: 0px;
+}
+.nav >li > a { /*lichniy cabinet shown correctly on iphone 5 with this one*/
+    padding: 10px 14px;
+}
+#tabList .active a{
+    background: rgba(33,33,33,0.6);
+}
+#tabList .active a:hover{
+    background: rgba(33,33,33,0.6);
+}
+#tabList a{
+    color: #FFF;
+    border: 0px;
+    margin-right: 0px;
+    border-radius: 0px;
+}
+#tabList a:hover{
+    background: rgba(100,250,100,0.6);
+}
+#unknownMenuList{
+    width: 100%;
+    height: -moz-calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
+    margin: 0px;
+    padding: 5px;
+}
+#knownMenuList{
+    width: 100%;
+    height: -moz-calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
+    margin: auto;
+    padding: 50px;
+}
+
+#knownMenuList .typeFilter > ul >li {
+    width: 118px;
+    color: white;
+}
+#knownMenuList .typeFilter > ul >li >a{
+    color: white;
+    text-decoration: none;
+}
+#knownMenuList .typeFilter > ul >li >a:hover{
+    background: rgba(100,250,100,0.6);
+}
+#knownMenuList .typeFilter > ul >li >a.active{
+    background: rgba(100,250,100,0.6);
+}
+#knownMenuList .cpFilter{
+    color: white;
+    padding: .5em 1em;
+}
+#knownMenuList .cpFilter b {
+    text-transform: uppercase;
+
+}
+#knownMenuList #priceRange {
+    margin: 1em 0;
+    cursor: default;
+}
+#knownMenuList #priceRange >i:hover {
+    color: red;
+}
+#knownMenuList #priceRange >i.chosen {
+    color: black;
+}
+
+
+#routeList {
+    background: rgba(44,44,44,0.7);
+    overflow: auto;
+    padding: 5px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+#routeList .routeListElem{
+    border-bottom: 1px solid  white;
+    margin: 10px 10px;
+    color: white;
+
+}
+#routeList .routeListElem > small {
+    float: right;
+
+}
+#routeList #clrBtn{
+    margin-top: 15px;
+    width: 49%;
+    margin-right: 2% ;
+}
+#routeList #saveBtn{
+    margin-top: 15px;
+    width: 49%;
+}
+#routeList br{
+    line-height: 50%;
+}
+#routeList .successSave{
+    font-size: 110%;
+    color: white;
+}
+
+
+
+
+@media (max-width: 500px){
+    #menu{
+        width: 100%;
+    }
+    #menuLink.active{
+        visibility: hidden;
+    }
 }
 
 @media (max-width: 320px) {
@@ -102,4 +311,10 @@ body, html {
     #headerSpan{
         visibility: hidden;
     }    
+}
+@media (max-width: 317px) { /*<318*/
+    .nav > li > a {
+        height: 64px;
+    }
+
 }
