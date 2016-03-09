@@ -31,7 +31,7 @@
     "presetup-vendor": "bower install",
     "setup-vendor": "grunt bower",
     "start": "npm run build-dev",
-    "poststart": "http-server -a 127.0.0.1 -p 8080 --proxy http://127.0.0.1:8090 -o",
+    "poststart": "http-server -a 127.0.0.1 -p 8080 -o",
     "build-dev": "browserify -d -e src/app.js -t [ babelify --presets [ es2015 react ] ] -o public/scripts/build/bundle.dev.js",
     "build-min": "browserify -e public/scripts/build/bundle.dev.js -t uglifyify -o public/scripts/build/bundle.min.js"
   }
