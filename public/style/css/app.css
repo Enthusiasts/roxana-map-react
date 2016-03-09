@@ -93,3 +93,13 @@ body, html {
 .squaredBorders{
     border-radius: 0px;
 }
+
+@media (max-width: 320px) {
+    .header img {
+        margin: 0px 5px 0 -moz-calc(50% - 40px);
+        margin: 0px 5px 0 -webkit-calc(50% - 40px);
+    }
+    #headerSpan{
+        visibility: hidden;
+    }    
+}

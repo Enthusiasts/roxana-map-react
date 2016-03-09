@@ -116,10 +116,10 @@
     }
 }
 
-@media (max-width: 375px){
+@media (max-width: 500px){
     #menu{
         width: 100%;
-        left: -375px;
+        left: -500px;
     }
     #menuLink.active{
         visibility: hidden;
