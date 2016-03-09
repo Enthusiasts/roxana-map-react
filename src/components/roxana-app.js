@@ -27,12 +27,12 @@ var RoxanaApp = React.createClass({
     render: function()
     {
         var classname = classNames({
-            'active': this.state.menuOpen,
-            '': !this.state.menuOpen
+            'active': !this.state.menuOpen,
+            '': this.state.menuOpen
         });
         var linkClass = classNames({
-            'menu-link active': this.state.menuOpen,
-            'menu-link': !this.state.menuOpen
+            'menu-link active': !this.state.menuOpen,
+            'menu-link': this.state.menuOpen
         });
         return (
             <Swipable onSwipedRight={this.swipedRight} onSwipedLeft={this.swipedLeft}>

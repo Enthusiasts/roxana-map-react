@@ -65,7 +65,7 @@
     overflow-y: auto;
 }
 #menu.active{
-    left: -450px;
+    left: -500px;
 }
 #navTabs{
     margin: 3px;
@@ -93,33 +93,10 @@
 
 
 
-@media (min-width: 768px){
-    #menu{
-        left: 0px;
-    }
-
-}
-@media (max-width: 768px){
-    #menu{
-        left: -450px;
-    }
-    #menu.active{
-        left: 0px;
-
-    }
-
-    #menuLink{
-        left: 0px;
-    }
-    #menuLink.active{
-        left: 453px;
-    }
-}
 
 @media (max-width: 500px){
     #menu{
         width: 100%;
-        left: -500px;
     }
     #menuLink.active{
         visibility: hidden;
