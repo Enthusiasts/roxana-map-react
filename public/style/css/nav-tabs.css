@@ -11,6 +11,9 @@ border-bottom: 0px;
     text-align: center;
     margin: 0px;
 }
+.nav >li > a { /*lichniy cabinet shown correctly on iphone 5 with this one*/
+    padding: 10px 14px;
+}
 #tabList .active a{
     background: rgba(33,33,33,0.6);
 }
@@ -72,4 +75,11 @@ border-bottom: 0px;
 }
 #knownMenuList #priceRange >i.chosen {
     color: black;
+}
+
+@media (max-width: 317px) { /*<318*/
+    .nav > li > a {
+        height: 64px;
+    }
+
 }

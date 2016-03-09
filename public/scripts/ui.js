@@ -24,12 +24,16 @@
     }
 
     menuLink.onclick = function (e) {
-        var active = 'active';
-
-        e.preventDefault();
-        toggleClass(layout, active);
-        toggleClass(menu, active);
-        toggleClass(menuLink, active);
+        var mq = window.matchMedia( "(max-width: 500px)");
+        if (!(mq.matches)){
+            console.log("lox")
+            var active  = 'active';
+            e.preventDefault();
+            toggleClass(layout, active);
+            toggleClass(menu, active);
+            toggleClass(menuLink, active);
+        }
+        else {console.log("pidr")}
     };
 
 }(this, this.document));

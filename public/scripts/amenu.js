@@ -24,10 +24,12 @@
 
     menuLink.onclick = function (e) {
         var active = 'active';
-
-        e.preventDefault();
-        toggleClass(menu, active);
-        toggleClass(menuLink, active);
+        var mq = window.matchMedia( "(max-width: 500px)");
+        if (!(mq.matches)) {
+            e.preventDefault();
+            toggleClass(menu, active);
+            toggleClass(menuLink, active);
+        }
     };
 
 }(this, this.document));
