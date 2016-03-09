@@ -23,7 +23,21 @@ const clearRouteList = function ()
     };
 };
 
-const SET_POLYLINE = 'SET_POLYLINE_POINTS';
+const SET_CONTEXT = 'SET_CONTEXT';
+const setContext = function (context, extra)
+{
+    return {
+        type: SET_CONTEXT,
+        payload: {
+            context: {
+                current: context,
+                extra
+            }
+        }
+    };
+};
+
+const SET_POLYLINE = 'SET_POLYLINE';
 const setPolyLine = function (polyLine)
 {
     return {
@@ -148,11 +162,13 @@ const addRouteItem = function(routeItem, items)
 module.exports = {
     ADD_ROUTE_ITEM_TO_LIST,
     CLEAR_ROUTE_LIST,
+    SET_CONTEXT,
     SET_POLYLINE,
     SAVE_ROUTE_LIST_BEGIN,
     SAVE_ROUTE_LIST_VALIDATE,
     SAVE_ROUTE_LIST_ERROR,
     saveRouteList,
     clearRouteList,
-    addRouteItem
+    addRouteItem,
+    setContext
 };

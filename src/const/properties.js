@@ -40,6 +40,11 @@ module.exports = {
     ROUTE: {
         LIST: {
             MAX_NUMBER: 7
+        },
+        CONTEXTS: {
+            CREATE: 'CREATE',
+            EDIT: 'EDIT',
+            WATCH: 'WATCH'
         }
     }
 };
