@@ -16,17 +16,18 @@ var HistoryList = React.createClass({
 
     render: function()
     {
+        //когда будет контейнер перенеси туда этот className
         return (
-            <div>
-                {this.renderItems()}
+            <div className="historyList">
+                <HistoryItem/>
             </div>
         );
     }
 });
 
-HistoryList.propTypes = {
-    isAuthorized: React.PropTypes.boolean.isRequired,
-    items: React.PropTypes.array.isRequired
-};
+//HistoryList.propTypes = {
+//    isAuthorized: React.PropTypes.boolean.isRequired,
+//    items: React.PropTypes.array.isRequired
+//};
 
 module.exports = HistoryList;

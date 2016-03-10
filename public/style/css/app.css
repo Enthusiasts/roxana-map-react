@@ -50,7 +50,6 @@ body, html {
     margin: 0;
     overflow-y: hidden;
     min-height: 355px;
-
 }
 #application {
     height: 100%;
@@ -215,6 +214,33 @@ body, html {
     margin: 0px;
     padding: 5px;
 }
+#unknownMenuList .historyList{
+    background: rgba(44,44,44,0.7);
+    margin: 30px;
+    color: white;
+    padding-left: 15px;
+    padding-top: 10px;
+
+
+}
+#unknownMenuList .historyList .historyItem{
+    font-size: 110%;
+}
+#unknownMenuList .historyItem .arrowIcon{
+    color: rgba(100,250,100,0.6);
+    margin-left: -moz-calc(50% - 18px);
+    margin-left: -webkit-calc(50% - 18px);
+}
+#unknownMenuList .historyItem button{
+    padding: 0px 4px;
+    background: rgb(202, 60, 60);
+    margin-top: -8px;
+    margin-right: 2px;
+    color: white;
+    float: right;
+}
+
+
 #knownMenuList{
     width: 100%;
     height: -moz-calc(100% - 50px);
@@ -222,7 +248,6 @@ body, html {
     margin: auto;
     padding: 50px;
 }
-
 #knownMenuList .typeFilter > ul >li {
     width: 118px;
     color: white;
@@ -243,7 +268,6 @@ body, html {
 }
 #knownMenuList .cpFilter b {
     text-transform: uppercase;
-
 }
 #knownMenuList #priceRange {
     margin: 1em 0;
@@ -255,8 +279,6 @@ body, html {
 #knownMenuList #priceRange >i.chosen {
     color: black;
 }
-
-
 #routeList {
     background: rgba(44,44,44,0.7);
     overflow: auto;
@@ -290,10 +312,6 @@ body, html {
     font-size: 110%;
     color: white;
 }
-
-
-
-
 @media (max-width: 500px){
     #menu{
         width: 100%;
@@ -302,7 +320,6 @@ body, html {
         visibility: hidden;
     }
 }
-
 @media (max-width: 320px) {
     .header img {
         margin: 0px 5px 0 -moz-calc(50% - 40px);
@@ -316,5 +333,4 @@ body, html {
     .nav > li > a {
         height: 64px;
     }
-
 }
