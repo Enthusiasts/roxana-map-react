@@ -7,6 +7,11 @@ var _ = require('underscore');
 var Actions = require('../../actions/history');
 
 var HistoryItem = React.createClass({
+    componentWillMount: function()
+    {
+        this.context.store.dispatch(Actions.fetchRouteSummary(this.props.route));
+    },
+
     watchRoute: function()
     {
         this.context.store.dispatch(Actions.watchRoute(this.props.route.id));

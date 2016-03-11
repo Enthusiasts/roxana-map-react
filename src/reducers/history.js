@@ -17,14 +17,29 @@ function history(state = {
             return Object.assign({}, state, {savedRoutes: action.payload.savedRoutes});
 
         case Actions.DELETE_HISTORY_ITEM:
-            var indexOf = state.savedRoutes.findIndex(x => x.id == action.payload.routeId);
-            var newSavedRoutes = state.savedRoutes;
-            if (indexOf >=0)
+            var savedRoutes = function() {
+                var indexOf = state.savedRoutes.findIndex(x => x.id == action.payload.routeId);
+                var newSavedRoutes = state.savedRoutes;
+                if (indexOf >=0)
+                {
+                    newSavedRoutes = state.savedRoutes.slice();
+                    newSavedRoutes.splice(indexOf, 1);
+                }
+                return newSavedRoutes
+            };
+            return Object.assign({}, state, {savedRoutes: savedRoutes()});
+
+        case Actions.FETCH_ROUTE_SUMMARY_VALIDATE:
+            var toReplace = state.savedRoutes.findIndex(x => x.id == action.payload.routeId);
+            var t = state.savedRoutes.slice();
+            if (toReplace >= 0)
             {
-                newSavedRoutes = state.savedRoutes.slice();
-                newSavedRoutes.splice(indexOf, 1);
+                t[toReplace] = Object.assign({}, t[toReplace], {
+                    first: action.payload.summary.first,
+                    last: action.payload.summary.last
+                });
             }
-            return Object.assign({}, state, {savedRoutes: newSavedRoutes});
+            return Object.assign({}, state, t);
 
         default:
             return state;

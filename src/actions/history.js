@@ -96,11 +96,45 @@ const deleteRouteAndUpdateHistory = function(routeId)
     };
 };
 
+const FETCH_ROUTE_SUMMARY_VALIDATE = 'FETCH_ROUTE_SUMMARY_VALIDATE';
+const fetchRouteSummaryValidate = function(routeId, summary)
+{
+    return {
+        type: FETCH_ROUTE_SUMMARY_VALIDATE,
+        payload: {
+            routeId,
+            summary
+        }
+    }
+};
+
+const fetchRouteSummary = function(route)
+{
+    return (dispatch) =>
+    {
+        const takePart = (link) => fetch(link).then(response => response.json());
+
+        console.log("HERE");
+        console.log(route);
+
+        return Promise.all([takePart(route._links.first.href), takePart(route._links.last.href)])
+            .then(
+                (values) =>
+                {
+                    console.log(values);
+                    dispatch(fetchRouteSummaryValidate(route.id, {first: values[0], last: values[1]}));
+                }
+            );
+    }
+};
+
 module.exports = {
     FETCH_USER_HISTORY_BEGIN,
     FETCH_USER_HISTORY_VALIDATE,
     DELETE_HISTORY_ITEM,
+    FETCH_ROUTE_SUMMARY_VALIDATE,
     fetchUserHistory,
+    fetchRouteSummary,
     editRoute,
     watchRoute,
     deleteRouteAndUpdateHistory
