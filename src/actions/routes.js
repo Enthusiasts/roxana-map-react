@@ -21,7 +21,7 @@ const setRouteList = function (entertainments)
     return {
         type: SET_ROUTE_LIST,
         payload: {
-            entertainments
+            items: entertainments
         }
     };
 };
@@ -155,7 +155,7 @@ const saveRouteListAndSetEditContext = function (routeList)
  * Добавляет заведение к дорожному листу и вычисляет маршрут
  * @param routeItem заведение, которое нужно добавить
  * @param items предыдущие заведения, которые уже лежат в дорожном листе
- * @returns {Function} action creator ;)
+ * @returns {Function} thunk ;)
  */
 const addRouteItemAndRenderPath = function(routeItem, items)
 {
@@ -169,6 +169,21 @@ const addRouteItemAndRenderPath = function(routeItem, items)
         // Маршрут рассчитываем уже включая добавляемое заведение
         items.push(routeItem);
 
+        dispatch(updatePolyLine(items));
+    }
+};
+
+/**
+ * Устанавливает дорожное заведние и вычисляет маршрут для карты.
+ * Практически идентична addRouteItemAndRenderPath
+ * @param items - заведения, которые загружаются в дорожную карту
+ * @returns {Function} thunk :)
+ */
+const setRouteListAndRenderPath = function (items)
+{
+    return (dispatch) =>
+    {
+        dispatch(setRouteList(items));
         dispatch(updatePolyLine(items));
     }
 };
@@ -199,6 +214,7 @@ const updatePolyLine = function(entertainments)
 
 module.exports = {
     ADD_ROUTE_ITEM,
+    SET_ROUTE_LIST,
     CLEAR_ROUTE_LIST,
     SET_CONTEXT,
     SET_POLYLINE,
@@ -208,5 +224,6 @@ module.exports = {
     saveRouteListAndSetEditContext,
     clearRouteListAndSetCreateContext,
     addRouteItemAndRenderPath,
+    setRouteListAndRenderPath,
     setContext
 };

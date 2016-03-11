@@ -28,6 +28,11 @@ function routes(state = {
                 ? Object.assign({}, state, {items: state.items.concat([action.payload.entertainment])})
                 : state;
 
+        case Actions.SET_ROUTE_LIST:
+            return action.payload.items.length <= Properties.ROUTE.LIST.MAX_NUMBER
+                ? Object.assign({}, state, {items: action.payload.items})
+                : state;
+
         case Actions.CLEAR_ROUTE_LIST:
             return Object.assign({}, state, {
                 items: [],
