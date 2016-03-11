@@ -14,8 +14,17 @@ var EntertainmentInfo = React.createClass({
 
     addToRouteList: function ()
     {
+        //TODO: вынести на уровень props
+        var routeContext = this.props.store.getState().Routes.context;
+        const Contexts = Properties.ROUTE.CONTEXTS;
+
+        if ([Contexts.EDIT, Contexts.CREATE].every(x => x != routeContext.current))
+        {
+            this.props.store.dispatch(Actions.setContext(Contexts.CREATE, {}));
+        }
+
         // currentRoute - нужен для перерисовывания маршрута на карте
-        // TODO: костыль?
+        // TODO: костыль? подумать
         var currentRoute = this.props.store.getState().Routes.items;
         this.props.store.dispatch(Actions.addRouteItem(this.props.entertainment, currentRoute));
     },

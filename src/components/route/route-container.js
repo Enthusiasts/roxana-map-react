@@ -21,6 +21,9 @@ const mapStateToProps = (state) =>
 
     return {
         items: state.Routes.items,
+        //isAuthorized: state.User.isAuthorized,
+        isAuthorized: true,
+        context: state.Routes.context,
         saved: isInEdit() ? {id: state.Routes.context.extra.routeId} : {},
         isSaving: canSave() ? state.Routes.context.extra.isSaving : false,
         error: state.Routes.error

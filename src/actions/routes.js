@@ -56,6 +56,7 @@ const saveRouteListBegin = function()
     };
 };
 
+/*
 const SAVE_ROUTE_LIST_VALIDATE = 'SAVE_ROUTE_LIST_VALIDATE';
 const saveRouteListValidate = function(savedRouteList)
 {
@@ -65,7 +66,7 @@ const saveRouteListValidate = function(savedRouteList)
             savedRouteList
         }
     };
-};
+};*/
 
 const SAVE_ROUTE_LIST_ERROR= 'SAVE_ROUTE_LIST_ERROR';
 const saveRouteListError = function(reason)
@@ -112,7 +113,8 @@ const saveRouteList = function (routeList)
         .then(response => response.json())
         .then(json => {
             console.log('Route with id \''+ json.id + '\' saved.');
-            dispatch(saveRouteListValidate(json))
+            //Автоматически переводим в режим редактирования
+            dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId: json.id}))
         })
         .catch(error => {
             console.error(error);
@@ -165,7 +167,7 @@ module.exports = {
     SET_CONTEXT,
     SET_POLYLINE,
     SAVE_ROUTE_LIST_BEGIN,
-    SAVE_ROUTE_LIST_VALIDATE,
+    //SAVE_ROUTE_LIST_VALIDATE,
     SAVE_ROUTE_LIST_ERROR,
     saveRouteList,
     clearRouteList,

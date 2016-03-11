@@ -4,18 +4,26 @@
 var React = require('react');
 var _ = require('underscore');
 
+var Properties = require('../../const/properties');
 var Actions = require('../../actions/routes');
+
+const Contexts = Properties.ROUTE.CONTEXTS;
 
 var RouteItem = require('./route-item');
 
 var RouteList = React.createClass({
+    // Это - контекст компонента как в реакте
     contextTypes: {
         store: React.PropTypes.object.isRequired
     },
 
-    componentWillMount: function()
+    // Это - наш собственный контекст компонента, отраюжающий юзер-экспириенс
+    // Например - создание маршрута ИЛИ просмотр ИЛИ его редактирование
+    // Влияет на состав отображаемых кнопок!
+    inContext: function()
     {
-       //var t = LeafletRouting.Control
+        var args = Array.prototype.slice.call(arguments);
+        return args.some(x => x == this.props.context.current);
     },
 
     renderEntertainments: function ()
@@ -40,15 +48,25 @@ var RouteList = React.createClass({
 
     saveRouteList: function()
     {
-        this.context.store.dispatch(Actions.saveRouteList({
-            description: '',
-            entertainments: this.props.items
-        }));
+        if (this.inContext(Contexts.CREATE))
+        {
+            // После того как сохранили, контекст автоматически перейдёт в режим редактирования
+            this.context.store.dispatch(Actions.saveRouteList({
+                description: '',
+                entertainments: this.props.items
+            }));
+        }
+        else if (this.inContext(Contexts.EDIT))
+        {
+            //TODO:
+            console.log("implement update!");
+        }
     },
 
     renderSaveButton: function(){
         //Рисуем кнопку если пользователь авторизован и если ещё не сохранили маршрут
-        return /*this.context.store.getState().User.isAuthorized && */_.isEmpty(this.props.saved)
+        /*return this.props.isAuthorized && _.isEmpty(this.props.saved)*/
+        return this.props.isAuthorized && this.inContext(Contexts.CREATE, Contexts.EDIT)
             ? (<button id="saveBtn"className="btn btn-success squaredBorders" onClick={this.saveRouteList}>
                     {!this.props.isSaving ? "Сохранить" : "Сохраняем..."}
                 </button>)
@@ -92,6 +110,8 @@ var RouteList = React.createClass({
 
 RouteList.propTypes = {
     items: React.PropTypes.array.isRequired,
+    isAuthorized: React.PropTypes.bool.isRequired,
+    context: React.PropTypes.object.isRequired,
     isSaving: React.PropTypes.bool.isRequired,
     saved: React.PropTypes.object.isRequired,
     error: React.PropTypes.object.isRequired

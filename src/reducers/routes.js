@@ -13,7 +13,7 @@ function routes(state = {
     // Этот контекст определяет способ взаимодействия пользователя с компонентом (просмотр, редактирование, создание...)
     // extra содержит особые (необщие) параметры (например, id маршрута для редактирования...)
     context: {
-        current: Properties.ROUTE.CONTEXTS.CREATE,
+        current: Properties.ROUTE.CONTEXTS.WATCH,
         extra: {isSaving: false}
     }
 }, action)
@@ -48,15 +48,15 @@ function routes(state = {
                 : state;
 
 
-        case Actions.SAVE_ROUTE_LIST_VALIDATE:
+        /*case Actions.SAVE_ROUTE_LIST_VALIDATE:
             return Object.assign({}, state, {
-                /*isSaving: false, saved: action.payload.savedRouteList, */
+                //isSaving: false, saved: action.payload.savedRouteList,
                 error: {},
                 context: Object.assign({}, state.context, {
                     isSaving: false,
                     routeId: action.payload.savedRouteList.id
                 })
-            });
+            });*/
 
         case Actions.SAVE_ROUTE_LIST_ERROR:
             return Object.assign({}, state, {
