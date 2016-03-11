@@ -8,10 +8,6 @@ var Actions = require('../../actions/history');
 var HistoryItem = require('./history-item');
 
 var HistoryList = React.createClass({
-    contextTypes: {
-        store: React.PropTypes.object.isRequired
-    },
-
     componentWillMount: function()
     {
         this.context.store.dispatch(Actions.fetchUserHistory(0));
@@ -36,6 +32,10 @@ var HistoryList = React.createClass({
             : null;
     }
 });
+
+HistoryList.contextTypes = {
+    store: React.PropTypes.object.isRequired
+};
 
 HistoryList.propTypes = {
     isAuthorized: React.PropTypes.bool.isRequired,

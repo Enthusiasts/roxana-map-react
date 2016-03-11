@@ -3,6 +3,8 @@
  */
 var Properites = require('../const/properties');
 
+var RouteActions = require('./routes');
+
 const FETCH_USER_HISTORY_BEGIN = 'FETCH_USER_HISTORY_BEGIN';
 const fetchUserHistoryBegin = function()
 {
@@ -45,8 +47,33 @@ const fetchUserHistory = function(userId)
     }
 };
 
+const editRoute = (routeId) => _loadRoute(routeId, Properites.ROUTE.CONTEXTS.EDIT);
+const watchRoute = (routeId) => _loadRoute(routeId, Properites.ROUTE.CONTEXTS.WATCH);
+const _loadRoute = function(routeId, context)
+{
+    return (dispatch) =>
+    {
+        return fetch(Properites.API.ROOT + 'routes/' + routeId + '/entertainments/')
+            .then(response => response.json())
+            .then(
+                json =>
+                {
+                    var items = json._embedded.entertainments;
+                    // Рисуем маршрут на карте и вносим его в менюшку
+                    dispatch(RouteActions.setRouteListAndRenderPath(items));
+                    // Меняем контекст менюшки на просмотр
+                    dispatch(RouteActions.setContext(context, {routeId}));
+
+                    console.log("Route with id '" + routeId + "' loaded for '" + context + "'.");
+                }
+            );
+    }
+};
+
 module.exports = {
     FETCH_USER_HISTORY_BEGIN,
     FETCH_USER_HISTORY_VALIDATE,
-    fetchUserHistory
+    fetchUserHistory,
+    editRoute,
+    watchRoute
 };
