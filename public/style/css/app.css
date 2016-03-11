@@ -224,6 +224,8 @@ body, html {
 
 }
 #unknownMenuList .historyList .historyItem{
+    margin-top: 15px;
+    border-bottom: 1px solid;
     font-size: 110%;
 }
 #unknownMenuList .historyItem .arrowIcon{
