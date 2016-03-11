@@ -21,6 +21,6 @@ const mapStateToProps = (state) =>
     };
 };
 
-const RouteTrace = ReactRedux.connect(mapStateToProps)(RouteList);
+const RouteContainer = ReactRedux.connect(mapStateToProps)(RouteList);
 
-module.exports = RouteTrace;
+module.exports = RouteContainer;

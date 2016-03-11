@@ -5,7 +5,7 @@ var React = require('react');
 var Properties = require('../../const/properties');
 
 var UserInfo = require('../user/user-instagram');
-var HistoryList = require('../history/history-list');
+var HistoryContainer = require('../history/history-container');
 
 var NavUnknown = React.createClass({
 
@@ -13,7 +13,7 @@ var NavUnknown = React.createClass({
         return (
             <div id="unknownMenuList" className="pure-menu">
 
-            <HistoryList/>
+            <HistoryContainer/>
 
             </div>
         )

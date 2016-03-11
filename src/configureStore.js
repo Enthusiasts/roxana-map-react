@@ -6,11 +6,13 @@ var Thunk = require('redux-thunk');
 var Entertainments = require('./reducers/entertainments');
 var Routes = require('./reducers/routes');
 var User = require('./reducers/user');
+var History = require('./reducers/history');
 
 const rootReducer = Redux.combineReducers({
     User,
     Entertainments,
-    Routes
+    Routes,
+    History
 });
 
 function configureStore(initialState)
