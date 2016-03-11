@@ -15,12 +15,22 @@ const addRouteItemToList = function (entertainment)
     };
 };
 
+
 const CLEAR_ROUTE_LIST = 'CLEAR_ROUTE_LIST';
 const clearRouteList = function ()
 {
     return {
         type: CLEAR_ROUTE_LIST
     };
+};
+
+const clearRouteListAndSetCreateContext = function ()
+{
+    return (dispatch) =>
+    {
+        dispatch(clearRouteList());
+        dispatch(setContext(Properties.ROUTE.CONTEXTS.CREATE, {}));
+    }
 };
 
 const SET_CONTEXT = 'SET_CONTEXT';
@@ -56,17 +66,19 @@ const saveRouteListBegin = function()
     };
 };
 
-/*
+
 const SAVE_ROUTE_LIST_VALIDATE = 'SAVE_ROUTE_LIST_VALIDATE';
-const saveRouteListValidate = function(savedRouteList)
+const saveRouteListValidate = function(content)
 {
     return {
         type: SAVE_ROUTE_LIST_VALIDATE,
         payload: {
-            savedRouteList
+            message: {
+                content
+            }
         }
     };
-};*/
+};
 
 const SAVE_ROUTE_LIST_ERROR= 'SAVE_ROUTE_LIST_ERROR';
 const saveRouteListError = function(reason)
@@ -80,7 +92,7 @@ const saveRouteListError = function(reason)
     };
 };
 
-const saveRouteList = function (routeList)
+const saveRouteListAndSetEditContext = function (routeList)
 {
     return (dispatch) =>
     {
@@ -112,9 +124,14 @@ const saveRouteList = function (routeList)
         })
         .then(response => response.json())
         .then(json => {
-            console.log('Route with id \''+ json.id + '\' saved.');
+            const routeId = json.id;
+            console.log('Route with id \''+ routeId + '\' saved.');
+
             //Автоматически переводим в режим редактирования
-            dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId: json.id}))
+            dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId}));
+
+            //Отправляем сообщеньку об успешнос сохранении
+            dispatch(saveRouteListValidate("Маршрут успешно сохранён!"));
         })
         .catch(error => {
             console.error(error);
@@ -167,10 +184,10 @@ module.exports = {
     SET_CONTEXT,
     SET_POLYLINE,
     SAVE_ROUTE_LIST_BEGIN,
-    //SAVE_ROUTE_LIST_VALIDATE,
+    SAVE_ROUTE_LIST_VALIDATE,
     SAVE_ROUTE_LIST_ERROR,
-    saveRouteList,
-    clearRouteList,
+    saveRouteListAndSetEditContext,
+    clearRouteListAndSetCreateContext,
     addRouteItem,
     setContext
 };

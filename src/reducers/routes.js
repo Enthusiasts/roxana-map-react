@@ -6,9 +6,8 @@ var Properties = require('../const/properties');
 
 function routes(state = {
     items: [],
-    //isSaving: false,
-    //saved: {},
     error: {},
+    message: {},
     polyLine: [],
     // Этот контекст определяет способ взаимодействия пользователя с компонентом (просмотр, редактирование, создание...)
     // extra содержит особые (необщие) параметры (например, id маршрута для редактирования...)
@@ -32,40 +31,31 @@ function routes(state = {
         case Actions.CLEAR_ROUTE_LIST:
             return Object.assign({}, state, {
                 items: [],
-                /*saved: {},*/
                 error: {},
-                /*isSaving: false,*/
+                message: {},
                 polyLine: []
             });
 
         case Actions.SAVE_ROUTE_LIST_BEGIN:
             return canSave()
                 ? Object.assign({}, state, {
-                    /*isSaving: true,*/
                     error: {},
-                    context: Object.assign({}, state.context, {isSaving: true})
-                    /*saved: {}*/})
+                    context: Object.assign({}, state.context, {extra: {isSaving: true}})
+                })
                 : state;
 
 
-        /*case Actions.SAVE_ROUTE_LIST_VALIDATE:
+        case Actions.SAVE_ROUTE_LIST_VALIDATE:
             return Object.assign({}, state, {
-                //isSaving: false, saved: action.payload.savedRouteList,
                 error: {},
-                context: Object.assign({}, state.context, {
-                    isSaving: false,
-                    routeId: action.payload.savedRouteList.id
-                })
-            });*/
+                message: action.payload.message,
+                context: Object.assign({}, state.context, {extra: {isSaving: false}})
+            });
 
         case Actions.SAVE_ROUTE_LIST_ERROR:
             return Object.assign({}, state, {
-                /*isSaving: false,*/
                 error: action.error,
-                context: Object.assign({}, state.context, {
-                    isSaving: false
-                })
-                /*saved: {}*/
+                context: Object.assign({}, state.context, {extra: {isSaving: false}})
             });
 
         case Actions.SET_CONTEXT:

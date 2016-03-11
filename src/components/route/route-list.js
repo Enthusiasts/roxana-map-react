@@ -43,7 +43,8 @@ var RouteList = React.createClass({
 
     clearRouteList: function()
     {
-        this.context.store.dispatch(Actions.clearRouteList());
+        //После очищения контекст автоматически перейдёт в режим создания
+        this.context.store.dispatch(Actions.clearRouteListAndSetCreateContext());
     },
 
     saveRouteList: function()
@@ -51,7 +52,7 @@ var RouteList = React.createClass({
         if (this.inContext(Contexts.CREATE))
         {
             // После того как сохранили, контекст автоматически перейдёт в режим редактирования
-            this.context.store.dispatch(Actions.saveRouteList({
+            this.context.store.dispatch(Actions.saveRouteListAndSetEditContext({
                 description: '',
                 entertainments: this.props.items
             }));
@@ -65,10 +66,9 @@ var RouteList = React.createClass({
 
     renderSaveButton: function(){
         //Рисуем кнопку если пользователь авторизован и если ещё не сохранили маршрут
-        /*return this.props.isAuthorized && _.isEmpty(this.props.saved)*/
         return this.props.isAuthorized && this.inContext(Contexts.CREATE, Contexts.EDIT)
             ? (<button id="saveBtn"className="btn btn-success squaredBorders" onClick={this.saveRouteList}>
-                    {!this.props.isSaving ? "Сохранить" : "Сохраняем..."}
+                    {!this.props.context.extra.isSaving ? "Сохранить" : "Сохраняем..."}
                 </button>)
             : null;
     },
@@ -89,8 +89,8 @@ var RouteList = React.createClass({
 
     renderSaveMessage: function()
     {
-        return !_.isEmpty(this.props.saved)
-            ? <div className="successSave"> <b>Маршрут успешно сохранён!</b> </div>
+        return !_.isEmpty(this.props.message)
+            ? <div className="successSave"> <b>{this.props.message.content}</b> </div>
             : null;
     },
 
@@ -112,9 +112,8 @@ RouteList.propTypes = {
     items: React.PropTypes.array.isRequired,
     isAuthorized: React.PropTypes.bool.isRequired,
     context: React.PropTypes.object.isRequired,
-    isSaving: React.PropTypes.bool.isRequired,
-    saved: React.PropTypes.object.isRequired,
-    error: React.PropTypes.object.isRequired
+    error: React.PropTypes.object.isRequired,
+    message: React.PropTypes.object.isRequired
 };
 
 module.exports = RouteList;

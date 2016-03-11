@@ -10,23 +10,14 @@ var Properties = require('../../const/properties');
 
 const mapStateToProps = (state) =>
 {
-    const canSave = () =>
-        state.Routes.context.current == Properties.ROUTE.CONTEXTS.CREATE ||
-        isInEdit();
-
-    const isInEdit = () =>
-        state.Routes.context.current == Properties.ROUTE.CONTEXTS.EDIT;
-
-    console.log(state, canSave());
+    console.log("Current state: ", state);
 
     return {
         items: state.Routes.items,
-        //isAuthorized: state.User.isAuthorized,
         isAuthorized: true,
         context: state.Routes.context,
-        saved: isInEdit() ? {id: state.Routes.context.extra.routeId} : {},
-        isSaving: canSave() ? state.Routes.context.extra.isSaving : false,
-        error: state.Routes.error
+        error: state.Routes.error,
+        message: state.Routes.message
     };
 };
 
