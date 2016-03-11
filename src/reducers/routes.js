@@ -23,7 +23,7 @@ function routes(state = {
 
     switch(action.type)
     {
-        case Actions.ADD_ROUTE_ITEM_TO_LIST:
+        case Actions.ADD_ROUTE_ITEM:
             return state.items.length + 1 <= Properties.ROUTE.LIST.MAX_NUMBER
                 ? Object.assign({}, state, {items: state.items.concat([action.payload.entertainment])})
                 : state;

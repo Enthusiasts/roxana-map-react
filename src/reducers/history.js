@@ -8,8 +8,6 @@ function history(state = {
     savedRoutes: []
 }, action)
 {
-
-    console.log(action);
     switch(action.type)
     {
         case Actions.FETCH_USER_HISTORY_BEGIN:

@@ -4,13 +4,24 @@
 var Properties = require('../const/properties');
 var Polyline = require('polyline');
 
-const ADD_ROUTE_ITEM_TO_LIST = 'ADD_ROUTE_ITEM_TO_LIST';
-const addRouteItemToList = function (entertainment)
+const ADD_ROUTE_ITEM = 'ADD_ROUTE_ITEM';
+const addRouteItem = function (entertainment)
 {
     return {
-        type: ADD_ROUTE_ITEM_TO_LIST,
+        type: ADD_ROUTE_ITEM,
         payload: {
             entertainment
+        }
+    };
+};
+
+const SET_ROUTE_LIST = 'SET_ROUTE_LIST';
+const setRouteList = function (entertainments)
+{
+    return {
+        type: SET_ROUTE_LIST,
+        payload: {
+            entertainments
         }
     };
 };
@@ -146,11 +157,11 @@ const saveRouteListAndSetEditContext = function (routeList)
  * @param items предыдущие заведения, которые уже лежат в дорожном листе
  * @returns {Function} action creator ;)
  */
-const addRouteItem = function(routeItem, items)
+const addRouteItemAndRenderPath = function(routeItem, items)
 {
     return (dispatch) =>
     {
-        dispatch(addRouteItemToList(routeItem));
+        dispatch(addRouteItem(routeItem));
 
         // Если меньше 2 заведений в маршруте, то нет смысла строить путь.
         if (items.length + 1 < 2) return;
@@ -158,7 +169,15 @@ const addRouteItem = function(routeItem, items)
         // Маршрут рассчитываем уже включая добавляемое заведение
         items.push(routeItem);
 
-        var query = items
+        dispatch(updatePolyLine(items));
+    }
+};
+
+const updatePolyLine = function(entertainments)
+{
+    return (dispatch) =>
+    {
+        var query = entertainments
             .map(ent => (ent.latitude + ',' + ent.longitude))
             .join('&loc=');
 
@@ -179,7 +198,7 @@ const addRouteItem = function(routeItem, items)
 };
 
 module.exports = {
-    ADD_ROUTE_ITEM_TO_LIST,
+    ADD_ROUTE_ITEM,
     CLEAR_ROUTE_LIST,
     SET_CONTEXT,
     SET_POLYLINE,
@@ -188,6 +207,6 @@ module.exports = {
     SAVE_ROUTE_LIST_ERROR,
     saveRouteListAndSetEditContext,
     clearRouteListAndSetCreateContext,
-    addRouteItem,
+    addRouteItemAndRenderPath,
     setContext
 };
