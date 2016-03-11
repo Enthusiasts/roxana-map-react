@@ -19,13 +19,12 @@ var HistoryItem = React.createClass({
     render: function()
     {
         return(
-            <div className="historyItem">
+            <div className="historyItem" onClick={this.watchRoute}>
                 <button className="pure-button squaredBorders"><i className="fa fa-times"/></button>
-                <div><b>Начало маршрута</b><br/></div>
+                <button onClick={this.editRoute } className="pure-button squaredBorders"><i className="fa fa-pencil"/></button>
+                <div onClick={this.watchRoute}><b>Начало маршрута</b><br/></div>
                 <div className="fa fa-arrow-down arrowIcon"><br/></div>
-                <div><b>Конец маршрута</b></div>
-                <button onClick={this.watchRoute}>watch</button>
-                <button onClick={this.editRoute}>edit</button>
+                <div onClick={this.watchRoute}><b>Конец маршрута</b></div>
             </div>
         );
     }
