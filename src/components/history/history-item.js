@@ -16,11 +16,17 @@ var HistoryItem = React.createClass({
         this.context.store.dispatch(Actions.editRoute(this.props.route.id));
     },
 
+    deleteRoute: function()
+    {
+        this.context.store.dispatch(Actions.deleteRouteAndUpdateHistory(this.props.route.id));
+    },
+
     render: function()
     {
         return(
             <div className="historyItem">
-                <button className="pure-button squaredBorders"><i className="fa fa-times"/></button>
+                {this.props.route.id}
+                <button onClick={this.deleteRoute} className="pure-button squaredBorders"><i className="fa fa-times"/></button>
                 <div><b>Начало маршрута</b><br/></div>
                 <div className="fa fa-arrow-down arrowIcon"><br/></div>
                 <div><b>Конец маршрута</b></div>
