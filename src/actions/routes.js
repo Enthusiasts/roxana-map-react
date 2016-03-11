@@ -121,6 +121,8 @@ const saveRouteListAndSetEditContext = function (routeList)
 
         var requestBody = {
             description: routeList.description,
+            first: entertainmentUris[0],
+            last: entertainmentUris[entertainmentUris.length-1],
             entertainments: entertainmentUris
         };
 

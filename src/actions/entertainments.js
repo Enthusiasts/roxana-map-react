@@ -36,6 +36,17 @@ const errorEntertainments = function (entertainmentsType)
         error: 'Невозможно загрузить заведения "' + entertainmentsType + '" :('
     };
 };
+/*
+const ADD_PARTICULAR_ENTERTAINMENTS = 'ADD_PARTICULAR_ENTERTAINMENTS';
+const addParticularEntertainments = function (ids)
+{
+    return {
+        type: ADD_PARTICULAR_ENTERTAINMENTS,
+        payload: {
+            ids
+        }
+    };
+};*/
 
 function fetchEntertainments(entertainmentsType)
 {
@@ -65,6 +76,8 @@ module.exports = {
     REQUEST_ENTERTAINMENTS,
     RECEIVE_ENTERTAINMENTS,
     ERROR_ENTERTAINMENTS,
+    //ADD_PARTICULAR_ENTERTAINMENTS,
     errorEntertainments,
-    fetchEntertainments
+    fetchEntertainments,
+    //addParticularEntertainments
 };

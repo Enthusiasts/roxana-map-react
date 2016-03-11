@@ -19,6 +19,18 @@ function entertainments(state = {
         case Actions.REQUEST_ENTERTAINMENTS:
             return Object.assign({}, state, {isFetching: true});
 
+        /*case Actions.ADD_PARTICULAR_ENTERTAINMENTS:
+
+            //Очень страшный по перформансу костыль
+            // TODO: Бейте меня палками пока не уберу это!!!
+
+            var what = state.Entertainments;
+            var from = _.indexBy([].concat(state.cafe, state.restaurant, state.bar, state.club), 'id');
+
+            var toAdd = what.filter(x => from[x.id]);
+
+            return state;*/
+
         case Actions.RECEIVE_ENTERTAINMENTS:
             switch (action.payload.entertainmentsType) {
                 case Properties.ENTERTAINMENT.TYPE.CAFE:
