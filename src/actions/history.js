@@ -67,13 +67,41 @@ const _loadRoute = function(routeId, context)
                     console.log("Route with id '" + routeId + "' loaded for '" + context + "'.");
                 }
             );
-    }
+    };
+};
+
+const DELETE_HISTORY_ITEM = "DELETE_HISTORY_ITEM";
+const deleteHistoryItem = function (routeId)
+{
+    return {
+        type: DELETE_HISTORY_ITEM,
+        payload: {
+            routeId
+        }
+    };
+};
+
+const deleteRouteAndUpdateHistory = function(routeId)
+{
+    return (dispatch) =>
+    {
+        return fetch(Properites.API.ROOT + 'routes/' + routeId, {method: 'DELETE', mode: 'same-origin'})
+            .then(
+                response =>
+                {
+                    dispatch(deleteHistoryItem(routeId));
+                    console.log("Route with id '" + routeId + "' deleted.");
+                }
+            );
+    };
 };
 
 module.exports = {
     FETCH_USER_HISTORY_BEGIN,
     FETCH_USER_HISTORY_VALIDATE,
+    DELETE_HISTORY_ITEM,
     fetchUserHistory,
     editRoute,
-    watchRoute
+    watchRoute,
+    deleteRouteAndUpdateHistory
 };
