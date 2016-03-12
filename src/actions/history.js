@@ -38,10 +38,7 @@ const fetchUserHistory = function(userId)
                 {
                     var routes = json._embedded.routes;
                     console.log("History: " + json.page.totalElements + " found, " + json.page.size + " received.");
-                    dispatch(fetchUserHistoryValidate(routes.map(
-                        x =>
-                            Object.assign({}, x, {first: {title: "pf"}, last: {title: "sd"}})
-                    )));
+                    dispatch(fetchUserHistoryValidate(routes));
                 }
             );
     }
@@ -114,14 +111,10 @@ const fetchRouteSummary = function(route)
     {
         const takePart = (link) => fetch(link).then(response => response.json());
 
-        console.log("HERE");
-        console.log(route);
-
         return Promise.all([takePart(route._links.first.href), takePart(route._links.last.href)])
             .then(
                 (values) =>
                 {
-                    console.log(values);
                     dispatch(fetchRouteSummaryValidate(route.id, {first: values[0], last: values[1]}));
                 }
             );

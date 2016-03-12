@@ -31,6 +31,7 @@ function history(state = {
 
         case Actions.FETCH_ROUTE_SUMMARY_VALIDATE:
             var toReplace = state.savedRoutes.findIndex(x => x.id == action.payload.routeId);
+            console.log(toReplace);
             var t = state.savedRoutes.slice();
             if (toReplace >= 0)
             {
@@ -39,7 +40,7 @@ function history(state = {
                     last: action.payload.summary.last
                 });
             }
-            return Object.assign({}, state, t);
+            return Object.assign({}, state, {savedRoutes: t});
 
         default:
             return state;
