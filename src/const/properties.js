@@ -5,7 +5,7 @@
 module.exports = {
     // Roxana Web Api settings
     API: {
-        ROOT: "http://ec2-52-18-236-104.eu-west-1.compute.amazonaws.com/spring/"
+        ROOT: "http://127.0.0.1:3000/spring/"
     },
 
     // Map settings
