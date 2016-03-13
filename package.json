@@ -33,6 +33,7 @@
     "postinstall": "npm run setup-vendor",
     "presetup-vendor": "bower install",
     "setup-vendor": "grunt bower",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "webpack -p"
   }
 }
