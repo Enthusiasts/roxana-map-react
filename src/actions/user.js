@@ -25,9 +25,23 @@ const setUserInfo = function (userInfo)
     };
 };
 
+const SET_LOCATION = "SET_LOCATION";
+const setLocation = function (lat, lon)
+{
+    return {
+        type: SET_LOCATION,
+        payload: {
+            lat,
+            lon
+        }
+    };
+};
+
 module.exports = {
     SET_AUTHORIZED,
-    setAuthorized,
     SET_USERINFO,
-    setUserInfo
+    SET_LOCATION,
+    setAuthorized,
+    setUserInfo,
+    setLocation
 };

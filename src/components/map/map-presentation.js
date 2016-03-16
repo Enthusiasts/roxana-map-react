@@ -3,10 +3,11 @@
  */
 var React = require('react');
 var ReactLeaflet = require('react-leaflet');
-var Properties = require('../../const/properties');
 
+var Properties = require('../../const/properties');
 var EntertainmentInfo = require('./entertainment-info');
 var LocateControl = require('./controls/locate-control');
+var UserActions = require('../../actions/user');
 
 const Map = ReactLeaflet.Map;
 const Marker = ReactLeaflet.Marker;
@@ -18,6 +19,12 @@ const ZoomControl = ReactLeaflet.ZoomControl;
 var MapPresentation = React.createClass({
     contextTypes: {
         store: React.PropTypes.object.isRequired
+    },
+
+    setUserLocation: function(locationEvent)
+    {
+        var latlng = locationEvent.latlng;
+        this.context.store.dispatch(UserActions.setLocation(latlng.lat, latlng.lng));
     },
 
     renderEntertainments: function()
@@ -46,9 +53,11 @@ var MapPresentation = React.createClass({
     {
         return  (
             <Map className="roxana-map"
-                 center={Properties.MAP.CENTER}
+                 center={{lat: Properties.MAP.CENTER.LATITUDE, lon: Properties.MAP.CENTER.LONGITUDE}}
                  zoom={Properties.MAP.ZOOM}
-                 zoomControl={false}>
+                 zoomControl={false}
+                 onLocationFound={this.setUserLocation}
+            >
                 <TileLayer
                     url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

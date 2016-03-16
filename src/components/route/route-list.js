@@ -66,8 +66,8 @@ var RouteList = React.createClass({
 
     offerRouteList: function()
     {
-        var lat = 55.75;
-        var lon = 37.61;
+        var lat = this.props.userLocation.latitude;
+        var lon = this.props.userLocation.longitude;
         var types =[Properties.ENTERTAINMENT.TYPE.translate(Properties.ENTERTAINMENT.TYPE.BAR)];
 
         //После добавления контекст автоматически перейдёт в режим создания
@@ -133,7 +133,8 @@ RouteList.propTypes = {
     isAuthorized: React.PropTypes.bool.isRequired,
     context: React.PropTypes.object.isRequired,
     error: React.PropTypes.object.isRequired,
-    message: React.PropTypes.object.isRequired
+    message: React.PropTypes.object.isRequired,
+    userLocation: React.PropTypes.object.isRequired
 };
 
 module.exports = RouteList;

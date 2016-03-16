@@ -9,9 +9,11 @@ const MapControl = ReactLeaflet.MapControl;
 
 class LocateControl extends MapControl
 {
-    componentWillMount() {
+    componentWillMount()
+    {
         this.leafletElement = Leaflet.control.locate({
-            position: 'topright'
+            position: 'topright',
+            follow: 'false'
         });
     }
 }

@@ -15,7 +15,8 @@ const mapStateToProps = (state) =>
         isAuthorized: true,
         context: state.Routes.context,
         error: state.Routes.error,
-        message: state.Routes.message
+        message: state.Routes.message,
+        userLocation: state.User.location
     };
 };
 

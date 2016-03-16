@@ -13,7 +13,10 @@ module.exports = {
 
     // Map settings
     MAP: {
-        CENTER: [55.75, 37.61],
+        CENTER: {
+            LATITUDE: 55.75,
+            LONGITUDE: 37.61
+        },
         ZOOM: 11
     },
 
