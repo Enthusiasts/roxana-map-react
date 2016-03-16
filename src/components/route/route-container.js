@@ -10,8 +10,6 @@ var Properties = require('../../const/properties');
 
 const mapStateToProps = (state) =>
 {
-    console.log("Current state: ", state);
-
     return {
         items: state.Routes.items,
         isAuthorized: true,

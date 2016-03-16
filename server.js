@@ -18,9 +18,11 @@ var server = new WebpackDevServer(compiler, {
         '/spring*': {
             target: "http://127.0.0.1:8090",
             secure: false,
-            /*rewrite: function(req) {
-                req.url = req.url.replace(/^\/spring/, '');
-            },*/
+            xfwd: true
+        },
+        '/routes*': {
+            target: "http://127.0.0.1:8090",
+            secure: false,
             xfwd: true
         }
     }
