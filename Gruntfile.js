@@ -21,6 +21,9 @@ module.exports = function(grunt) {
                         },
                         leaflet: {
                             files: ['dist/images/**', 'dist/leaflet.css']
+                        },
+                        'leaflet.locatecontrol': {
+                            files: ['dist/**']
                         }
                     }
                 }

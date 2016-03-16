@@ -64,7 +64,18 @@ var RouteList = React.createClass({
         }
     },
 
-    renderSaveButton: function(){
+    offerRouteList: function()
+    {
+        var lat = this.props.userLocation.latitude;
+        var lon = this.props.userLocation.longitude;
+        var types =[Properties.ENTERTAINMENT.TYPE.translate(Properties.ENTERTAINMENT.TYPE.BAR)];
+
+        //После добавления контекст автоматически перейдёт в режим создания
+        this.context.store.dispatch(Actions.offerRouteList(lat, lon, types));
+    },
+
+    renderSaveButton: function()
+    {
         //Рисуем кнопку если пользователь авторизован и если ещё не сохранили маршрут
         return this.props.isAuthorized && this.inContext(Contexts.CREATE, Contexts.EDIT)
             ? (<button id="saveBtn"className="btn btn-success squaredBorders" onClick={this.saveRouteList}>
@@ -73,11 +84,19 @@ var RouteList = React.createClass({
             : null;
     },
 
-    renderClearButton: function(){
+    renderClearButton: function()
+    {
         //Рисуем кнопку если список не пустой
         return this.props.items.length > 0
             ? <button id="clrBtn" className="btn btn-danger squaredBorders" onClick={this.clearRouteList}>Очистить</button>
             : null;
+    },
+
+    renderOfferListButton: function()
+    {
+        return (
+            <button id="clrBtn" className="btn btn-danger squaredBorders" onClick={this.offerRouteList}>Тыгыдык</button>
+        );
     },
 
     renderErrorMessage: function()
@@ -103,6 +122,7 @@ var RouteList = React.createClass({
                 {this.renderEntertainments()}
                 {this.renderClearButton()}
                 {this.renderSaveButton()}
+                {this.renderOfferListButton()}
             </div>
         );
     }
@@ -113,7 +133,8 @@ RouteList.propTypes = {
     isAuthorized: React.PropTypes.bool.isRequired,
     context: React.PropTypes.object.isRequired,
     error: React.PropTypes.object.isRequired,
-    message: React.PropTypes.object.isRequired
+    message: React.PropTypes.object.isRequired,
+    userLocation: React.PropTypes.object.isRequired
 };
 
 module.exports = RouteList;

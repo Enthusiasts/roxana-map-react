@@ -2,18 +2,19 @@
   "name": "roxana-map-react",
   "version": "0.0.1",
   "dependencies": {
-    "react-swipeable": "^3.1.0",
-    "swipe-js-iso": "^2.0.2",
     "classnames": "^2.2.3",
     "jquery": "^2.2.1",
     "leaflet": "^0.7.7",
+    "leaflet.locatecontrol": "^0.48.0",
     "polyline": "^0.2.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-leaflet": "^0.10.1",
     "react-redux": "^4.4.0",
-    "redux-thunk": "^1.0.3",
+    "react-swipeable": "^3.1.0",
     "redux": "^3.3.1",
+    "redux-thunk": "^1.0.3",
+    "swipe-js-iso": "^2.0.2",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
