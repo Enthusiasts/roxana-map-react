@@ -6,6 +6,7 @@ var ReactLeaflet = require('react-leaflet');
 var Properties = require('../../const/properties');
 
 var EntertainmentInfo = require('./entertainment-info');
+var LocateControl = require('./controls/locate-control');
 
 const Map = ReactLeaflet.Map;
 const Marker = ReactLeaflet.Marker;
@@ -57,6 +58,7 @@ var MapPresentation = React.createClass({
                     zoomInTitle="Увеличить"
                     zoomOutTitle="Уменьшить"
                 />
+                <LocateControl/>
                 <Polyline positions={this.props.polyLine} color={"red"}/>
                 {this.renderEntertainments()}
             </Map>
