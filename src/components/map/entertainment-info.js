@@ -37,7 +37,7 @@ var EntertainmentInfo = React.createClass({
         return (currentRoute.some(ent => ent.id === this.props.entertainment.id)
                 || currentRoute.length >= Properties.ROUTE.LIST.MAX_NUMBER)
             ? null
-            : <b><button onClick={this.addToRouteList}>Добавить к маршруту</button></b>;
+            : <b><button onClick={this.addToRouteList} className="btn btn-primary squaredBorders">Добавить к маршруту</button></b>;
     },
 
     render: function()

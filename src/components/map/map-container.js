@@ -14,7 +14,8 @@ const mapStateToProps = (state) =>
             state.Entertainments.bar,
             state.Entertainments.club
         ),
-        polyLine: state.Routes.polyLine
+        polyLine: state.Routes.polyLine,
+        popUps: state.User.popUps
     };
 };
 
