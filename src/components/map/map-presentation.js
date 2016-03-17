@@ -8,6 +8,7 @@ var Properties = require('../../const/properties');
 var EntertainmentInfo = require('./entertainment-info');
 var LocateControl = require('./controls/locate-control');
 var UserActions = require('../../actions/user');
+var RouteActions = require('../../actions/routes');
 
 const Map = ReactLeaflet.Map;
 const Marker = ReactLeaflet.Marker;
@@ -25,6 +26,11 @@ var MapPresentation = React.createClass({
     {
         var latlng = locationEvent.latlng;
         this.context.store.dispatch(UserActions.setLocation(latlng.lat, latlng.lng));
+    },
+    openContextMenu: function (mouseEvent){
+        console.log(this.context.store.getState());
+        var latlng = mouseEvent.latlng;
+        this.context.store.dispatch(RouteActions.offerRouteList(latlng.lat, latlng.lng, ["Бары"]));
     },
 
     renderEntertainments: function()
@@ -57,6 +63,7 @@ var MapPresentation = React.createClass({
                  zoom={Properties.MAP.ZOOM}
                  zoomControl={false}
                  onLocationFound={this.setUserLocation}
+                 onClick={this.openContextMenu}
             >
                 <TileLayer
                     url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
