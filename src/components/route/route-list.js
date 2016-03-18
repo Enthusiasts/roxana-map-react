@@ -20,17 +20,14 @@ var RouteList = React.createClass({
     // Это - наш собственный контекст компонента, отраюжающий юзер-экспириенс
     // Например - создание маршрута ИЛИ просмотр ИЛИ его редактирование
     // Влияет на состав отображаемых кнопок!
-    inContext: function()
-    {
+    inContext: function () {
         var args = Array.prototype.slice.call(arguments);
         return args.some(x => x == this.props.context.current);
     },
 
-    renderEntertainments: function ()
-    {
+    renderEntertainments: function () {
         var entertainments = this.props.items;
-        if (entertainments)
-        {
+        if (entertainments) {
             return entertainments.map(
                 ent => {
                     return (
@@ -41,79 +38,75 @@ var RouteList = React.createClass({
         } else return null;
     },
 
-    clearRouteList: function()
-    {
+    clearRouteList: function () {
         //После очищения контекст автоматически перейдёт в режим создания
         this.context.store.dispatch(Actions.clearRouteListAndSetCreateContext());
     },
 
-    saveRouteList: function()
-    {
-        if (this.inContext(Contexts.CREATE))
-        {
+    saveRouteList: function () {
+        if (this.inContext(Contexts.CREATE)) {
             // После того как сохранили, контекст автоматически перейдёт в режим редактирования
             this.context.store.dispatch(Actions.saveRouteListAndSetEditContext({
                 description: '',
                 entertainments: this.props.items
             }));
         }
-        else if (this.inContext(Contexts.EDIT))
-        {
-            //TODO:
-            console.log("implement update!");
+        else if (this.inContext(Contexts.EDIT)) {
+            console.log(this.context.store.getState());
+            this.context.store.dispatch(Actions.updateRouteListAndSetEditContext(
+                this.props.context.extra.routeId, {
+                    description: '',
+                    entertainments: this.props.items
+                }
+            ));
         }
     },
 
-    offerRouteList: function()
-    {
+    offerRouteList: function () {
         var lat = this.props.userLocation.latitude;
         var lon = this.props.userLocation.longitude;
-        var types =[Properties.ENTERTAINMENT.TYPE.translate(Properties.ENTERTAINMENT.TYPE.BAR)];
+        var types = [Properties.ENTERTAINMENT.TYPE.translate(Properties.ENTERTAINMENT.TYPE.BAR)];
 
         //После добавления контекст автоматически перейдёт в режим создания
         this.context.store.dispatch(Actions.offerRouteList(lat, lon, types));
     },
 
-    renderSaveButton: function()
-    {
+    renderSaveButton: function () {
         //Рисуем кнопку если пользователь авторизован и если ещё не сохранили маршрут
         return this.props.isAuthorized && this.inContext(Contexts.CREATE, Contexts.EDIT)
-            ? (<button id="saveBtn"className="btn btn-success squaredBorders" onClick={this.saveRouteList}>
-                    {!this.props.context.extra.isSaving ? "Сохранить" : "Сохраняем..."}
-                </button>)
+            ? (<button id="saveBtn" className="btn btn-success squaredBorders" onClick={this.saveRouteList}>
+            {!this.props.context.extra.isSaving ? "Сохранить" : "Сохраняем..."}
+        </button>)
             : null;
     },
 
-    renderClearButton: function()
-    {
+    renderClearButton: function () {
         //Рисуем кнопку если список не пустой
         return this.props.items.length > 0
-            ? <button id="clrBtn" className="btn btn-danger squaredBorders" onClick={this.clearRouteList}>Очистить</button>
+            ? <button id="clrBtn" className="btn btn-danger squaredBorders" onClick={this.clearRouteList}>
+            Очистить</button>
             : null;
     },
 
-    renderOfferListButton: function()
-    {
+    renderOfferListButton: function () {
         return (
             <button id="clrBtn" className="btn btn-danger squaredBorders" onClick={this.offerRouteList}>Тыгыдык</button>
         );
     },
 
-    renderErrorMessage: function()
-    {
+    renderErrorMessage: function () {
         return !_.isEmpty(this.props.error)
             ? <div className="successSave"> {this.props.error.reason} </div>
             : null;
     },
 
-    renderSaveMessage: function()
-    {
+    renderSaveMessage: function () {
         return !_.isEmpty(this.props.message)
-            ? <div className="successSave"> <b>{this.props.message.content}</b> </div>
+            ? <div className="successSave"><b>{this.props.message.content}</b></div>
             : null;
     },
 
-    render: function() {
+    render: function () {
         if (this.props.items.length <= 0) return null;
         return (
             <div id="routeList">
