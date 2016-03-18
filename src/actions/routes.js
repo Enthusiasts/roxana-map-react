@@ -95,7 +95,6 @@ const saveRouteListError = function (reason) {
 
 const saveRouteListAndSetEditContext = function (routeList) {
     return (dispatch) => {
-        dispatch(saveRouteListBegin());
 
         if (!routeList || !routeList.entertainments || !(routeList.entertainments.length > 0)) {
             dispatch(saveRouteListError('Произошла ошибка :('));
@@ -113,31 +112,69 @@ const saveRouteListAndSetEditContext = function (routeList) {
             entertainments: entertainmentUris
         };
 
-        return fetch(Properties.API.ROOT + 'routes/', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            mode: 'same-origin',
-            body: JSON.stringify(requestBody)
-        })
-            .then(response => response.json())
-            .then(json => {
-                const routeId = json.id;
-                console.log('Route with id \'' + routeId + '\' saved.');
-
-                //Автоматически переводим в режим редактирования
-                dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId}));
-
-                //Отправляем сообщеньку об успешнос сохранении
-                dispatch(saveRouteListValidate("Маршрут успешно сохранён!"));
-            })
-            .catch(error => {
-                console.error(error);
-                dispatch(saveRouteListError('Произошла ошибка :('))
-            })
+        _fetchRouteListAndSetEditContext(dispatch, "routes", requestBody, 'POST')
     }
+};
+
+const updateRouteListAndSetEditContext = function (id, routeList) {
+    return (dispatch) => {
+
+        if (!routeList || !routeList.entertainments || !(routeList.entertainments.length > 0)) {
+            dispatch(saveRouteListError('Произошла ошибка :('));
+            console.error('Wrong entertainments definition');
+            return;
+        }
+
+        var entertainmentUris = routeList.entertainments
+            .map(ent => Properties.API.ROOT + 'entertainments/' + ent.id);
+
+        var requestBody = {
+            id,
+            description: routeList.description,
+            first: entertainmentUris[0],
+            last: entertainmentUris[entertainmentUris.length - 1],
+            entertainments: entertainmentUris
+        };
+
+        _fetchRouteListAndSetEditContext(dispatch, 'routes/' + id, requestBody, 'PUT')
+    }
+};
+
+const _fetchRouteListAndSetEditContext = function (dispatch, query, requestBody, method) {
+    if (!method in ['POST', 'PUT']) throw new Error("Can only update and post :(");
+
+    dispatch(saveRouteListBegin());
+
+    return fetch(Properties.API.ROOT + query, {
+        method,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        mode: 'same-origin',
+        body: JSON.stringify(requestBody)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Unsuccesful");
+            }
+        })
+        .then(json => {
+            const routeId = json.id;
+            console.log('Route with id \'' + routeId + '\' saved via \'' + method + '\'.');
+
+            //Автоматически переводим в режим редактирования
+            dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId: routeId}));
+
+            //Отправляем сообщеньку об успешнос сохранении
+            dispatch(saveRouteListValidate("Маршрут успешно сохранён!"));
+        })
+        .catch(error => {
+            console.error(error);
+            dispatch(saveRouteListError('Произошла ошибка :('))
+        })
 };
 
 /**
@@ -242,6 +279,7 @@ module.exports = {
     SAVE_ROUTE_LIST_VALIDATE,
     SAVE_ROUTE_LIST_ERROR,
     saveRouteListAndSetEditContext,
+    updateRouteListAndSetEditContext,
     clearRouteListAndSetCreateContext,
     addRouteItemAndRenderPath,
     setRouteListAndRenderPath,
