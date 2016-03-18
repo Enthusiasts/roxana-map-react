@@ -31,9 +31,11 @@ function user(state = {
     switch(action.type)
     {
         case Actions.SET_AUTHORIZED:
+            console.log(action);
             return Object.assign({}, state, {isAuthorized: action.payload.isAuthorized});
 
         case Actions.SET_USERINFO:
+            console.log(action);
             return Object.assign({}, state, {
                 userInfo: Object.assign({}, state.userInfo, action.payload.userInfo)
             });

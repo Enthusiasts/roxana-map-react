@@ -4,7 +4,7 @@
 
 var React = require('react');
 var MenuElems = require('./nav-tabs');
-var UserInstagram = require('../user/user-instagram');
+var UserInstagram = require('../user/menu-instagram');
 
 var Menu = React.createClass({
     render: function(){

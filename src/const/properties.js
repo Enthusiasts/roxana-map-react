@@ -8,7 +8,9 @@ module.exports = {
     // Roxana Web Api settings
     API: {
         ROOT: baseUri + "/spring/",
-        ROUTES: baseUri + "/routes/"
+        ROUTES: baseUri + "/routes/",
+        LOGIN: baseUri + "/login",
+        USER: baseUri + "/user"
     },
 
     // Map settings

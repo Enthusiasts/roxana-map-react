@@ -24,6 +24,16 @@ var server = new WebpackDevServer(compiler, {
             target: "http://127.0.0.1:8090",
             secure: false,
             xfwd: true
+        },
+        '/login*': {
+            target: "http://127.0.0.1:8090",
+            secure: false,
+            xfwd: true
+        },
+        '/user*': {
+            target: "http://127.0.0.1:8090",
+            secure: false,
+            xfwd: true
         }
     }
 });
