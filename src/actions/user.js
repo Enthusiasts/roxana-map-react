@@ -71,8 +71,9 @@ const fetchUserData = function () {
                 return response.json();
             })
             .then(json => {
-                var useful = json.userAuthentication.details.data;
+                var useful = json.details.data;
                 var profile = {
+                    id: json.client.id,
                     url: "https://instagram.com/" + useful.username,
                     image: useful.profile_picture,
                     login: useful.username,
