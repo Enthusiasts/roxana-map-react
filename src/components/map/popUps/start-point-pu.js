@@ -18,7 +18,7 @@ var StartPointPU = React.createClass({
     },
     render: function(){
         return (
-            <div className="popUp">
+            <div className="pop-up">
                 <div>
                     <span>Начать маршрут отсюда?</span>
                 </div>
