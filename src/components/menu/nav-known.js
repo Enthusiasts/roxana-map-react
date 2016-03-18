@@ -88,7 +88,7 @@ var NavKnown = React.createClass({
                             <i onClick={this.onclick3} className={classi3} title="1500-2500"/> &nbsp;
                             <i onClick={this.onclick4} className={classi4} title="Более 2500"/>
                         </div>
-                        <button id="clrBtn" className="btn btn-primary squaredBorders" onClick={this.offerRouteList}>
+                        <button id="clrBtn" className="btn btn-danger squaredBorders" onClick={this.offerRouteList}>
                             Построить маршрут
                         </button>
                     </div>
