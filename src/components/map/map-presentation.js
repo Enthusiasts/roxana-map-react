@@ -3,9 +3,13 @@
  */
 var React = require('react');
 var ReactLeaflet = require('react-leaflet');
-var Properties = require('../../const/properties');
 
+var Properties = require('../../const/properties');
 var EntertainmentInfo = require('./entertainment-info');
+var LocateControl = require('./controls/locate-control');
+var UserActions = require('../../actions/user');
+
+var StartPointPU = require('./popUps/start-point-pu');
 
 const Map = ReactLeaflet.Map;
 const Marker = ReactLeaflet.Marker;
@@ -17,6 +21,22 @@ const ZoomControl = ReactLeaflet.ZoomControl;
 var MapPresentation = React.createClass({
     contextTypes: {
         store: React.PropTypes.object.isRequired
+    },
+
+    setUserLocation: function(locationEvent)
+    {
+        var latlng = locationEvent.latlng;
+        this.context.store.dispatch(UserActions.setLocation(latlng.lat, latlng.lng));
+    },
+    openStartPointPopUp: function (mouseEvent){
+
+        var latlng = mouseEvent.latlng;
+        if (!this.props.popUps.startPointPopUpActive.active){
+            this.context.store.dispatch(UserActions.startPointPopUpActive(true, latlng.lat, latlng.lng));
+        }
+        else {
+            this.context.store.dispatch(UserActions.startPointPopUpActive(false, null, null));
+        }
     },
 
     renderEntertainments: function()
@@ -40,14 +60,28 @@ var MapPresentation = React.createClass({
             );
         } else return null;
     },
+    renderStartPointPopUp: function(){
+
+        var popup= this.props.popUps.startPointPopUpActive;
+        if (popup.active){
+            return (
+                <Popup position = {{lat: popup.latitude, lng: popup.longitude}}>
+                    <StartPointPU latitude = {popup.latitude} longitude = {popup.longitude} store = {this.context.store}/>
+                </Popup>
+            )}
+        else return null;
+    },
 
     render: function()
     {
         return  (
             <Map className="roxana-map"
-                 center={Properties.MAP.CENTER}
+                 center={{lat: Properties.MAP.CENTER.LATITUDE, lon: Properties.MAP.CENTER.LONGITUDE}}
                  zoom={Properties.MAP.ZOOM}
-                 zoomControl={false}>
+                 zoomControl={false}
+                 onLocationFound={this.setUserLocation}
+                 onClick={this.openStartPointPopUp}
+            >
                 <TileLayer
                     url='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -57,6 +91,8 @@ var MapPresentation = React.createClass({
                     zoomInTitle="Увеличить"
                     zoomOutTitle="Уменьшить"
                 />
+                <LocateControl/>
+                {this.renderStartPointPopUp()}
                 <Polyline positions={this.props.polyLine} color={"red"}/>
                 {this.renderEntertainments()}
             </Map>
@@ -67,7 +103,8 @@ var MapPresentation = React.createClass({
 
 MapPresentation.propTypes = {
     entertainments: React.PropTypes.array.isRequired,
-    polyLine: React.PropTypes.array.isRequired
+    polyLine: React.PropTypes.array.isRequired,
+    popUps: React.PropTypes.object.isRequired
 };
 
 module.exports = MapPresentation;

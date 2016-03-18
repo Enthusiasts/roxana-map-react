@@ -214,6 +214,46 @@ const updatePolyLine = function(entertainments)
     }
 };
 
+const offerRouteList = function (lat, lon, types)
+{
+    return (dispatch) =>
+    {
+        var query = "?lat=" + lat + "&lon=" + lon + "&type=" + types.join("&type=");
+        return fetch(Properties.API.ROUTES + "calculate" + query, {
+            method: 'GET',
+            mode: 'same-origin'
+        })
+            .then(response => response.json())
+            .then(
+                json =>
+                {
+                    if (!(json instanceof Array)) throw new Error();
+
+                    console.log("Loaded offered route: ", json);
+
+                    //Маршрут может состоять только из ограниченного количества пунктов, поэтому срезаем
+                    var sliced = json.slice(0, Properties.ROUTE.LIST.MAX_NUMBER);
+
+                    if (sliced.length == 0)
+                    {
+                        //TODO: message Извините нам нечего предложить :(
+                    }
+                    else
+                    {
+                        //dispatch(setContext(Properties.ROUTE.CONTEXTS.CREATE, {}));
+                        dispatch(setRouteListAndRenderPath(sliced));
+                    }
+                }
+            )
+            .catch(
+                e =>
+                {
+                    console.error("Error while loading offered route :(", e);
+                }
+            )
+    }
+};
+
 module.exports = {
     ADD_ROUTE_ITEM,
     SET_ROUTE_LIST,
@@ -227,5 +267,6 @@ module.exports = {
     clearRouteListAndSetCreateContext,
     addRouteItemAndRenderPath,
     setRouteListAndRenderPath,
-    setContext
+    setContext,
+    offerRouteList
 };
