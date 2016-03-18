@@ -256,8 +256,9 @@ const offerRouteList = function (lat, lon, types) {
                         dispatch(setContext(Properties.ROUTE.CONTEXTS.CREATE, {}));
                         dispatch(setRouteList(sliced));
                         // Хотим так же нарисовать линию от позиции юзер :)
-                        sliced.push({latitude: lat, longitude: lon});
-                        dispatch(updatePolyLine(sliced));
+                        var toPolyline = sliced.slice();
+                        toPolyline.push({latitude: lat, longitude: lon});
+                        dispatch(updatePolyLine(toPolyline));
                     }
                 }
             )
