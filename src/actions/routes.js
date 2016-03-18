@@ -5,8 +5,7 @@ var Properties = require('../const/properties');
 var Polyline = require('polyline');
 
 const ADD_ROUTE_ITEM = 'ADD_ROUTE_ITEM';
-const addRouteItem = function (entertainment)
-{
+const addRouteItem = function (entertainment) {
     return {
         type: ADD_ROUTE_ITEM,
         payload: {
@@ -16,8 +15,7 @@ const addRouteItem = function (entertainment)
 };
 
 const SET_ROUTE_LIST = 'SET_ROUTE_LIST';
-const setRouteList = function (entertainments)
-{
+const setRouteList = function (entertainments) {
     return {
         type: SET_ROUTE_LIST,
         payload: {
@@ -28,25 +26,21 @@ const setRouteList = function (entertainments)
 
 
 const CLEAR_ROUTE_LIST = 'CLEAR_ROUTE_LIST';
-const clearRouteList = function ()
-{
+const clearRouteList = function () {
     return {
         type: CLEAR_ROUTE_LIST
     };
 };
 
-const clearRouteListAndSetCreateContext = function ()
-{
-    return (dispatch) =>
-    {
+const clearRouteListAndSetCreateContext = function () {
+    return (dispatch) => {
         dispatch(clearRouteList());
         dispatch(setContext(Properties.ROUTE.CONTEXTS.CREATE, {}));
     }
 };
 
 const SET_CONTEXT = 'SET_CONTEXT';
-const setContext = function (context, extra)
-{
+const setContext = function (context, extra) {
     return {
         type: SET_CONTEXT,
         payload: {
@@ -59,8 +53,7 @@ const setContext = function (context, extra)
 };
 
 const SET_POLYLINE = 'SET_POLYLINE';
-const setPolyLine = function (polyLine)
-{
+const setPolyLine = function (polyLine) {
     return {
         type: SET_POLYLINE,
         payload: {
@@ -70,8 +63,7 @@ const setPolyLine = function (polyLine)
 };
 
 const SAVE_ROUTE_LIST_BEGIN = 'SAVE_ROUTE_LIST_BEGIN';
-const saveRouteListBegin = function()
-{
+const saveRouteListBegin = function () {
     return {
         type: SAVE_ROUTE_LIST_BEGIN
     };
@@ -79,8 +71,7 @@ const saveRouteListBegin = function()
 
 
 const SAVE_ROUTE_LIST_VALIDATE = 'SAVE_ROUTE_LIST_VALIDATE';
-const saveRouteListValidate = function(content)
-{
+const saveRouteListValidate = function (content) {
     return {
         type: SAVE_ROUTE_LIST_VALIDATE,
         payload: {
@@ -91,9 +82,8 @@ const saveRouteListValidate = function(content)
     };
 };
 
-const SAVE_ROUTE_LIST_ERROR= 'SAVE_ROUTE_LIST_ERROR';
-const saveRouteListError = function(reason)
-{
+const SAVE_ROUTE_LIST_ERROR = 'SAVE_ROUTE_LIST_ERROR';
+const saveRouteListError = function (reason) {
     return {
         type: SAVE_ROUTE_LIST_ERROR,
         payload: new Error(),
@@ -103,14 +93,11 @@ const saveRouteListError = function(reason)
     };
 };
 
-const saveRouteListAndSetEditContext = function (routeList)
-{
-    return (dispatch) =>
-    {
+const saveRouteListAndSetEditContext = function (routeList) {
+    return (dispatch) => {
         dispatch(saveRouteListBegin());
 
-        if (!routeList || !routeList.entertainments || !(routeList.entertainments.length > 0))
-        {
+        if (!routeList || !routeList.entertainments || !(routeList.entertainments.length > 0)) {
             dispatch(saveRouteListError('Произошла ошибка :('));
             console.error('Wrong entertainments definition');
             return;
@@ -122,7 +109,7 @@ const saveRouteListAndSetEditContext = function (routeList)
         var requestBody = {
             description: routeList.description,
             first: entertainmentUris[0],
-            last: entertainmentUris[entertainmentUris.length-1],
+            last: entertainmentUris[entertainmentUris.length - 1],
             entertainments: entertainmentUris
         };
 
@@ -135,21 +122,21 @@ const saveRouteListAndSetEditContext = function (routeList)
             mode: 'same-origin',
             body: JSON.stringify(requestBody)
         })
-        .then(response => response.json())
-        .then(json => {
-            const routeId = json.id;
-            console.log('Route with id \''+ routeId + '\' saved.');
+            .then(response => response.json())
+            .then(json => {
+                const routeId = json.id;
+                console.log('Route with id \'' + routeId + '\' saved.');
 
-            //Автоматически переводим в режим редактирования
-            dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId}));
+                //Автоматически переводим в режим редактирования
+                dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId}));
 
-            //Отправляем сообщеньку об успешнос сохранении
-            dispatch(saveRouteListValidate("Маршрут успешно сохранён!"));
-        })
-        .catch(error => {
-            console.error(error);
-            dispatch(saveRouteListError('Произошла ошибка :('))
-        })
+                //Отправляем сообщеньку об успешнос сохранении
+                dispatch(saveRouteListValidate("Маршрут успешно сохранён!"));
+            })
+            .catch(error => {
+                console.error(error);
+                dispatch(saveRouteListError('Произошла ошибка :('))
+            })
     }
 };
 
@@ -159,10 +146,8 @@ const saveRouteListAndSetEditContext = function (routeList)
  * @param items предыдущие заведения, которые уже лежат в дорожном листе
  * @returns {Function} thunk ;)
  */
-const addRouteItemAndRenderPath = function(routeItem, items)
-{
-    return (dispatch) =>
-    {
+const addRouteItemAndRenderPath = function (routeItem, items) {
+    return (dispatch) => {
         dispatch(addRouteItem(routeItem));
 
         // Если меньше 2 заведений в маршруте, то нет смысла строить путь.
@@ -181,20 +166,16 @@ const addRouteItemAndRenderPath = function(routeItem, items)
  * @param items - заведения, которые загружаются в дорожную карту
  * @returns {Function} thunk :)
  */
-const setRouteListAndRenderPath = function (items)
-{
-    return (dispatch) =>
-    {
+const setRouteListAndRenderPath = function (items) {
+    return (dispatch) => {
         dispatch(setRouteList(items));
         dispatch(updatePolyLine(items));
     }
 };
 
-const updatePolyLine = function(entertainments)
-{
-    return (dispatch) =>
-    {
-        var query = entertainments
+const updatePolyLine = function (points) {
+    return (dispatch) => {
+        var query = points
             .map(ent => (ent.latitude + ',' + ent.longitude))
             .join('&loc=');
 
@@ -214,10 +195,8 @@ const updatePolyLine = function(entertainments)
     }
 };
 
-const offerRouteList = function (lat, lon, types)
-{
-    return (dispatch) =>
-    {
+const offerRouteList = function (lat, lon, types) {
+    return (dispatch) => {
         var query = "?lat=" + lat + "&lon=" + lon + "&type=" + types.join("&type=");
         return fetch(Properties.API.ROUTES + "calculate" + query, {
             method: 'GET',
@@ -225,8 +204,7 @@ const offerRouteList = function (lat, lon, types)
         })
             .then(response => response.json())
             .then(
-                json =>
-                {
+                json => {
                     if (!(json instanceof Array)) throw new Error();
 
                     console.log("Loaded offered route: ", json);
@@ -234,20 +212,20 @@ const offerRouteList = function (lat, lon, types)
                     //Маршрут может состоять только из ограниченного количества пунктов, поэтому срезаем
                     var sliced = json.slice(0, Properties.ROUTE.LIST.MAX_NUMBER);
 
-                    if (sliced.length == 0)
-                    {
+                    if (sliced.length == 0) {
                         //TODO: message Извините нам нечего предложить :(
                     }
-                    else
-                    {
-                        //dispatch(setContext(Properties.ROUTE.CONTEXTS.CREATE, {}));
-                        dispatch(setRouteListAndRenderPath(sliced));
+                    else {
+                        dispatch(setContext(Properties.ROUTE.CONTEXTS.CREATE, {}));
+                        dispatch(setRouteList(sliced));
+                        // Хотим так же нарисовать линию от позиции юзер :)
+                        sliced.push({latitude: lat, longitude: lon});
+                        dispatch(updatePolyLine(sliced));
                     }
                 }
             )
             .catch(
-                e =>
-                {
+                e => {
                     console.error("Error while loading offered route :(", e);
                 }
             )
