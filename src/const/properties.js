@@ -2,7 +2,7 @@
  * Created by debal on 01.03.2016.
  */
 //Spring
-const baseUri = "http://127.0.0.1:3000";
+const baseUri = window.location.protocol + "//" + window.location.host;
 
 module.exports = {
     // Roxana Web Api settings
