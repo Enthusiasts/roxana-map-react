@@ -94,6 +94,12 @@ body, html {
     height: 100%;
 
 }
+.pop-up > button{
+    margin-top: 10px;
+    min-width: 170px;
+    width: 100%;
+}
+
 #menu,
 #menuLink{
     -webkit-transition: all 0.2s ease-out;
@@ -220,8 +226,6 @@ body, html {
     color: white;
     padding-left: 15px;
     padding-top: 1px;
-
-
 }
 #unknownMenuList .historyList .historyItem{
     margin-top: 15px;
@@ -233,15 +237,13 @@ body, html {
     margin-left: -moz-calc(50% - 18px);
     margin-left: -webkit-calc(50% - 18px);
 }
-#unknownMenuList .historyItem button{
+#unknownMenuList .historyItem i{
     padding: 0px 4px;
-    background: rgb(202, 60, 60);
     margin-top: -8px;
     margin-right: 2px;
     color: white;
     float: right;
 }
-
 
 #knownMenuList{
     width: 100%;
@@ -288,9 +290,31 @@ body, html {
     margin-top: 15px;
     margin-bottom: 20px;
 }
+.standart-coursor{
+    cursor: pointer;
+}
+#routeList .change-ent-order{
+    padding-bottom: 5px;
+    color: white;
+    display: inline-block;
+    width: 5%;
+}
+#routeList .delete {
+    position: relative;
+    bottom: 11px;
+    color: white;
+    display: inline-block;
+    width: 5%;
+}
+
 #routeList .routeListElem{
+    padding-bottom: 10px;
+    position: relative;
+    bottom: 11px;
+    display: inline-block;
+    width: 80%;
     border-bottom: 1px solid  white;
-    margin: 10px 10px;
+    margin: 10px 10px 0 10px;
     color: white;
 
 }
