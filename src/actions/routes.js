@@ -251,7 +251,7 @@ const updatePolyLine = function (points) {
 const offerRouteList = function (lat, lon, types) {
     return (dispatch) => {
         var query = "?lat=" + lat + "&lon=" + lon + "&type=" + types.join("&type=");
-        return fetch(Properties.API.ROUTES + "calculate" + query + "&useCost=true&useGeo=true", {
+        return fetch(Properties.API.ROUTES + "calculate" + query, {
             method: 'GET',
             mode: 'same-origin'
         })
