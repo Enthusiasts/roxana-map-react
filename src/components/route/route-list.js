@@ -31,11 +31,26 @@ var RouteList = React.createClass({
             return entertainments.map(
                 ent => {
                     return (
-                        <RouteItem key={"ri-" + ent.id} info={ent}/>
+                        <RouteItem
+                            key={"ri-" + ent.id}
+                            info={ent}
+                            onMoveUp={this.moveItem(true, ent.id)}
+                            onMoveDown={this.moveItem(false, ent.id)}
+                            onDelete={this.deleteItem(ent.id)}
+                            showEditButtons={this.inContext(Contexts.CREATE, Contexts.EDIT)}
+                        />
                     );
                 }
             );
         } else return null;
+    },
+
+    moveItem: function (up, id) {
+        return () => this.context.store.dispatch(Actions.moveItemAndRenderPath(this.props.items, up, id));
+    },
+
+    deleteItem: function (id) {
+        return () => this.context.store.dispatch(Actions.removeItemAndRenderPath(this.props.items, id));
     },
 
     clearRouteList: function () {

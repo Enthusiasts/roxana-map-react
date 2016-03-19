@@ -10,9 +10,6 @@ var HistoryItem = require('./history-item');
 var HistoryList = React.createClass({
     componentWillMount: function () {
         this.requestItems();
-        setInterval(() => {
-            this.requestItems();
-        }, 5000);
     },
 
     requestItems: function () {
