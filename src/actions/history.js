@@ -31,13 +31,13 @@ const fetchUserHistory = function(userId)
         dispatch(fetchUserHistoryBegin());
 
         //TODO: handle with userId
-        return fetch(Properites.API.ROOT + 'routes/')
+        return fetch(Properites.API.ROOT + 'routes/search/findByOwnerId?clientId='+userId)
             .then(response => response.json())
             .then(
                 json =>
                 {
                     var routes = json._embedded.routes;
-                    console.log("History: " + json.page.totalElements + " found, " + json.page.size + " received.");
+                    console.log("History: " + routes.length + " received.");
                     dispatch(fetchUserHistoryValidate(routes));
                 }
             );

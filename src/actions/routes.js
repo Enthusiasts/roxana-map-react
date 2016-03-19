@@ -105,7 +105,10 @@ const saveRouteListAndSetEditContext = function (routeList) {
         var entertainmentUris = routeList.entertainments
             .map(ent => Properties.API.ROOT + 'entertainments/' + ent.id);
 
+        var owner = Properties.API.ROOT + 'clients/' + routeList.userId;
+
         var requestBody = {
+            owner,
             description: routeList.description,
             first: entertainmentUris[0],
             last: entertainmentUris[entertainmentUris.length - 1],
@@ -128,8 +131,11 @@ const updateRouteListAndSetEditContext = function (id, routeList) {
         var entertainmentUris = routeList.entertainments
             .map(ent => Properties.API.ROOT + 'entertainments/' + ent.id);
 
+        var owner = Properties.API.ROOT + 'clients/' + routeList.userId;
+
         var requestBody = {
             id,
+            owner,
             description: routeList.description,
             first: entertainmentUris[0],
             last: entertainmentUris[entertainmentUris.length - 1],

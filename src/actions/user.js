@@ -85,6 +85,10 @@ const fetchUserData = function () {
                 console.log("Authorization success!", profile);
                 dispatch(setAuthorized(true));
                 dispatch(setUserInfo(profile));
+
+                // TODO: Грязный хак - исправить. Или не хак и не надо исправлять?
+                var HistoryActions = require('./history');
+                dispatch(HistoryActions.fetchUserHistory(profile.id));
             })
             .catch(e => {
                 console.log("Authorization failed :(");
