@@ -4,6 +4,7 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
+var open = require('open');
 
 var compiler = webpack(config);
 
@@ -45,3 +46,5 @@ server.listen(3000, 'localhost', function (err, result) {
 
     console.log('Listening at http://localhost:3000/');
 });
+
+open('http://127.0.0.1:3000/');
