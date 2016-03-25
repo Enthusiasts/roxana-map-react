@@ -70,6 +70,16 @@ const showClusterType = function (clusterType,
     };
 };
 
+const SHOW_ENT_LIKES = 'SHOW_ENT_LIKES';
+const showEntLikes = function(){
+    return {
+        type: SHOW_ENT_LIKES,
+        payload: {
+            likesNum
+        }
+    }
+}
+
 const fetchEntertainments = (naturalTypes) => {
     return (dispatch, getState) => {
         dispatch(requestEntertainments());
@@ -116,8 +126,10 @@ module.exports = {
     //ADD_PARTICULAR_ENTERTAINMENTS,
     SHOW_NATURAL_TYPE,
     SHOW_CLUSTER_TYPE,
+    SHOW_ENT_LIKES,
     errorEntertainments,
     fetchEntertainments,
-    showNaturalTypeAndFetchEntertainments
+    showNaturalTypeAndFetchEntertainments,
+    showEntLikes
     //addParticularEntertainments
 };

@@ -55,6 +55,15 @@ const startPointPopUpActive = function (active, latitude, longitude) {
         }
     };
 };
+const LIKE_ENT = "LIKE_ENT";
+const likeEnt = function(id_ent){
+    return{
+        type: LIKE_ENT,
+        payload: {
+            id_ent
+        }
+    }
+};
 
 const fetchUserData = function () {
     return (dispatch) => {
@@ -86,7 +95,7 @@ const fetchUserData = function () {
                 dispatch(setAuthorized(true));
                 dispatch(setUserInfo(profile));
 
-                // TODO: Грязный хак - исправить. Или не хак и не надо исправлять?
+                // TODO: Грязный хряк - исправить. Или не хак и не надо исправлять? (Правка текста 23:21 25.03.16)
                 var HistoryActions = require('./history');
                 dispatch(HistoryActions.fetchUserHistory(profile.id));
             })
@@ -104,10 +113,12 @@ module.exports = {
     SET_LOCATION,
     SET_START_LOCATION,
     START_POINT_POPUP_ACTIVE,
+    LIKE_ENT,
     setAuthorized,
     setUserInfo,
     setLocation,
     setStartLocation,
     startPointPopUpActive,
-    fetchUserData
+    fetchUserData,
+    likeEnt
 };

@@ -24,7 +24,8 @@ function user(state = {
             latitude: null,
             longitude: null
         }
-    }
+    },
+    likedEntIds: []
 
 }, action)
 {
@@ -50,6 +51,10 @@ function user(state = {
                 popUps: Object.assign({}, state.popUps, {
                     startPointPopUpActive: action.payload
                 })
+            });
+        case Actions.LIKE_ENT:
+            return Object.assign({}, state, {
+               likedEntIds: [...state.likedEntIds, action.payload.id_ent]
             });
 
         default:
