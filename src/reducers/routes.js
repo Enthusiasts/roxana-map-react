@@ -36,7 +36,11 @@ function routes(state = {
                 items: [],
                 error: {},
                 message: {},
-                polyLine: []
+                polyLine: [],
+                context: {
+                    current: Properties.ROUTE.CONTEXTS.CREATE,
+                    extra: {isSaving: false}
+                }
             });
 
         case Actions.SAVE_ROUTE_LIST_BEGIN:

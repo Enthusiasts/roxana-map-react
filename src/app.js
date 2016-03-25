@@ -10,14 +10,15 @@ var configureStore = require('./configureStore');
 const Provider = ReactRedux.Provider;
 const store = configureStore();
 
-//TODO: move to another layer or smth
-if (window.opener)
-{
-    // ?
-} else {
-    ReactDOM.render(
-        <Provider store={store}>
-            <RoxanaApp />
-        </Provider>,
-        document.getElementById("application"));
-}
+// TODO: hack... remove
+var HistoryActions = require('./actions/history');
+setInterval(() => {
+    var userId = store.getState().User.userInfo.id;
+    if (userId) store.dispatch(HistoryActions.fetchUserHistory(userId))
+}, 5000);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <RoxanaApp />
+    </Provider>,
+    document.getElementById("application"));

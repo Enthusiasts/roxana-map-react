@@ -37,18 +37,18 @@ var EntertainmentInfo = React.createClass({
         return (currentRoute.some(ent => ent.id === this.props.entertainment.id)
                 || currentRoute.length >= Properties.ROUTE.LIST.MAX_NUMBER)
             ? null
-            : <b><button onClick={this.addToRouteList} className="btn btn-primary squaredBorders">Добавить к маршруту</button></b>;
+            : <button onClick={this.addToRouteList} className="btn btn-primary squaredBorders">Добавить к маршруту</button>;
     },
 
     render: function()
     {
         return (
-            <span>
+            <div className="pop-up">
                 <b>Название: </b>{this.props.entertainment.title} <br />
                 <b>Район: </b>{this.props.entertainment.zoneTitle} <br />
                 <b>Средняя стоимость: </b>{this.props.entertainment.cost} <br />
                 {this.renderAddToRouteListButton()}
-            </span>
+            </div>
         )
     }
 });

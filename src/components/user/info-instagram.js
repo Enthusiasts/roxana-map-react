@@ -8,10 +8,10 @@ var UserInfo = React.createClass({
     render: function()
     {
         return (
-            <div className="span4 well">
-                <div className="row">
+            <div className="historyList">
+                <div className="historyItem">
                     <div className="span1">
-                        <a href={this.props.profileUrl} target="_blank" className="thumbnail">
+                        <a href={this.props.profileUrl} target="_blank">
                             <img src={this.props.profileImage} alt="" />
                         </a>
                     </div>

@@ -3,12 +3,12 @@
  */
 var React = require('react');
 var ReactLeaflet = require('react-leaflet');
+var _ = require('underscore');
 
 var Properties = require('../../const/properties');
 var EntertainmentInfo = require('./entertainment-info');
 var LocateControl = require('./controls/locate-control');
 var UserActions = require('../../actions/user');
-
 var StartPointPU = require('./popUps/start-point-pu');
 
 const Map = ReactLeaflet.Map;
@@ -43,7 +43,12 @@ var MapPresentation = React.createClass({
     {
         if (this.props.entertainments)
         {
-            return this.props.entertainments.map(
+            var t = _.chain(this.props.entertainments)
+                .mapObject(x => _.values(x))
+                .values()
+                .flatten()
+                .value();
+            return t.map(
                 ent => {
                     return (
                         <Marker
@@ -102,7 +107,7 @@ var MapPresentation = React.createClass({
 });
 
 MapPresentation.propTypes = {
-    entertainments: React.PropTypes.array.isRequired,
+    entertainments: React.PropTypes.object.isRequired,
     polyLine: React.PropTypes.array.isRequired,
     popUps: React.PropTypes.object.isRequired
 };

@@ -31,11 +31,26 @@ var RouteList = React.createClass({
             return entertainments.map(
                 ent => {
                     return (
-                        <RouteItem key={"ri-" + ent.id} info={ent}/>
+                        <RouteItem
+                            key={"ri-" + ent.id}
+                            info={ent}
+                            onMoveUp={this.moveItem(true, ent.id)}
+                            onMoveDown={this.moveItem(false, ent.id)}
+                            onDelete={this.deleteItem(ent.id)}
+                            showEditButtons={this.inContext(Contexts.CREATE, Contexts.EDIT)}
+                        />
                     );
                 }
             );
         } else return null;
+    },
+
+    moveItem: function (up, id) {
+        return () => this.context.store.dispatch(Actions.moveItemAndRenderPath(this.props.items, up, id));
+    },
+
+    deleteItem: function (id) {
+        return () => this.context.store.dispatch(Actions.removeItemAndRenderPath(this.props.items, id));
     },
 
     clearRouteList: function () {
@@ -44,9 +59,11 @@ var RouteList = React.createClass({
     },
 
     saveRouteList: function () {
+        var userId = this.context.store.getState().User.userInfo.id;
         if (this.inContext(Contexts.CREATE)) {
             // После того как сохранили, контекст автоматически перейдёт в режим редактирования
             this.context.store.dispatch(Actions.saveRouteListAndSetEditContext({
+                userId,
                 description: '',
                 entertainments: this.props.items
             }));
@@ -55,6 +72,7 @@ var RouteList = React.createClass({
             console.log(this.context.store.getState());
             this.context.store.dispatch(Actions.updateRouteListAndSetEditContext(
                 this.props.context.extra.routeId, {
+                    userId,
                     description: '',
                     entertainments: this.props.items
                 }
@@ -95,8 +113,15 @@ var RouteList = React.createClass({
 
     render: function () {
         if (this.props.items.length <= 0) return null;
+        const contextLabel = () => {
+            if (this.props.context.current == Properties.ROUTE.CONTEXTS.CREATE) return 'Создание';
+            if (this.props.context.current == Properties.ROUTE.CONTEXTS.EDIT) return 'Редактирование';
+            if (this.props.context.current == Properties.ROUTE.CONTEXTS.WATCH) return 'Просмотр';
+            return '';
+        };
         return (
             <div id="routeList">
+                <small style={{color: 'white'}}>{contextLabel()}</small>
                 {this.renderSaveMessage()}
                 {this.renderErrorMessage()}
                 {this.renderEntertainments()}

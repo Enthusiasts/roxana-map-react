@@ -3,17 +3,15 @@
  */
 var React = require('react');
 var ReactRedux = require('react-redux');
+var _ = require('underscore');
+
 var Map = require('./map-presentation');
 
-const mapStateToProps = (state) =>
-{
+const mapStateToProps = (state) => {
     return {
-        entertainments: [].concat(
-            state.Entertainments.cafe,
-            state.Entertainments.restaurant,
-            state.Entertainments.bar,
-            state.Entertainments.club
-        ),
+        entertainments: _.chain(state.Entertainments.points)
+            .pick((value, key) => state.Entertainments.naturalTypes.indexOf(key) !== -1)
+            .value(),
         polyLine: state.Routes.polyLine,
         popUps: state.User.popUps
     };

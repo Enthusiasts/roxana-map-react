@@ -9,7 +9,7 @@ var HistoryList = require('./history-list');
 const mapStateToProps = (state) =>
 {
     return {
-        isAuthorized: true,
+        isAuthorized: state.User.isAuthorized,
         items: state.History.savedRoutes
     };
 };

@@ -96,16 +96,24 @@ const saveRouteListError = function (reason) {
 const saveRouteListAndSetEditContext = function (routeList) {
     return (dispatch) => {
 
-        if (!routeList || !routeList.entertainments || !(routeList.entertainments.length > 0)) {
+        if (!routeList || !routeList.entertainments) {
             dispatch(saveRouteListError('Произошла ошибка :('));
             console.error('Wrong entertainments definition');
+            return;
+        }
+
+        if (routeList.entertainments.length < 2) {
+            dispatch(saveRouteListError('Слишком мало выбранных заведений :('));
             return;
         }
 
         var entertainmentUris = routeList.entertainments
             .map(ent => Properties.API.ROOT + 'entertainments/' + ent.id);
 
+        var owner = Properties.API.ROOT + 'clients/' + routeList.userId;
+
         var requestBody = {
+            owner,
             description: routeList.description,
             first: entertainmentUris[0],
             last: entertainmentUris[entertainmentUris.length - 1],
@@ -125,11 +133,19 @@ const updateRouteListAndSetEditContext = function (id, routeList) {
             return;
         }
 
+        if (routeList.entertainments.length < 2) {
+            dispatch(saveRouteListError('Слишком мало выбранных заведений :('));
+            return;
+        }
+
         var entertainmentUris = routeList.entertainments
             .map(ent => Properties.API.ROOT + 'entertainments/' + ent.id);
 
+        var owner = Properties.API.ROOT + 'clients/' + routeList.userId;
+
         var requestBody = {
             id,
+            owner,
             description: routeList.description,
             first: entertainmentUris[0],
             last: entertainmentUris[entertainmentUris.length - 1],
@@ -270,6 +286,52 @@ const offerRouteList = function (lat, lon, types) {
     }
 };
 
+const moveItemAndRenderPath = function (items, up, id) {
+    return (dispatch) => {
+        var arr = items.slice();
+        var index = arr.findIndex(x => x.id == id);
+
+        var temp = arr[index];
+        if (up) {
+            if (index == 0) return;
+            arr[index] = arr[index - 1];
+            arr[index - 1] = temp;
+        } else {
+            if (index == arr.length - 1) return;
+            arr[index] = arr[index + 1];
+            arr[index + 1] = temp;
+        }
+
+        dispatch(setRouteList(arr));
+        dispatch(updatePolyLine(arr));
+    }
+};
+
+const removeItemAndRenderPath = function (items, id) {
+    return (dispatch) => {
+        if (items.length <= 1) {
+            dispatch(clearRouteList());
+            return;
+        }
+
+        var index = items.findIndex(x => x.id == id);
+        var arr = items.slice();
+
+        if (index == 0) {
+            arr.splice(0, 1);
+        }
+        else if (index == items.length - 1) {
+            arr.splice(index, 1);
+        }
+        else {
+            arr.splice(index, 1);
+        }
+
+        dispatch(setRouteList(arr));
+        dispatch(updatePolyLine(arr));
+    }
+};
+
 module.exports = {
     ADD_ROUTE_ITEM,
     SET_ROUTE_LIST,
@@ -285,5 +347,7 @@ module.exports = {
     addRouteItemAndRenderPath,
     setRouteListAndRenderPath,
     setContext,
-    offerRouteList
+    offerRouteList,
+    moveItemAndRenderPath,
+    removeItemAndRenderPath
 };
