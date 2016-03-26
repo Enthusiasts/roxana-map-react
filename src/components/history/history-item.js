@@ -29,8 +29,9 @@ var HistoryItem = React.createClass({
         var last = this.props.route.last.title;
         return(
             <div className="historyItem">
-                <i onClick={this.deleteRoute} className="fa fa-times"/>
-                <i onClick={this.editRoute } className="fa fa-pencil"/>
+                <i onClick={this.deleteRoute} className="fa fa-times standart-coursor"/>
+                <i onClick={this.editRoute } className="fa fa-pencil standart-coursor"/>
+                <i onClick= "" className="fa fa-heart standart-coursor"/>
                 <div onClick={this.watchRoute}><b>{first}</b><br/></div>
                 <div onClick={this.watchRoute} className="fa fa-arrow-down arrowIcon"><br/></div>
                 <div onClick={this.watchRoute}><b>{last}</b></div>

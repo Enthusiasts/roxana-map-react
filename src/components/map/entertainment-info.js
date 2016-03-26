@@ -3,23 +3,52 @@
  */
 var React = require('react');
 var Actions = require('../../actions/routes');
+var UserActions = require('../../actions/user');
 var Properties = require('../../const/properties');
+var classNames = require('classnames');
 
 // Немного изменил - теперь сюда передаётся объект entertainment полностью
 var EntertainmentInfo = React.createClass({
     // К моменту создания контекст теряется!
     /*contextTypes: {
-        store: React.PropTypes.object.isRequired
-    },*/
+     store: React.PropTypes.object.isRequired
+     },*/
 
-    addToRouteList: function ()
-    {
+    componentWillMount: function () {
+        fetch(Properties.API.ROOT + "entertainments/" + this.props.entertainment.id)
+            .then(response => response.json())
+            .then(json => {
+                this.setState({
+                    isShown: true,
+                    numLikes: json.likesNumberTotal,
+                    liked: this.props.liked
+                });
+            });
+    },
+
+    getInitialState: function () {
+        //var liked = this.props.store.getState().User.likedEntIds.indexOf(this.props.entertainment.id) >= 0;
+        //var num = Math.floor(Math.random()*(20-5+1))+5;
+        var numLikes = 0;
+        return {isShown: false, numLikes, liked: this.props.liked}
+    },
+
+    likeEnt: function () {
+        if (!this.props.store.getState().User.isAuthorized) return;
+        this.props.store.dispatch(UserActions.likeEntAndSave(this.props.entertainment.id, this.state.liked));
+        this.setState({
+            isShown: true,
+            numLikes: !this.state.liked ? this.state.numLikes + 1 : this.state.numLikes - 1,
+            liked: !this.state.liked
+        });
+    },
+
+    addToRouteList: function () {
         //TODO: вынести на уровень props
         var routeContext = this.props.store.getState().Routes.context;
         const Contexts = Properties.ROUTE.CONTEXTS;
 
-        if ([Contexts.EDIT, Contexts.CREATE].every(x => x != routeContext.current))
-        {
+        if ([Contexts.EDIT, Contexts.CREATE].every(x => x != routeContext.current)) {
             this.props.store.dispatch(Actions.setContext(Contexts.CREATE, {}));
         }
 
@@ -29,24 +58,34 @@ var EntertainmentInfo = React.createClass({
         this.props.store.dispatch(Actions.addRouteItemAndRenderPath(this.props.entertainment, currentRoute));
     },
 
-    renderAddToRouteListButton: function ()
-    {
+    renderAddToRouteListButton: function () {
         var currentRoute = this.props.store.getState().Routes.items;
 
         // Проверяем, есть ли такое заведение в списке или иcчерпан ли лимит маршрута
         return (currentRoute.some(ent => ent.id === this.props.entertainment.id)
-                || currentRoute.length >= Properties.ROUTE.LIST.MAX_NUMBER)
+        || currentRoute.length >= Properties.ROUTE.LIST.MAX_NUMBER)
             ? null
-            : <button onClick={this.addToRouteList} className="btn btn-primary squaredBorders">Добавить к маршруту</button>;
+            : <button onClick={this.addToRouteList} className="btn btn-primary squaredBorders">Добавить к
+            маршруту</button>;
     },
 
-    render: function()
-    {
+    render: function () {
+        var colorStyle = classNames({
+            'fa fa-2x fa-heart standart-coursor liked': this.state.liked,
+            'fa fa-2x fa-heart standart-coursor': !this.state.liked
+        });
+        if (!this.state.isShown) return (
+            <div className="pop-up"></div>
+        );
         return (
             <div className="pop-up">
-                <b>Название: </b>{this.props.entertainment.title} <br />
-                <b>Район: </b>{this.props.entertainment.zoneTitle} <br />
-                <b>Средняя стоимость: </b>{this.props.entertainment.cost} <br />
+                {this.props.entertainment.type}<br/>
+                <b>Название: </b>{this.props.entertainment.title} <br/>
+                <b>Район: </b>{this.props.entertainment.zoneTitle} <br/>
+                <b>Средняя стоимость: </b>{this.props.entertainment.cost} <br/>
+                <i><b>{this.state.numLikes}</b></i>
+                <i onClick={this.likeEnt} className={colorStyle}/>
+                <br/> <br/>
                 {this.renderAddToRouteListButton()}
             </div>
         )
@@ -55,7 +94,7 @@ var EntertainmentInfo = React.createClass({
 
 EntertainmentInfo.propTypes = {
     entertainment: React.PropTypes.object.isRequired,
-
+    liked: React.PropTypes.bool.isRequired,
     // ! Передаём как props потому что к моменту создания this.context теряется!
     store: React.PropTypes.object.isRequired
 };
