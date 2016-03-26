@@ -12,6 +12,7 @@ const mapStateToProps = (state) => {
         entertainments: _.chain(state.Entertainments.points)
             .pick((value, key) => state.Entertainments.naturalTypes.indexOf(key) !== -1)
             .value(),
+        likedEntertainmentIds: state.User.likedEntIds,
         polyLine: state.Routes.polyLine,
         popUps: state.User.popUps,
         isAuthorized: state.User.isAuthorized

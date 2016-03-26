@@ -57,6 +57,7 @@ var MapPresentation = React.createClass({
                             <Popup>
                                 <EntertainmentInfo
                                     store={this.context.store}
+                                    liked={this.props.likedEntertainmentIds.indexOf(ent.id) != -1}
                                     entertainment={ent} />
                             </Popup>
                         </Marker>
@@ -108,6 +109,7 @@ var MapPresentation = React.createClass({
 
 MapPresentation.propTypes = {
     entertainments: React.PropTypes.object.isRequired,
+    likedEntertainmentIds: React.PropTypes.array.isRequired,
     polyLine: React.PropTypes.array.isRequired,
     popUps: React.PropTypes.object.isRequired
 };

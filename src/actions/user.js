@@ -14,11 +14,13 @@ const setAuthorized = function (isAuthorized) {
 };
 
 const SET_USERINFO = 'SET_USERINFO';
-const setUserInfo = function (userInfo) {
+const setUserInfo = function (userInfo, likedEntertainments, likedRoutes) {
     return {
         type: SET_USERINFO,
         payload: {
-            userInfo
+            userInfo,
+            likedEntertainments,
+            likedRoutes
         }
     };
 };
@@ -55,13 +57,54 @@ const startPointPopUpActive = function (active, latitude, longitude) {
         }
     };
 };
+
 const LIKE_ENT = "LIKE_ENT";
-const likeEnt = function(id_ent){
-    return{
+const likeEnt = function (id, isUnlike) {
+    return {
         type: LIKE_ENT,
         payload: {
-            id_ent
+            id,
+            isUnlike
         }
+    }
+};
+
+const likeEntAndSave = function(id, isUnlike = false) {
+    return (dispatch, getState) => {
+        if (isUnlike) {
+            /*return fetch(Properties.API.ROOT + 'clients/' + getState().User.userInfo.id + '/likedEntertainments', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                mode: 'same-origin',
+                body: [...getState().User.likedEntertainments, id].map(x => Properties.API.ROOT + 'entertainments/' + x).join('\n')
+            })
+                .then(() => {
+                    console.log(id + ' unliked.');
+                    dispatch(likeEnt(id));
+                })
+                .catch((e) => {
+                    console.error("Can't like " + id, e);
+                })*/
+        }
+        return fetch(Properties.API.ROOT + 'clients/' + getState().User.userInfo.id + '/likedEntertainments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/uri-list'
+            },
+            mode: 'same-origin',
+            body: //!isUnlike
+                /*?*/ Properties.API.ROOT + 'entertainments/' + id
+                //: [...getState().User.likedEntertainments, id].map(x => Properties.API.ROOT + 'entertainments/' + x).join('\n')
+        })
+            .then(() => {
+                console.log(id + ' liked.');
+                dispatch(likeEnt(id, isUnlike));
+            })
+            .catch((e) => {
+                console.error("Can't like " + id, e);
+            })
     }
 };
 
@@ -93,7 +136,11 @@ const fetchUserData = function () {
 
                 console.log("Authorization success!", profile);
                 dispatch(setAuthorized(true));
-                dispatch(setUserInfo(profile));
+                dispatch(setUserInfo(
+                    profile,
+                    json.client.likedEntertainments.map(x => x.id),
+                    json.client.likedRoutes.map(x => x.id)
+                ));
 
                 // TODO: Грязный хряк - исправить. Или не хак и не надо исправлять? (Правка текста 23:21 25.03.16)
                 var HistoryActions = require('./history');
@@ -120,5 +167,5 @@ module.exports = {
     setStartLocation,
     startPointPopUpActive,
     fetchUserData,
-    likeEnt
+    likeEntAndSave
 };
