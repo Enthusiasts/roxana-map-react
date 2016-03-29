@@ -93,16 +93,20 @@ body, html {
     height: 100%;
 
 }
-.pop-up {
-    min-width: 200px;
-    min-height: 200px;
+.pop-up-default > button{
+    margin-top: 10px;
+    width: 100%;
 }
+.pop-up{
+    min-width: 215px;
+    min-height: 10px;
+}
+
 .pop-up > button{
     margin-top: 10px;
-    min-width: 170px;
-    width: calc(100%- 50px);
-    width: -moz-calc(100%- 50px);
-    width: -webkit-calc(100%- 50px);
+    width: calc(100% - 50px);
+    width: -moz-calc(100% - 50px);
+    width: -webkit-calc(100% - 50px);
 }
 .pop-up > i{
     position: relative;
@@ -308,32 +312,39 @@ body, html {
 .standart-coursor{
     cursor: pointer;
 }
+
+#routeList .routeListElem .state{
+    align-self: center;
+    align-items: center;
+    display: inline-flex;
+
+}
+
 #routeList .change-ent-order{
-    padding-bottom: 5px;
     color: white;
-    display: inline-block;
     width: 5%;
+
 }
 #routeList .delete {
     position: relative;
-    bottom: 11px;
+    left: 10px;
     color: white;
-    display: inline-block;
     width: 5%;
 }
-
 #routeList .routeListElem{
-    padding-bottom: 10px;
-    position: relative;
-    bottom: 11px;
-    display: inline-block;
+    display: inline-flex;
+    width: 100%;
+}
+
+
+#routeList .routeListElem > .props{
     width: 80%;
     border-bottom: 1px solid  white;
     margin: 10px 10px 0 10px;
     color: white;
 
 }
-#routeList .routeListElem > small {
+#routeList .routeListElem > .props > small {
     float: right;
 
 }

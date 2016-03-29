@@ -79,13 +79,12 @@ var EntertainmentInfo = React.createClass({
         );
         return (
             <div className="pop-up">
-                {this.props.entertainment.type}<br/>
+                <b>{this.props.entertainment.type}</b><br/>
                 <b>Название: </b>{this.props.entertainment.title} <br/>
                 <b>Район: </b>{this.props.entertainment.zoneTitle} <br/>
                 <b>Средняя стоимость: </b>{this.props.entertainment.cost} <br/>
                 <i><b>{this.state.numLikes}</b></i>
                 <i onClick={this.likeEnt} className={colorStyle}/>
-                <br/> <br/>
                 {this.renderAddToRouteListButton()}
             </div>
         )

@@ -29,13 +29,16 @@ var RouteItem = React.createClass({
     render: function () {
         var entertainment = this.props.info;
         return (
-            <div>
-                <div className="routeListElem">
+            <div className="routeListElem">
+                <div className="props">
                     <small>{entertainment.type}</small>
-                    {entertainment.title} $: {entertainment.cost}
+                    <br/>
+                    {entertainment.title} <i className= "fa fa-rub"/>: {entertainment.cost}
                 </div>
-                {this.renderMoveButtons()}
-                {this.renderDeleteButton()}
+                <div className="state">
+                    {this.renderMoveButtons()}
+                    {this.renderDeleteButton()}
+                </div>
             </div>
         );
     }
