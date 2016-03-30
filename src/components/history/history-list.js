@@ -8,27 +8,29 @@ var Actions = require('../../actions/history');
 var HistoryItem = require('./history-item');
 
 var HistoryList = React.createClass({
-    componentWillMount: function()
-    {
-        this.context.store.dispatch(Actions.fetchUserHistory(0));
+    componentWillMount: function () {
+        this.requestItems();
     },
 
-    renderItems: function()
-    {
+    requestItems: function () {
+        var userId = this.context.store.getState().User.userInfo.id;
+        if (userId) this.context.store.dispatch(Actions.fetchUserHistory(userId))
+    },
+
+    renderItems: function () {
         var items = this.props.items;
         return items
             ? items.map(route => <HistoryItem key={"hi" + route.id} route={route}/>)
             : null;
     },
 
-    render: function()
-    {
+    render: function () {
         return this.props.isAuthorized && this.props.items.length > 0
-            ?  (
-                <div className="historyList">
-                    {this.renderItems()}
-                </div>
-            )
+            ? (
+            <div className="historyList">
+                {this.renderItems()}
+            </div>
+        )
             : null;
     }
 });

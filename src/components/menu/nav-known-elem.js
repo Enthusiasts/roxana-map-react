@@ -9,28 +9,29 @@ var Properties = require('../../const/properties');
 var classNames = require('classnames');
 
 var NavUnknownElem = React.createClass({
-   contextTypes: {
+    contextTypes: {
         store: React.PropTypes.object.isRequired
     },
-    getInitialState: function(){
-        return {isActive: false}
+    getInitialState: function () {
+        return {isActive: this.context.store.getState().Entertainments.naturalTypes.indexOf(this.props.type) != -1}
     },
 
-    testActionDispatch: function ()
-    {
+    showEntertainmentsOfNaturalType: function () {
         console.log(this.props.type + " requested.");
-        this.setState({isActive: true })
-        this.context.store.dispatch(Actions.fetchEntertainments(this.props.type));
+        this.setState({isActive: !this.state.isActive});
+        this.context.store.dispatch(
+            Actions.showNaturalTypeAndFetchEntertainments(this.props.type, !this.state.isActive)
+        );
     },
 
-    render: function(){
+    render: function () {
         var active = classNames({
             'pure-menu-link active': this.state.isActive,
             'pure-menu-link': !this.state.isActive
         });
-        return  (
+        return (
             <li className="pure-menu-item">
-                <a onClick={this.testActionDispatch} className={active}>
+                <a onClick={this.showEntertainmentsOfNaturalType} className={active}>
                     {Properties.ENTERTAINMENT.TYPE.translate(this.props.type)}
                 </a>
             </li>

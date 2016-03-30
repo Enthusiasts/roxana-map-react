@@ -12,7 +12,7 @@ const mapStateToProps = (state) =>
 {
     return {
         items: state.Routes.items,
-        isAuthorized: true,
+        isAuthorized: state.User.isAuthorized,
         context: state.Routes.context,
         error: state.Routes.error,
         message: state.Routes.message,

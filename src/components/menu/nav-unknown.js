@@ -4,7 +4,7 @@
 var React = require('react');
 var Properties = require('../../const/properties');
 
-var UserInfo = require('../user/user-instagram');
+var UserMenuContainer = require('../user/menu-instagram-container');
 var HistoryContainer = require('../history/history-container');
 
 var NavUnknown = React.createClass({
@@ -12,9 +12,8 @@ var NavUnknown = React.createClass({
     render: function(){
         return (
             <div id="unknownMenuList" className="pure-menu">
-
-            <HistoryContainer/>
-
+                <UserMenuContainer/>
+                <HistoryContainer/>
             </div>
         )
     }

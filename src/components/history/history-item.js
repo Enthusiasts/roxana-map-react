@@ -7,20 +7,6 @@ var _ = require('underscore');
 var Actions = require('../../actions/history');
 
 var HistoryItem = React.createClass({
-    componentWillMount: function()
-    {
-        this.context.store.dispatch(Actions.fetchRouteSummary(this.props.route));
-    },
-
-    componentWillUpdate: function()
-    {
-        this.context.store.dispatch(Actions.fetchRouteSummary(this.props.route));
-    },
-
-    shouldComponentUpdate: function()
-    {
-        return !this.props.route.first || !this.props.route.last;
-    },
 
     watchRoute: function()
     {
@@ -39,13 +25,13 @@ var HistoryItem = React.createClass({
 
     render: function()
     {
-        var first = this.props.route.first ? this.props.route.first.title : '...';
-        var last = this.props.route.last ? this.props.route.last.title : '...';
-        console.log("sd");
+        var first = this.props.route.first.title;
+        var last = this.props.route.last.title;
         return(
             <div className="historyItem">
-                <button onClick={this.deleteRoute} className="pure-button squaredBorders"><i className="fa fa-times"/></button>
-                <button onClick={this.editRoute } className="pure-button squaredBorders"><i className="fa fa-pencil"/></button>
+                <i onClick={this.deleteRoute} className="fa fa-times standart-coursor"/>
+                <i onClick={this.editRoute } className="fa fa-pencil standart-coursor"/>
+                <i onClick= "" className="fa fa-heart standart-coursor"/>
                 <div onClick={this.watchRoute}><b>{first}</b><br/></div>
                 <div onClick={this.watchRoute} className="fa fa-arrow-down arrowIcon"><br/></div>
                 <div onClick={this.watchRoute}><b>{last}</b></div>

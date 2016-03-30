@@ -3,28 +3,50 @@
  */
 var React = require('react');
 
+var Actions = require('../../actions/routes');
+
 var RouteItem = React.createClass({
-    render: function()
-    {
+
+    renderMoveButtons: function() {
+        if (!this.props.showEditButtons) return null;
+        return (
+            <div className="change-ent-order">
+                <i onClick={this.props.onMoveUp} className="fa fa-arrow-up standart-coursor"/>
+                <i onClick={this.props.onMoveDown} className="fa fa-arrow-down standart-coursor"/>
+            </div>
+        );
+    },
+
+    renderDeleteButton: function() {
+        if (!this.props.showEditButtons) return null;
+        return (
+            <div className="delete">
+                <i onClick={this.props.onDelete} className="fa fa-minus standart-coursor"/>
+            </div>
+        );
+    },
+
+    render: function () {
         var entertainment = this.props.info;
         return (
             <div className="routeListElem">
-                <small>{entertainment.type}</small>
-                <small><br/></small>
-                <b>{entertainment.title}</b>, {entertainment.zoneTitle}
+                <div className="props">
+                    <small>{entertainment.type}</small>
+                    <br/>
+                    {entertainment.title} <i className= "fa fa-rub"/>: {entertainment.cost}
+                </div>
+                <div className="state">
+                    {this.renderMoveButtons()}
+                    {this.renderDeleteButton()}
+                </div>
             </div>
         );
     }
 });
 
 RouteItem.propTypes = {
-    // Объект вида
-    // {
-    //  id: 0,
-    //  title: 'Сохо'
-    //  zoneTitle: 'район замоскворечье',
-    // }
-    info: React.PropTypes.object.isRequired
+    info: React.PropTypes.object.isRequired,
+    showEditButtons: React.PropTypes.bool.isRequired
 };
 
 

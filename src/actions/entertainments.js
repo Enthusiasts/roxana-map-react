@@ -4,23 +4,18 @@
 var Properties = require('../const/properties');
 
 const REQUEST_ENTERTAINMENTS = 'GET_ENTERTAINMENTS';
-const requestEntertainments = function (entertainmentsType)
-{
+const requestEntertainments = function () {
     return {
-        type: REQUEST_ENTERTAINMENTS,
-        payload: {
-            entertainmentsType
-        }
+        type: REQUEST_ENTERTAINMENTS
     };
 };
 
 const RECEIVE_ENTERTAINMENTS = 'RECEIVE_ENTERTAINMENTS';
-const receiveEntertainments = function (entertainmentsType, entertainments)
-{
+const receiveEntertainments = function (naturalTypes, entertainments) {
     return {
         type: RECEIVE_ENTERTAINMENTS,
         payload: {
-            entertainmentsType,
+            naturalTypes,
             entertainments,
             receivedAt: Date.now()
         }
@@ -28,8 +23,7 @@ const receiveEntertainments = function (entertainmentsType, entertainments)
 };
 
 const ERROR_ENTERTAINMENTS = 'ERROR_ENTERTAINMENTS';
-const errorEntertainments = function (entertainmentsType)
-{
+const errorEntertainments = function (entertainmentsType) {
     return {
         type: ERROR_ENTERTAINMENTS,
         payload: new Error(),
@@ -37,27 +31,65 @@ const errorEntertainments = function (entertainmentsType)
     };
 };
 /*
-const ADD_PARTICULAR_ENTERTAINMENTS = 'ADD_PARTICULAR_ENTERTAINMENTS';
-const addParticularEntertainments = function (ids)
-{
+ const ADD_PARTICULAR_ENTERTAINMENTS = 'ADD_PARTICULAR_ENTERTAINMENTS';
+ const addParticularEntertainments = function (ids)
+ {
+ return {
+ type: ADD_PARTICULAR_ENTERTAINMENTS,
+ payload: {
+ ids
+ }
+ };
+ };*/
+
+const SHOW_NATURAL_TYPE = 'SHOW_NATURAL_TYPE';
+const showNaturalType = function (naturalType, isShowing = true) {
     return {
-        type: ADD_PARTICULAR_ENTERTAINMENTS,
+        type: SHOW_NATURAL_TYPE,
         payload: {
-            ids
+            naturalType,
+            isShowing
         }
     };
-};*/
+};
 
-function fetchEntertainments(entertainmentsType)
-{
-    return function (dispatch)
-    {
-        dispatch(requestEntertainments(entertainmentsType));
+const SHOW_CLUSTER_TYPE = 'SHOW_CLUSTER_TYPE';
+const showClusterType = function (clusterType,
+                                  isShowing = true,
+                                  from = Properties.CLUSTER.min(clusterType),
+                                  to = Properties.CLUSTER.max(clusterType)) {
+    if (from > to) console.warn("Cluster range cannot start from greater number :(", from, to);
+    return {
+        type: SHOW_CLUSTER_TYPE,
+        payload: {
+            clusterType,
+            from,
+            to,
+            isShowing
+        }
+    };
+};
 
-        var ent_type = Properties.ENTERTAINMENT.TYPE;
+const SHOW_ENT_LIKES = 'SHOW_ENT_LIKES';
+const showEntLikes = function(){
+    return {
+        type: SHOW_ENT_LIKES,
+        payload: {
+            likesNum
+        }
+    }
+}
 
+const fetchEntertainments = (naturalTypes) => {
+    return (dispatch, getState) => {
+        dispatch(requestEntertainments());
 
-        return fetch(Properties.API.ROOT + "entertainments/search/findByType/?type=" + ent_type.translate(entertainmentsType))
+        var Entertainments = getState().Entertainments;
+        if(!naturalTypes) naturalTypes = Entertainments.naturalTypes;
+        var clusterTypes = Object.keys(Entertainments.clusters);
+
+        var query = naturalTypes.map(x => Properties.ENTERTAINMENT.TYPE.translate(x)).join("&type=");
+        return fetch(Properties.API.ROOT + "entertainments/search/findByTypeIn?type=" + query)
             .then(
                 response =>
                     response.json()
@@ -65,11 +97,26 @@ function fetchEntertainments(entertainmentsType)
             .then(
                 json => {
                     var ents = json._embedded.entertainments;
-                    dispatch(receiveEntertainments(entertainmentsType, ents));
+                    ents.forEach(x => {
+                        if (!Properties.ENTERTAINMENT.TYPE.RU2EN[x.type]) return;
+                        x['type_en'] = Properties.ENTERTAINMENT.TYPE.RU2EN[x.type];
+                    });
+                    dispatch(receiveEntertainments(naturalTypes, ents));
                 }
             );
     }
-}
+};
+
+const showNaturalTypeAndFetchEntertainments = (naturalType, isShowing) => {
+    return (dispatch, getState) => {
+        var fetched = getState().Entertainments.naturalTypes;
+
+        dispatch(showNaturalType(naturalType, isShowing));
+        if (fetched.indexOf(naturalType) == -1) {
+            dispatch(fetchEntertainments([naturalType]));
+        }
+    }
+};
 
 
 module.exports = {
@@ -77,7 +124,12 @@ module.exports = {
     RECEIVE_ENTERTAINMENTS,
     ERROR_ENTERTAINMENTS,
     //ADD_PARTICULAR_ENTERTAINMENTS,
+    SHOW_NATURAL_TYPE,
+    SHOW_CLUSTER_TYPE,
+    SHOW_ENT_LIKES,
     errorEntertainments,
     fetchEntertainments,
+    showNaturalTypeAndFetchEntertainments,
+    showEntLikes
     //addParticularEntertainments
 };

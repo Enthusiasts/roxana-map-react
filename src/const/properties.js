@@ -1,14 +1,21 @@
 /**
  * Created by debal on 01.03.2016.
  */
+var _ = require('underscore');
+
 //Spring
 const baseUri = window.location.protocol + "//" + window.location.host;
+const entTypePairs = [['CAFE', "Кафе"], ['RESTAURANT', "Ресторан"], ['BAR', "Бары"], ['CLUB', "Клуб"]];
+const entTypePairsFirst = entTypePairs.map(x => x[0]);
+const entTypePairsLast = entTypePairs.map(x => x[1]);
 
 module.exports = {
     // Roxana Web Api settings
     API: {
         ROOT: baseUri + "/spring/",
-        ROUTES: baseUri + "/routes/"
+        ROUTES: baseUri + "/routes/",
+        LOGIN: baseUri + "/login",
+        USER: baseUri + "/user"
     },
 
     // Map settings
@@ -22,22 +29,13 @@ module.exports = {
 
     // Entertainments types
     ENTERTAINMENT: {
-        TYPE:{
-            CAFE: 'CAFE',
-            RESTAURANT: 'RESTAURANT',
-            BAR: 'BAR',
-            CLUB: 'CLUB',
-            translate: function(ofType){
-                switch (ofType) {
-                    case this.CAFE:
-                        return "Кафе";
-                    case this.RESTAURANT:
-                        return "Ресторан";
-                    case this.BAR:
-                        return "Бары";
-                    case this.CLUB:
-                        return "Клуб";
-                }
+        TYPE: {
+            ..._.object(entTypePairsFirst, entTypePairsFirst),
+            EN2RU: _.object(entTypePairsFirst, entTypePairsLast),
+            RU2EN: _.object(entTypePairsLast, entTypePairsFirst),
+            translate: function (ofType) {
+                //console.warn('Translate is deprecated since we got fancy underscore :)');
+                return this.EN2RU[ofType];
             }
         }
     },
@@ -51,6 +49,27 @@ module.exports = {
             CREATE: 'CREATE',
             EDIT: 'EDIT',
             WATCH: 'WATCH'
+        }
+    },
+
+    CLUSTER: {
+        TYPE: {
+            COST: 'COST'
+        },
+        min: function (clusterType) {
+            switch (clusterType) {
+                case this.TYPE.COST:
+                default:
+                    return 0
+            }
+        },
+        max: function (clusterType) {
+            switch (clusterType) {
+                case this.TYPE.COST:
+                    return 4;
+                default:
+                    return 1
+            }
         }
     }
 };

@@ -68,7 +68,6 @@ body, html {
 }
 .header img{
     position: relative;
-
     margin: 0px  5px 0 15px ;
     height: 60px;
 }
@@ -99,6 +98,32 @@ body, html {
     height: 100%;
 
 }
+.pop-up-default > button{
+    margin-top: 10px;
+    width: 100%;
+}
+.pop-up{
+    min-width: 215px;
+    min-height: 10px;
+}
+
+.pop-up > button{
+    margin-top: 10px;
+    width: calc(100% - 50px);
+    width: -moz-calc(100% - 50px);
+    width: -webkit-calc(100% - 50px);
+}
+.pop-up > i{
+    position: relative;
+    top: 10px;
+    margin-top: 5px;
+    margin-right: 5px;
+
+}
+.liked {
+    color: red;
+}
+
 #menu,
 #menuLink{
     -webkit-transition: all 0.2s ease-out;
@@ -225,8 +250,6 @@ body, html {
     color: white;
     padding-left: 15px;
     padding-top: 1px;
-
-
 }
 #unknownMenuList .historyList .historyItem{
     margin-top: 15px;
@@ -238,15 +261,13 @@ body, html {
     margin-left: -moz-calc(50% - 18px);
     margin-left: -webkit-calc(50% - 18px);
 }
-#unknownMenuList .historyItem button{
+#unknownMenuList .historyItem i{
     padding: 0px 4px;
-    background: rgb(202, 60, 60);
     margin-top: -8px;
     margin-right: 2px;
     color: white;
     float: right;
 }
-
 
 #knownMenuList{
     width: 100%;
@@ -293,13 +314,42 @@ body, html {
     margin-top: 15px;
     margin-bottom: 20px;
 }
+.standart-coursor{
+    cursor: pointer;
+}
+
+#routeList .routeListElem .state{
+    align-self: center;
+    align-items: center;
+    display: inline-flex;
+
+}
+
+#routeList .change-ent-order{
+    color: white;
+    width: 5%;
+
+}
+#routeList .delete {
+    position: relative;
+    left: 10px;
+    color: white;
+    width: 5%;
+}
 #routeList .routeListElem{
+    display: inline-flex;
+    width: 100%;
+}
+
+
+#routeList .routeListElem > .props{
+    width: 80%;
     border-bottom: 1px solid  white;
-    margin: 10px 10px;
+    margin: 10px 10px 0 10px;
     color: white;
 
 }
-#routeList .routeListElem > small {
+#routeList .routeListElem > .props > small {
     float: right;
 
 }

@@ -1,54 +1,95 @@
 /**
  * Created by debal on 02.03.2016.
  */
+var _ = require('underscore');
 var Actions = require('../actions/entertainments');
 var Properties = require('../const/properties');
 
 function entertainments(state = {
     isFetching: false,
-    cafe: [],
-    restaurant: [],
-    bar: [],
-    club: []
-}, action)
-{
-    /*console.log("Ents reduced");
-    console.log(state);*/
-    switch(action.type)
-    {
+    naturalTypes: [],
+    clusters: {
+        cost: {
+            from: 0,
+            to: 4
+        }
+    },
+    points: {}
+}, action) {
+
+    switch (action.type) {
         case Actions.REQUEST_ENTERTAINMENTS:
             return Object.assign({}, state, {isFetching: true});
 
         /*case Actions.ADD_PARTICULAR_ENTERTAINMENTS:
 
-            //Очень страшный по перформансу костыль
-            // TODO: Бейте меня палками пока не уберу это!!!
+         //Очень страшный по перформансу костыль
+         // TODO: Бейте меня палками пока не уберу это!!!
 
-            var what = state.Entertainments;
-            var from = _.indexBy([].concat(state.cafe, state.restaurant, state.bar, state.club), 'id');
+         var what = state.Entertainments;
+         var from = _.indexBy([].concat(state.cafe, state.restaurant, state.bar, state.club), 'id');
 
-            var toAdd = what.filter(x => from[x.id]);
+         var toAdd = what.filter(x => from[x.id]);
 
-            return state;*/
+         return state;*/
 
         case Actions.RECEIVE_ENTERTAINMENTS:
-            switch (action.payload.entertainmentsType) {
-                case Properties.ENTERTAINMENT.TYPE.CAFE:
-                    return Object.assign({}, state, {isFetching: false, cafe: action.payload.entertainments});
+            var t = _.mapObject(
+                _.groupBy(action.payload.entertainments, 'type_en'),
+                x => _.indexBy(x, 'id')
+            );
+            return {
+                ...state,
+                points: {
+                    ...state.points,
+                    ...t
+                }
+            };
 
-                case Properties.ENTERTAINMENT.TYPE.RESTAURANT:
-                    return Object.assign({}, state, {isFetching: false, restaurant: action.payload.entertainments});
-
-                case Properties.ENTERTAINMENT.TYPE.BAR:
-                    return Object.assign({}, state, {isFetching: false, bar: action.payload.entertainments});
-
-                case Properties.ENTERTAINMENT.TYPE.CLUB:
-                    return Object.assign({}, state, {isFetching: false, club: action.payload.entertainments});
-
-                default:
-                    return state;
-            }
         case Actions.ERROR_ENTERTAINMENTS:
+            return state;
+
+        case Actions.SHOW_NATURAL_TYPE:
+            var index = state.naturalTypes.indexOf(action.payload.naturalType);
+            if (index == -1) {
+                if (!action.payload.isShowing) return state;
+                return {
+                    ...state,
+                    naturalTypes: [...state.naturalTypes, action.payload.naturalType]
+                }
+            }
+
+            if (!action.payload.isShowing) {
+                var arr = [...state];
+                arr.splice(index, 1);
+                return {
+                    ...state,
+                    naturalTypes: arr
+                }
+            }
+            return state;
+
+        case Actions.SHOW_CLUSTER_TYPE:
+            if (!action.payload.isShowing) {
+                var copy = {...state.clusters};
+                delete copy[action.payload.clusterType];
+                return {
+                    ...state,
+                    clusters: copy
+                }
+            }
+            return {
+                ...state,
+                clusters: {
+                    ...state.clusters,
+                    [action.payload.clusterType]: {
+                        ...state.clusters[action.payload.clusterType],
+                        from: action.payload.from,
+                        to: action.payload.to
+                    }
+                }
+            };
+
         default:
             return state;
     }

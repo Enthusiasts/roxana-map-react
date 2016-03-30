@@ -95,7 +95,37 @@ const saveRouteListError = function (reason) {
 
 const saveRouteListAndSetEditContext = function (routeList) {
     return (dispatch) => {
-        dispatch(saveRouteListBegin());
+
+        if (!routeList || !routeList.entertainments) {
+            dispatch(saveRouteListError('Произошла ошибка :('));
+            console.error('Wrong entertainments definition');
+            return;
+        }
+
+        if (routeList.entertainments.length < 2) {
+            dispatch(saveRouteListError('Слишком мало выбранных заведений :('));
+            return;
+        }
+
+        var entertainmentUris = routeList.entertainments
+            .map(ent => Properties.API.ROOT + 'entertainments/' + ent.id);
+
+        var owner = { id: routeList.userId };
+
+        var requestBody = {
+            owner,
+            description: routeList.description,
+            first: entertainmentUris[0],
+            last: entertainmentUris[entertainmentUris.length - 1],
+            entertainments: entertainmentUris
+        };
+
+        _fetchRouteListAndSetEditContext(dispatch, "routes", requestBody, 'POST')
+    }
+};
+
+const updateRouteListAndSetEditContext = function (id, routeList) {
+    return (dispatch) => {
 
         if (!routeList || !routeList.entertainments || !(routeList.entertainments.length > 0)) {
             dispatch(saveRouteListError('Произошла ошибка :('));
@@ -103,41 +133,64 @@ const saveRouteListAndSetEditContext = function (routeList) {
             return;
         }
 
+        if (routeList.entertainments.length < 2) {
+            dispatch(saveRouteListError('Слишком мало выбранных заведений :('));
+            return;
+        }
+
         var entertainmentUris = routeList.entertainments
             .map(ent => Properties.API.ROOT + 'entertainments/' + ent.id);
 
+        var owner = { id: routeList.userId };
+
         var requestBody = {
+            id,
+            owner,
             description: routeList.description,
             first: entertainmentUris[0],
             last: entertainmentUris[entertainmentUris.length - 1],
             entertainments: entertainmentUris
         };
 
-        return fetch(Properties.API.ROOT + 'routes/', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            mode: 'same-origin',
-            body: JSON.stringify(requestBody)
-        })
-            .then(response => response.json())
-            .then(json => {
-                const routeId = json.id;
-                console.log('Route with id \'' + routeId + '\' saved.');
-
-                //Автоматически переводим в режим редактирования
-                dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId}));
-
-                //Отправляем сообщеньку об успешнос сохранении
-                dispatch(saveRouteListValidate("Маршрут успешно сохранён!"));
-            })
-            .catch(error => {
-                console.error(error);
-                dispatch(saveRouteListError('Произошла ошибка :('))
-            })
+        _fetchRouteListAndSetEditContext(dispatch, 'routes/' + id, requestBody, 'PUT')
     }
+};
+
+const _fetchRouteListAndSetEditContext = function (dispatch, query, requestBody, method) {
+    if (!method in ['POST', 'PUT']) throw new Error("Can only update and post :(");
+
+    dispatch(saveRouteListBegin());
+
+    return fetch(Properties.API.ROOT + query, {
+        method,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        mode: 'same-origin',
+        body: JSON.stringify(requestBody)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Unsuccesful");
+            }
+        })
+        .then(json => {
+            const routeId = json.id;
+            console.log('Route with id \'' + routeId + '\' saved via \'' + method + '\'.');
+
+            //Автоматически переводим в режим редактирования
+            dispatch(setContext(Properties.ROUTE.CONTEXTS.EDIT, {routeId: routeId}));
+
+            //Отправляем сообщеньку об успешнос сохранении
+            dispatch(saveRouteListValidate("Маршрут успешно сохранён!"));
+        })
+        .catch(error => {
+            console.error(error);
+            dispatch(saveRouteListError('Произошла ошибка :('))
+        })
 };
 
 /**
@@ -219,8 +272,9 @@ const offerRouteList = function (lat, lon, types) {
                         dispatch(setContext(Properties.ROUTE.CONTEXTS.CREATE, {}));
                         dispatch(setRouteList(sliced));
                         // Хотим так же нарисовать линию от позиции юзер :)
-                        sliced.push({latitude: lat, longitude: lon});
-                        dispatch(updatePolyLine(sliced));
+                        var toPolyline = sliced.slice();
+                        toPolyline.push({latitude: lat, longitude: lon});
+                        dispatch(updatePolyLine(toPolyline));
                     }
                 }
             )
@@ -229,6 +283,52 @@ const offerRouteList = function (lat, lon, types) {
                     console.error("Error while loading offered route :(", e);
                 }
             )
+    }
+};
+
+const moveItemAndRenderPath = function (items, up, id) {
+    return (dispatch) => {
+        var arr = items.slice();
+        var index = arr.findIndex(x => x.id == id);
+
+        var temp = arr[index];
+        if (up) {
+            if (index == 0) return;
+            arr[index] = arr[index - 1];
+            arr[index - 1] = temp;
+        } else {
+            if (index == arr.length - 1) return;
+            arr[index] = arr[index + 1];
+            arr[index + 1] = temp;
+        }
+
+        dispatch(setRouteList(arr));
+        dispatch(updatePolyLine(arr));
+    }
+};
+
+const removeItemAndRenderPath = function (items, id) {
+    return (dispatch) => {
+        if (items.length <= 1) {
+            dispatch(clearRouteList());
+            return;
+        }
+
+        var index = items.findIndex(x => x.id == id);
+        var arr = items.slice();
+
+        if (index == 0) {
+            arr.splice(0, 1);
+        }
+        else if (index == items.length - 1) {
+            arr.splice(index, 1);
+        }
+        else {
+            arr.splice(index, 1);
+        }
+
+        dispatch(setRouteList(arr));
+        dispatch(updatePolyLine(arr));
     }
 };
 
@@ -242,9 +342,12 @@ module.exports = {
     SAVE_ROUTE_LIST_VALIDATE,
     SAVE_ROUTE_LIST_ERROR,
     saveRouteListAndSetEditContext,
+    updateRouteListAndSetEditContext,
     clearRouteListAndSetCreateContext,
     addRouteItemAndRenderPath,
     setRouteListAndRenderPath,
     setContext,
-    offerRouteList
+    offerRouteList,
+    moveItemAndRenderPath,
+    removeItemAndRenderPath
 };

@@ -15,14 +15,12 @@ function routes(state = {
         current: Properties.ROUTE.CONTEXTS.WATCH,
         extra: {isSaving: false}
     }
-}, action)
-{
+}, action) {
     const canSave = () =>
-        state.context.current == Properties.ROUTE.CONTEXTS.CREATE ||
-        state.context.current == Properties.ROUTE.CONTEXTS.EDIT;
+    state.context.current == Properties.ROUTE.CONTEXTS.CREATE ||
+    state.context.current == Properties.ROUTE.CONTEXTS.EDIT;
 
-    switch(action.type)
-    {
+    switch (action.type) {
         case Actions.ADD_ROUTE_ITEM:
             return state.items.length + 1 <= Properties.ROUTE.LIST.MAX_NUMBER
                 ? Object.assign({}, state, {items: state.items.concat([action.payload.entertainment])})
@@ -38,15 +36,21 @@ function routes(state = {
                 items: [],
                 error: {},
                 message: {},
-                polyLine: []
+                polyLine: [],
+                context: {
+                    current: Properties.ROUTE.CONTEXTS.CREATE,
+                    extra: {isSaving: false}
+                }
             });
 
         case Actions.SAVE_ROUTE_LIST_BEGIN:
             return canSave()
                 ? Object.assign({}, state, {
-                    error: {},
-                    context: Object.assign({}, state.context, {extra: {isSaving: true}})
+                error: {},
+                context: Object.assign({}, state.context, {
+                    extra: Object.assign({}, state.context.extra, {isSaving: true})
                 })
+            })
                 : state;
 
 
@@ -54,20 +58,23 @@ function routes(state = {
             return Object.assign({}, state, {
                 error: {},
                 message: action.payload.message,
-                context: Object.assign({}, state.context, {extra: {isSaving: false}})
+                context: Object.assign({}, state.context, {
+                    extra: Object.assign({}, state.context.extra, {isSaving: false})
+                })
             });
 
         case Actions.SAVE_ROUTE_LIST_ERROR:
             return Object.assign({}, state, {
                 error: action.error,
-                context: Object.assign({}, state.context, {extra: {isSaving: false}})
+                context: Object.assign({}, state.context, {
+                    extra: Object.assign({}, state.context.extra, {isSaving: false})
+                })
             });
 
         case Actions.SET_CONTEXT:
             var extra = {};
 
-            switch (action.payload.context.current)
-            {
+            switch (action.payload.context.current) {
                 case Properties.ROUTE.CONTEXTS.CREATE:
                     extra = {
                         isSaving: false
