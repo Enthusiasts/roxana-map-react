@@ -7,12 +7,14 @@ var Entertainments = require('./reducers/entertainments');
 var Routes = require('./reducers/routes');
 var User = require('./reducers/user');
 var History = require('./reducers/history');
+var Filter = require('./reducers/filters');
 
 const rootReducer = Redux.combineReducers({
     User,
     Entertainments,
     Routes,
-    History
+    History,
+    Filter
 });
 
 function configureStore(initialState)

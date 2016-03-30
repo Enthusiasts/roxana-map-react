@@ -5,6 +5,7 @@ var React = require('react');
 var classNames = require('classnames');
 var Properties = require('../../const/properties');
 var Actions = require('../../actions/routes');
+var Filters = require('../../actions/filters');
 
 var NavKnownElem = require('./nav-known-elem');
 var RouteTrace = require('../route/route-container');
@@ -55,11 +56,14 @@ var NavKnown = React.createClass({
 
     },
     handleChange: function(event) {
-        console.log('Приввет');
-        console.log(event.target.checked);
+        this.context.store.dispatch(Filters.setCountPoints(Number(event.target.value)));
+    },
+    checkBoxHandler: function(name) {
+        return (event) => {
+            this.context.store.dispatch(Filters.setCheckBoxValue(name, event.target.checked));
+        }
 
-        this.setState({value: event.target.checked});
-        console.log(getState());
+
     },
 
 
@@ -117,66 +121,19 @@ var NavKnown = React.createClass({
                 <div id="filterScope" className="col-xs-6 .col-sm-4" style={{marginTop: 5 + "%", width: 100 +"%", display: "block"}}>
                     <ul className="pure-menu-list col-xs-12 col-sm-6">
                         <li style={{margin: 10 + "%", color: 'white'}}>
-                            <table className="">
-                                <tr>
-                                    <td>
-                                        Фильтр0:
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" onClick={this.handleChange}/>
-                                    </td>
-                                </tr>
-                            </table>
+                            <input type="number" onChange={this.handleChange}/>
                         </li>
                         <li style={{margin: 10 + "%", color: 'white'}}>
-                            <table className="">
-                                <tr>
-                                    <td>
-                                        Фильтр1:
-                                    </td>
-                                    <td>
-
-                                            <input type="checkbox" onClick={this.handleChange}/>
-
-                                    </td>
-                                </tr>
-                            </table>
+                            <input type="checkbox"  onClick={this.checkBoxHandler('rebuild')}/>
                         </li>
                         <li style={{margin: 10 + "%", color: 'white'}}>
-                            <table className="">
-                                <tr>
-                                    <td>
-                                        Фильтр2:
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" onClick={this.handleChange}/>
-                                    </td>
-                                </tr>
-                            </table>
+                            <input type="checkbox" onClick={this.checkBoxHandler('useLikes')}/>
                         </li>
                         <li style={{margin: 10 + "%", color: 'white'}}>
-                            <table className="">
-                                <tr>
-                                    <td>
-                                        Фильтр3:
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" onClick={this.handleChange}/>
-                                    </td>
-                                </tr>
-                            </table>
+                            <input type="checkbox" onClick={this.checkBoxHandler('useCost')}/>
                         </li>
                         <li style={{margin: 10 + "%", color: 'white'}}>
-                            <table className="">
-                                <tr>
-                                    <td>
-                                        Фильтр4:
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" onClick={this.handleChange}/>
-                                    </td>
-                                </tr>
-                            </table>
+                            <input type="checkbox" onClick={this.checkBoxHandler('useNear')}/>
                         </li>
                     </ul>
 

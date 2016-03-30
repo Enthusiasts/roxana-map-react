@@ -12,7 +12,7 @@ var RoxanaApp = React.createClass({
     getInitialState: function(){
         var mq = window.matchMedia( "(max-width: 500px)" );
         if (mq.matches){
-            console.log("qwerty")
+            console.log("qwerty");
             return {menuOpen: false}
         }
         else {
@@ -21,7 +21,7 @@ var RoxanaApp = React.createClass({
 
     },
     swipedRight: function(){
-        console.log("I work")
+        console.log("I work");
         this.setState({menuOpen: true})
     },
     swipedLeft: function(){
