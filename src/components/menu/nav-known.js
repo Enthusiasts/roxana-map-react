@@ -46,6 +46,22 @@ var NavKnown = React.createClass({
         //После добавления контекст автоматически перейдёт в режим создания
         this.context.store.dispatch(Actions.offerRouteList(lat, lon, types));
     },
+    addFilters: function () {
+        if(document.getElementById('filterScope').style.display == 'none'){
+            document.getElementById('filterScope').style.display = 'block';
+        }else{
+            document.getElementById('filterScope').style.display = 'none';
+        }
+
+    },
+    handleChange: function(event) {
+        console.log('Приввет');
+        console.log(event.target.checked);
+
+        this.setState({value: event.target.checked});
+        console.log(getState());
+    },
+
 
     render: function () {
 
@@ -93,8 +109,81 @@ var NavKnown = React.createClass({
                         </button>
                     </div>
                 </div>
+
                 <RouteTrace/>
+                <button id="addFilters" style={{marginTop: 10 + "%"}} className="btn btn-danger squaredBorders" onClick={this.addFilters}>
+                    Добавить фильтр
+                </button>
+                <div id="filterScope" className="col-xs-6 .col-sm-4" style={{marginTop: 5 + "%", width: 100 +"%", display: "block"}}>
+                    <ul className="pure-menu-list col-xs-12 col-sm-6">
+                        <li style={{margin: 10 + "%", color: 'white'}}>
+                            <table className="">
+                                <tr>
+                                    <td>
+                                        Фильтр0:
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" onClick={this.handleChange}/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li style={{margin: 10 + "%", color: 'white'}}>
+                            <table className="">
+                                <tr>
+                                    <td>
+                                        Фильтр1:
+                                    </td>
+                                    <td>
+
+                                            <input type="checkbox" onClick={this.handleChange}/>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li style={{margin: 10 + "%", color: 'white'}}>
+                            <table className="">
+                                <tr>
+                                    <td>
+                                        Фильтр2:
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" onClick={this.handleChange}/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li style={{margin: 10 + "%", color: 'white'}}>
+                            <table className="">
+                                <tr>
+                                    <td>
+                                        Фильтр3:
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" onClick={this.handleChange}/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                        <li style={{margin: 10 + "%", color: 'white'}}>
+                            <table className="">
+                                <tr>
+                                    <td>
+                                        Фильтр4:
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" onClick={this.handleChange}/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
+
+                </div>
+
             </div>
+
         )
     }
 });

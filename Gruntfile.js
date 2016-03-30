@@ -13,6 +13,9 @@ module.exports = function(grunt) {
                         bootstrap: {
                             files: ['dist/**']
                         },
+                        'bootstrap-switch':{
+                            files: ['dist/**']
+                        },
                         pure: {
                             files: ['pure.css']
                         },
