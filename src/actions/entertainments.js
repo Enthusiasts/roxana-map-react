@@ -71,7 +71,7 @@ const showClusterType = function (clusterType,
 };
 
 const SHOW_ENT_LIKES = 'SHOW_ENT_LIKES';
-const showEntLikes = function(){
+const showEntLikes = function () {
     return {
         type: SHOW_ENT_LIKES,
         payload: {
@@ -85,7 +85,7 @@ const fetchEntertainments = (naturalTypes) => {
         dispatch(requestEntertainments());
 
         var Entertainments = getState().Entertainments;
-        if(!naturalTypes) naturalTypes = Entertainments.naturalTypes;
+        if (!naturalTypes) naturalTypes = Entertainments.naturalTypes;
         var clusterTypes = Object.keys(Entertainments.clusters);
 
         var query = naturalTypes.map(x => Properties.ENTERTAINMENT.TYPE.translate(x)).join("&type=");
