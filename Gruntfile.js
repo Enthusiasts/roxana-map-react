@@ -27,6 +27,9 @@ module.exports = function(grunt) {
                         },
                         'leaflet.locatecontrol': {
                             files: ['dist/**']
+                        },
+                        'leaflet.markercluster': {
+                            files: ['dist/**']
                         }
                     }
                 }

@@ -11,11 +11,11 @@ const Provider = ReactRedux.Provider;
 const store = configureStore();
 
 // TODO: hack... remove
-var HistoryActions = require('./actions/history');
+/*var HistoryActions = require('./actions/history');
 setInterval(() => {
     var userId = store.getState().User.userInfo.id;
     if (userId) store.dispatch(HistoryActions.fetchUserHistory(userId))
-}, 5000);
+}, 5000);*/
 
 ReactDOM.render(
     <Provider store={store}>

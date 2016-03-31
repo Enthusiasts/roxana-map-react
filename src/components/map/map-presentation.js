@@ -12,7 +12,9 @@ var UserActions = require('../../actions/user');
 var StartPointPU = require('./popUps/start-point-pu');
 
 const Map = ReactLeaflet.Map;
-const Marker = ReactLeaflet.Marker;
+//const Marker = ReactLeaflet.Marker;
+const Marker = require('./layers/marker');
+const MarkerCluster = require('./layers/marker-cluster');
 const Popup = ReactLeaflet.Popup;
 const Polyline = ReactLeaflet.Polyline;
 const TileLayer = ReactLeaflet.TileLayer;
@@ -53,6 +55,7 @@ var MapPresentation = React.createClass({
                     return (
                         <Marker
                             key={ent.id}
+                            id = {"_" + ent.id}
                             position={{lon: ent.longitude, lat: ent.latitude}}>
                             <Popup>
                                 <EntertainmentInfo
@@ -100,7 +103,9 @@ var MapPresentation = React.createClass({
                 <LocateControl/>
                 {this.renderStartPointPopUp()}
                 <Polyline positions={this.props.polyLine} color={"red"}/>
-                {this.renderEntertainments()}
+                <MarkerCluster>
+                    {this.renderEntertainments()}
+                </MarkerCluster>
             </Map>
         );
     }
