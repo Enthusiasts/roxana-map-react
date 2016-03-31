@@ -69,24 +69,24 @@ const likeEnt = function (id, isUnlike) {
     }
 };
 
-const likeEntAndSave = function(id, isUnlike = false) {
+const likeEntAndSave = function (id, isUnlike = false) {
     return (dispatch, getState) => {
         if (isUnlike) {
             /*return fetch(Properties.API.ROOT + 'clients/' + getState().User.userInfo.id + '/likedEntertainments', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                mode: 'same-origin',
-                body: [...getState().User.likedEntertainments, id].map(x => Properties.API.ROOT + 'entertainments/' + x).join('\n')
-            })
-                .then(() => {
-                    console.log(id + ' unliked.');
-                    dispatch(likeEnt(id));
-                })
-                .catch((e) => {
-                    console.error("Can't like " + id, e);
-                })*/
+             method: 'GET',
+             headers: {
+             'Accept': 'application/json'
+             },
+             mode: 'same-origin',
+             body: [...getState().User.likedEntertainments, id].map(x => Properties.API.ROOT + 'entertainments/' + x).join('\n')
+             })
+             .then(() => {
+             console.log(id + ' unliked.');
+             dispatch(likeEnt(id));
+             })
+             .catch((e) => {
+             console.error("Can't like " + id, e);
+             })*/
         }
         return fetch(Properties.API.ROOT + 'clients/' + getState().User.userInfo.id + '/likedEntertainments', {
             method: 'POST',
@@ -95,8 +95,8 @@ const likeEntAndSave = function(id, isUnlike = false) {
             },
             mode: 'same-origin',
             body: //!isUnlike
-                /*?*/ Properties.API.ROOT + 'entertainments/' + id
-                //: [...getState().User.likedEntertainments, id].map(x => Properties.API.ROOT + 'entertainments/' + x).join('\n')
+            /*?*/ Properties.API.ROOT + 'entertainments/' + id
+            //: [...getState().User.likedEntertainments, id].map(x => Properties.API.ROOT + 'entertainments/' + x).join('\n')
         })
             .then(() => {
                 console.log(id + ' liked.');
