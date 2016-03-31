@@ -20,52 +20,52 @@ var NavKnown = React.createClass({
     getInitialState: function () {
         return {i1: false, i2: false, i3: false, i4: false}
     },
+
     onclick1: function () {
-        if (!this.state.i1) this.setState({i1: true})
+        if (!this.state.i1) this.setState({i1: true});
         else this.setState({i1: false})
     },
+
     onclick2: function () {
-        if (!this.state.i2) this.setState({i2: true})
+        if (!this.state.i2) this.setState({i2: true});
         else this.setState({i2: false})
     },
+
     onclick3: function () {
-        if (!this.state.i3) this.setState({i3: true})
+        if (!this.state.i3) this.setState({i3: true});
         else this.setState({i3: false})
     },
+
     onclick4: function () {
-        if (!this.state.i4) this.setState({i4: true})
+        if (!this.state.i4) this.setState({i4: true});
         else this.setState({i4: false})
     },
+
     offerRouteList: function () {
-
-        var userLocation = this.context.store.getState().User.location;
-
-        var lat = userLocation.latitude;
-        var lon = userLocation.longitude;
-        var types = [Properties.ENTERTAINMENT.TYPE.translate(Properties.ENTERTAINMENT.TYPE.BAR)];
-
         //После добавления контекст автоматически перейдёт в режим создания
-        this.context.store.dispatch(Actions.offerRouteList(lat, lon, types));
+        this.context.store.dispatch(Actions.offerRouteList());
     },
+
     addFilters: function () {
-        if(document.getElementById('filterScope').style.display == 'none'){
+        if (document.getElementById('filterScope').style.display == 'none') {
             document.getElementById('filterScope').style.display = 'block';
-        }else{
+        } else {
             document.getElementById('filterScope').style.display = 'none';
         }
 
     },
-    handleChange: function(event) {
+
+    handleChange: function (event) {
         this.context.store.dispatch(Filters.setCountPoints(Number(event.target.value)));
     },
-    checkBoxHandler: function(name) {
+
+    checkBoxHandler: function (name) {
         return (event) => {
             this.context.store.dispatch(Filters.setCheckBoxValue(name, event.target.checked));
         }
 
 
     },
-
 
     render: function () {
 
@@ -115,16 +115,18 @@ var NavKnown = React.createClass({
                 </div>
 
                 <RouteTrace/>
-                <button id="addFilters" style={{marginTop: 10 + "%"}} className="btn btn-danger squaredBorders" onClick={this.addFilters}>
+                <button id="addFilters" style={{marginTop: 10 + "%"}} className="btn btn-danger squaredBorders"
+                        onClick={this.addFilters}>
                     Добавить фильтр
                 </button>
-                <div id="filterScope" className="col-xs-6 .col-sm-4" style={{marginTop: 5 + "%", width: 100 +"%", display: "block"}}>
+                <div id="filterScope" className="col-xs-6 .col-sm-4"
+                     style={{marginTop: 5 + "%", width: 100 +"%", display: "block"}}>
                     <ul className="pure-menu-list col-xs-12 col-sm-6">
                         <li style={{margin: 10 + "%", color: 'white'}}>
                             <input type="number" onChange={this.handleChange}/>
                         </li>
                         <li style={{margin: 10 + "%", color: 'white'}}>
-                            <input type="checkbox"  onClick={this.checkBoxHandler('rebuild')}/>
+                            <input type="checkbox" onClick={this.checkBoxHandler('rebuild')}/>
                         </li>
                         <li style={{margin: 10 + "%", color: 'white'}}>
                             <input type="checkbox" onClick={this.checkBoxHandler('useLikes')}/>

@@ -248,9 +248,27 @@ const updatePolyLine = function (points) {
     }
 };
 
-const offerRouteList = function (lat, lon, types) {
-    return (dispatch) => {
-        var query = "?lat=" + lat + "&lon=" + lon + "&type=" + types.join("&type=");
+const offerRouteList = function (lat, lon) {
+    return (dispatch, getState) => {
+        var state = getState();
+        var routeFilter = state.Filter;
+
+        var naturalTypes = state.Entertainments.naturalTypes.length > 0
+            ? state.Entertainments.naturalTypes.map(x => Properties.ENTERTAINMENT.TYPE.translate(x))
+            : Properties.ENTERTAINMENT.TYPE.ALL_RU;
+
+        if (!lat || !lon) {
+            lat = state.User.location.latitude;
+            lon = state.User.location.longitude;
+        }
+
+        var query = "?lat=" + lat + "&lon=" + lon + "&type=" + naturalTypes.join("&type=");
+        if (routeFilter.points) query += "&points=" + routeFilter.points;
+        if (routeFilter.rebuild) query += "&rebuild=" + routeFilter.rebuild;
+        if (routeFilter.useLikes) query += "&useLikes=" + routeFilter.useLikes;
+        if (routeFilter.useCost) query += "&useCost=" + routeFilter.useCost;
+        if (routeFilter.useNear) query += "&useNear=" + routeFilter.useNear;
+
         return fetch(Properties.API.ROUTES + "calculate" + query, {
             method: 'GET',
             mode: 'same-origin'

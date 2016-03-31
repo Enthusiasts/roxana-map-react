@@ -33,9 +33,12 @@ module.exports = {
             ..._.object(entTypePairsFirst, entTypePairsFirst),
             EN2RU: _.object(entTypePairsFirst, entTypePairsLast),
             RU2EN: _.object(entTypePairsLast, entTypePairsFirst),
+            ALL_EN: entTypePairsFirst,
+            ALL_RU: entTypePairsLast,
             translate: function (ofType) {
                 //console.warn('Translate is deprecated since we got fancy underscore :)');
                 return this.EN2RU[ofType];
+                //console.log(this);
             }
         }
     },
