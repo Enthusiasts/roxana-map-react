@@ -16,6 +16,7 @@ class Marker extends ReactLeaflet.Marker {
         super.componentWillUnmount();
         this.props.markers[this.props.id] = undefined;
     }
+
 }
 
 Marker.propTypes = {

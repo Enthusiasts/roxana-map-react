@@ -6,40 +6,40 @@ var classNames = require('classnames');
 var Properties = require('../../const/properties');
 var Actions = require('../../actions/routes');
 var Filters = require('../../actions/filters');
+var Entertainments = require('../../actions/entertainments');
+var LikeCluster = require('./RouteFilters/like-cluster');
+var CheckinCluster = require('./RouteFilters/checkin-cluster');
 
 var NavKnownElem = require('./nav-known-elem');
 var RouteTrace = require('../route/route-container');
 
 
 var NavKnown = React.createClass({
-
     contextTypes: {
         store: React.PropTypes.object.isRequired
     },
 
     getInitialState: function () {
-        return {i1: false, i2: false, i3: false, i4: false, showFiltesrs: false}
+        return {showFiltesrs: false, cost: []}
     },
 
-    onclick1: function () {
-        if (!this.state.i1) this.setState({i1: true});
-        else this.setState({i1: false})
+    setCost (rub) {
+        return function(){
+            var temp = this.state.cost;
+
+            if (!this.state.cost.includes(rub)) {
+                temp.push(rub);
+            }
+            else {
+                temp = temp.filter(x=> x != rub);
+            }
+
+            this.setState({cost: temp});
+            this.context.store.dispatch(Entertainments.showClusterType(Properties.CLUSTER.TYPE.COST,true, temp));
+            console.log(this.context.store.getState());
+        }.bind(this)
     },
 
-    onclick2: function () {
-        if (!this.state.i2) this.setState({i2: true});
-        else this.setState({i2: false})
-    },
-
-    onclick3: function () {
-        if (!this.state.i3) this.setState({i3: true});
-        else this.setState({i3: false})
-    },
-
-    onclick4: function () {
-        if (!this.state.i4) this.setState({i4: true});
-        else this.setState({i4: false})
-    },
 
     offerRouteList: function () {
         //После добавления контекст автоматически перейдёт в режим создания
@@ -47,13 +47,7 @@ var NavKnown = React.createClass({
     },
 
     addFilters: function () {
-        if (this.state.showFiltesrs) {
-            this.setState({showFiltesrs: false})
-        }
-        else {
-            this.setState({showFiltesrs: true})
-        }
-
+        this.setState({showFiltesrs: !this.state.showFiltesrs});
     },
 
     handleChange: function (event) {
@@ -71,22 +65,22 @@ var NavKnown = React.createClass({
     render: function () {
 
         var classi1 = classNames({
-            'fa fa-rub chosen': this.state.i1,
-            'fa fa-rub': !this.state.i1
+            'fa fa-rub chosen': this.state.cost.includes(1),
+            'fa fa-rub': !this.state.cost.includes(1)
         });
         var classi2 = classNames({
-            'fa fa-rub chosen': this.state.i2,
-            'fa fa-rub': !this.state.i2
+            'fa fa-rub chosen': this.state.cost.includes(2),
+            'fa fa-rub': !this.state.cost.includes(2)
         });
         var classi3 = classNames({
-            'fa fa-rub chosen': this.state.i3,
-            'fa fa-rub': !this.state.i3
+            'fa fa-rub chosen': this.state.cost.includes(3),
+            'fa fa-rub': !this.state.cost.includes(3)
         });
         var classi4 = classNames({
-            'fa fa-rub chosen': this.state.i4,
-            'fa fa-rub': !this.state.i4
+            'fa fa-rub chosen': this.state.cost.includes(4),
+            'fa fa-rub': !this.state.cost.includes(4)
         });
-        var showFilters =  classNames ({
+        var showFilters = classNames({
             'show': this.state.showFiltesrs,
             'hide': !this.state.showFiltesrs
         });
@@ -98,50 +92,55 @@ var NavKnown = React.createClass({
                     <i className="glyphicon glyphicon-search form-control-feedback"/>
                 </div>
                 <div className="container-fluid typeFilter">
-                    <ul className="pure-menu-list col-xs-12 col-sm-6">
-                        <li className="pure-menu-heading"><b>Заведения</b></li>
-                        <NavKnownElem type={Properties.ENTERTAINMENT.TYPE.CAFE}/>
-                        <NavKnownElem type={Properties.ENTERTAINMENT.TYPE.BAR}/>
-                        <NavKnownElem type={Properties.ENTERTAINMENT.TYPE.RESTAURANT}/>
-                        <NavKnownElem type={Properties.ENTERTAINMENT.TYPE.CLUB}/>
-                    </ul>
-                    <div className="col-xs-12 col-sm-6 cpFilter">
-                        <b>Стоимость</b>
-                        <div id="priceRange">
-                            <i onClick={this.onclick1} className={classi1} title="Менее 700"/> &nbsp;
-                            <i onClick={this.onclick2} className={classi2} title="700-1500"/> &nbsp;
-                            <i onClick={this.onclick3} className={classi3} title="1500-2500"/> &nbsp;
-                            <i onClick={this.onclick4} className={classi4} title="Более 2500"/>
-                        </div>
-                        <button id="addFilters"  className="btn btn-default squaredBorders"
-                                onClick={this.addFilters}>
-                            Добавить фильтр
-                        </button>
-                        <div id="filterScope" className={showFilters}
-                             style={{marginTop: 5 + "%", width: 100 +"%", display: "block"}}>
-                            <ul className="pure-menu-list col-xs-12 col-sm-6">
-                                <li style={{margin: 10 + "%", color: 'white'}}>
-                                    <input type="number" onChange={this.handleChange}/>
+                    <div className="col-xs-12 col-sm-6">
+                        <ul className="pure-menu-list">
+                            <li className="pure-menu-heading"><b>Заведения</b></li>
+                            <NavKnownElem type={Properties.ENTERTAINMENT.TYPE.CAFE}/>
+                            <NavKnownElem type={Properties.ENTERTAINMENT.TYPE.BAR}/>
+                            <NavKnownElem type={Properties.ENTERTAINMENT.TYPE.RESTAURANT}/>
+                            <NavKnownElem type={Properties.ENTERTAINMENT.TYPE.CLUB}/>
+                            <li className="pure-menu-item" style={{borderTop: 1 +"px solid white"}}>
+                                <a id="addFilters" className="pure-menu-link"  onClick={this.addFilters}>Настроить</a></li>
+                        </ul>
+
+                        <div id="filterScope" className={showFilters}>
+                            <ul className="pure-menu-list">
+                                <li>
+                                    <small>Число завдений</small> <br/>
+                                    <input style={{width: 50 + "px"}} min="2" max={Properties.ROUTE.LIST.MAX_NUMBER} placeholder="2" type="number" onChange={this.handleChange}/>
                                 </li>
-                                <li style={{margin: 10 + "%", color: 'white'}}>
-                                    <input type="checkbox" onClick={this.checkBoxHandler('rebuild')}/>
-                                </li>
-                                <li style={{margin: 10 + "%", color: 'white'}}>
+                                <li>
+                                    <small>Likes:</small>
+                                    &nbsp;
                                     <input type="checkbox" onClick={this.checkBoxHandler('useLikes')}/>
                                 </li>
-                                <li style={{margin: 10 + "%", color: 'white'}}>
+                                <li>
+                                    <small>Стоимость:</small>
+                                    &nbsp;
                                     <input type="checkbox" onClick={this.checkBoxHandler('useCost')}/>
                                 </li>
-                                <li style={{margin: 10 + "%", color: 'white'}}>
+                                <li>
+                                    <small>Ближайщие:</small>
+                                    &nbsp;
                                     <input type="checkbox" onClick={this.checkBoxHandler('useNear')}/>
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 cpFilter">
+                        <div className="range cost">
+                            <b>Стоимость</b> <br/>
+                            <i onClick={this.setCost(1)} className={classi1} title="Менее 700"/> &nbsp;
+                            <i onClick={this.setCost(2)} className={classi2} title="700-1500"/> &nbsp;
+                            <i onClick={this.setCost(3)} className={classi3} title="1500-2500"/> &nbsp;
+                            <i onClick={this.setCost(4)} className={classi4} title="Более 2500"/>
+                        </div>
+                        <LikeCluster/>
+                        <CheckinCluster/>
                         <button id="buildRoute" className="btn btn-danger squaredBorders" onClick={this.offerRouteList}>
                             Построить маршрут
                         </button>
                     </div>
-
                 </div>
 
                 <RouteTrace/>

@@ -56,15 +56,13 @@ const showNaturalType = function (naturalType, isShowing = true) {
 const SHOW_CLUSTER_TYPE = 'SHOW_CLUSTER_TYPE';
 const showClusterType = function (clusterType,
                                   isShowing = true,
-                                  from = Properties.CLUSTER.min(clusterType),
-                                  to = Properties.CLUSTER.max(clusterType)) {
-    if (from > to) console.warn("Cluster range cannot start from greater number :(", from, to);
+                                  values) {
+   // if (from > to) console.warn("Cluster range cannot start from greater number :(", from, to);
     return {
         type: SHOW_CLUSTER_TYPE,
         payload: {
             clusterType,
-            from,
-            to,
+            values,
             isShowing
         }
     };
@@ -130,6 +128,8 @@ module.exports = {
     errorEntertainments,
     fetchEntertainments,
     showNaturalTypeAndFetchEntertainments,
-    showEntLikes
+    showEntLikes,
+    showClusterType
+
     //addParticularEntertainments
 };

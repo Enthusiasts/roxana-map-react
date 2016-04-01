@@ -10,8 +10,13 @@ function entertainments(state = {
     naturalTypes: [],
     clusters: {
         cost: {
-            from: 0,
-            to: 4
+            values: []
+        },
+        like: {
+            values: []
+        },
+        checkin: {
+            values: []
         }
     },
     points: {}
@@ -84,8 +89,7 @@ function entertainments(state = {
                     ...state.clusters,
                     [action.payload.clusterType]: {
                         ...state.clusters[action.payload.clusterType],
-                        from: action.payload.from,
-                        to: action.payload.to
+                        values: action.payload.values
                     }
                 }
             };

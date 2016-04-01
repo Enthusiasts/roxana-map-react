@@ -57,13 +57,15 @@ module.exports = {
 
     CLUSTER: {
         TYPE: {
-            COST: 'COST'
+            COST: 'cost',
+            LIKE: 'like',
+            CHECKIN: 'checkin'
         },
         min: function (clusterType) {
             switch (clusterType) {
                 case this.TYPE.COST:
                 default:
-                    return 0
+                    return 1
             }
         },
         max: function (clusterType) {
@@ -71,7 +73,7 @@ module.exports = {
                 case this.TYPE.COST:
                     return 4;
                 default:
-                    return 1
+                    return 4
             }
         }
     }

@@ -4,6 +4,7 @@
 var React = require('react');
 var ReactLeaflet = require('react-leaflet');
 var _ = require('underscore');
+var L = require('leaflet');
 
 var Properties = require('../../const/properties');
 var EntertainmentInfo = require('./entertainment-info');
@@ -56,7 +57,9 @@ var MapPresentation = React.createClass({
                         <Marker
                             key={ent.id}
                             id = {"_" + ent.id}
-                            position={{lon: ent.longitude, lat: ent.latitude}}>
+                            position={{lon: ent.longitude, lat: ent.latitude}}
+                            icon = {this.getIcon({like: 1, cost: 3, checkin: 2},ent.type_en)}
+                        >
                             <Popup>
                                 <EntertainmentInfo
                                     store={this.context.store}
@@ -79,6 +82,38 @@ var MapPresentation = React.createClass({
                 </Popup>
             )}
         else return null;
+    },
+    // red - like green - cost blue - chechin
+    getIcon: function(clusters, type){
+        var r = 0;
+        var g = 0;
+        var b = 0;
+        var i;
+        if (clusters.like) r = Math.round((clusters.like/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.LIKE))*100+100);
+        if (clusters.cost) g = Math.round((clusters.cost/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.COST))*100+100);
+        if (clusters.checkin) b = Math.round((clusters.checkin/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.CHECKIN))*100+100);
+
+        switch (type){
+            case Properties.ENTERTAINMENT.TYPE.CAFE:
+                i = "fa fa-coffee fa-3";
+                break;
+            case Properties.ENTERTAINMENT.TYPE.RESTAURANT:
+                i = "fa fa-cutlery fa-3";
+                break;
+            case Properties.ENTERTAINMENT.TYPE.BAR:
+                i = "fa fa-beer fa-3";
+                break;
+            case Properties.ENTERTAINMENT.TYPE.CLUB:
+                i = "fa fa-houzz fa-3";
+                break;
+            default:
+                i = "fa fa-map-marker fa-3";
+        }
+        return L.divIcon({
+            iconSize: [50,50],
+            className: "mapMarker",
+            html: "<i class = \""+i+"\" style=\"color: rgb("+r+", "+g+", "+b+")\" >"
+        });
     },
 
     render: function()
