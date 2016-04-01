@@ -408,6 +408,11 @@ body, html {
 /*marker type*/
 .mapMarker {
     font-size: 40px;
+    display: inline-block;
+}
+.mapMarker > small {
+    font-size: 20px;
+    display: inline-block;
 }
 
 

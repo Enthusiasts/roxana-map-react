@@ -11,6 +11,7 @@ class MarkerCluster extends ReactLeaflet.MapLayer {
     componentWillMount() {
         super.componentWillMount();
         this.leafletElement = L.markerClusterGroup({
+            iconCreateFunction: this.props.iconCreateFunction,
             chunkedLoading: true,
             chunkInterval: 50,
             chunkDelay: 100,
@@ -33,5 +34,8 @@ class MarkerCluster extends ReactLeaflet.MapLayer {
         return this.renderChildrenWithProps({markers: this.markers});
     }
 }
+MarkerCluster.propTypes = {
+  iconCreateFunction: React.PropTypes.func.isRequired
+};
 
 module.exports = MarkerCluster;

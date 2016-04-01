@@ -9,19 +9,20 @@ require('leaflet.markercluster');
 class Marker extends ReactLeaflet.Marker {
     componentDidMount() {
         this.bindLeafletEvents(this._leafletEvents);
-        this.props.markers[this.props.id] = this.leafletElement;
+        this.leafletElement.entertainment = this.props.entertainment;
+        this.props.markers['_'+this.props.entertainment.id] = this.leafletElement;
     }
 
     componentWillUnmount() {
         super.componentWillUnmount();
-        this.props.markers[this.props.id] = undefined;
+        this.props.markers[this.props.entertainment.id] = undefined;
     }
 
 }
 
 Marker.propTypes = {
     ...ReactLeaflet.Marker.propTypes,
-    id: React.PropTypes.string.isRequired,
+    entertainment: React.PropTypes.object.isRequired,
     markers: React.PropTypes.object
 };
 

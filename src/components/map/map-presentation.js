@@ -56,7 +56,7 @@ var MapPresentation = React.createClass({
                     return (
                         <Marker
                             key={ent.id}
-                            id = {"_" + ent.id}
+                            entertainment = {ent}
                             position={{lon: ent.longitude, lat: ent.latitude}}
                             icon = {this.getIcon({like: 1, cost: 3, checkin: 2},ent.type_en)}
                         >
@@ -85,14 +85,9 @@ var MapPresentation = React.createClass({
     },
     // red - like green - cost blue - chechin
     getIcon: function(clusters, type){
-        var r = 0;
-        var g = 0;
-        var b = 0;
-        var i;
-        if (clusters.like) r = Math.round((clusters.like/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.LIKE))*100+100);
-        if (clusters.cost) g = Math.round((clusters.cost/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.COST))*100+100);
-        if (clusters.checkin) b = Math.round((clusters.checkin/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.CHECKIN))*100+100);
 
+        var i;
+        var rgb = this.getColor(clusters);
         switch (type){
             case Properties.ENTERTAINMENT.TYPE.CAFE:
                 i = "fa fa-coffee fa-3";
@@ -112,8 +107,47 @@ var MapPresentation = React.createClass({
         return L.divIcon({
             iconSize: [50,50],
             className: "mapMarker",
-            html: "<i class = \""+i+"\" style=\"color: rgb("+r+", "+g+", "+b+")\" >"
+            html: "<i class = \""+i+"\" style=\"color: rgb("+rgb.red+", "+rgb.green+", "+rgb.blue+")\" >"
         });
+    },
+    getColor: function(clusters){
+        var r = 0;
+        var g = 0;
+        var b = 0;
+        if (clusters.like) r = Math.round((clusters.like/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.LIKE))*100+100);
+        if (clusters.cost) g = Math.round((clusters.cost/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.COST))*100+100);
+        if (clusters.checkin) b = Math.round((clusters.checkin/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.CHECKIN))*100+100);
+        return {red: r, green: g, blue: b}
+    },
+
+    // TODO: REwrite function for real data
+    getClusterIcon: function(cluster){
+        var red = 0;
+        var green = 0;
+        var blue = 0;
+        for (var i = 0; i < cluster.getAllChildMarkers().length; i++) {
+            var clusters = cluster.getAllChildMarkers()[i].entertainment.clusters;
+            clusters = {like: 0, cost: 4,checkin: 4}
+            if (clusters.like) {
+                red += clusters.like;
+            }
+            if (clusters.cost) {
+                green += clusters.cost;
+            }
+            if (clusters.checkin) {
+                blue += clusters.checkin;
+            }
+        }
+        red /= cluster.getAllChildMarkers().length;
+        green /= cluster.getAllChildMarkers().length;
+        blue /= cluster.getAllChildMarkers().length;
+
+        var rgb = this.getColor({like: red, cost: green, checkin: blue});
+        return L.divIcon({
+          iconSize: [100,50],
+          className: "mapMarker",
+          html: "<i class = \"fa fa-dot-circle-o fa-3\" style=\"color: rgb("+rgb.red+", "+rgb.green+", "+rgb.blue+")\"></i><small> " + cluster.getChildCount() + "</small>"
+      })
     },
 
     render: function()
@@ -138,7 +172,7 @@ var MapPresentation = React.createClass({
                 <LocateControl/>
                 {this.renderStartPointPopUp()}
                 <Polyline positions={this.props.polyLine} color={"red"}/>
-                <MarkerCluster>
+                <MarkerCluster iconCreateFunction={this.getClusterIcon}>
                     {this.renderEntertainments()}
                 </MarkerCluster>
             </Map>
