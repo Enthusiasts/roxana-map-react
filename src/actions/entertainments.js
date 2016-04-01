@@ -115,6 +115,16 @@ const showNaturalTypeAndFetchEntertainments = (naturalType, isShowing) => {
         }
     }
 };
+const MARK_AS_WAY_POINT = 'MARK_AS_WAY_POINT';
+const markAsWayPoint = function(is, ids){
+    return {
+        type: MARK_AS_WAY_POINT,
+        payload: {
+            is,
+            ids
+        }
+    }
+};
 
 
 module.exports = {
@@ -125,11 +135,13 @@ module.exports = {
     SHOW_NATURAL_TYPE,
     SHOW_CLUSTER_TYPE,
     SHOW_ENT_LIKES,
+    MARK_AS_WAY_POINT,
     errorEntertainments,
     fetchEntertainments,
     showNaturalTypeAndFetchEntertainments,
     showEntLikes,
-    showClusterType
+    showClusterType,
+    markAsWayPoint
 
     //addParticularEntertainments
 };

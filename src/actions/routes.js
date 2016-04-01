@@ -3,6 +3,7 @@
  */
 var Properties = require('../const/properties');
 var Polyline = require('polyline');
+var Entertainments = require('./entertainments');
 
 const ADD_ROUTE_ITEM = 'ADD_ROUTE_ITEM';
 const addRouteItem = function (entertainment) {
@@ -27,8 +28,10 @@ const setRouteList = function (entertainments) {
 
 const CLEAR_ROUTE_LIST = 'CLEAR_ROUTE_LIST';
 const clearRouteList = function () {
-    return {
-        type: CLEAR_ROUTE_LIST
+    return function(dispatch, getState){
+        dispatch(Entertainments.markAsWayPoint(false, getState().Routes.items.map(x =>x.id)));
+        dispatch({type: CLEAR_ROUTE_LIST});
+
     };
 };
 
@@ -227,7 +230,8 @@ const setRouteListAndRenderPath = function (items) {
 };
 
 const updatePolyLine = function (points) {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        dispatch(Entertainments.markAsWayPoint(true, getState().Routes.items.map(x => x.id)));
         var query = points
             .map(ent => (ent.latitude + ',' + ent.longitude))
             .join('&loc=');

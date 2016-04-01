@@ -22,6 +22,20 @@ function entertainments(state = {
     points: {}
 }, action) {
 
+    const findEntertainment =  function (id){
+        for (var i=0; i< Properties.ENTERTAINMENT.TYPE.ALL_EN.length; i++ ){
+
+            var key = Properties.ENTERTAINMENT.TYPE.ALL_EN[i];
+            var temp = state.points[key];
+            if (!temp) continue;
+            var temp1 = temp[id];
+            if (temp1){
+                return temp1
+            }
+        }
+        return null
+    };
+
     switch (action.type) {
         case Actions.REQUEST_ENTERTAINMENTS:
             return Object.assign({}, state, {isFetching: true});
@@ -91,6 +105,24 @@ function entertainments(state = {
                         ...state.clusters[action.payload.clusterType],
                         values: action.payload.values
                     }
+                }
+            };
+        case Actions.MARK_AS_WAY_POINT:
+            console.log(state);
+            console.log(action.payload.ids);
+            var ent = [];
+            for (var i = 0; i< action.payload.ids.length; i++){
+                var candidate = findEntertainment(action.payload.ids[i]);
+                if (candidate) {
+                    ent.push({...candidate, marked: action.payload.is});
+                }
+            }
+            if (ent.length<=0) return state;
+            return {
+                ...state,
+                points: {
+                    ...state.points,
+                    ..._.indexBy(ent, "id")
                 }
             };
 

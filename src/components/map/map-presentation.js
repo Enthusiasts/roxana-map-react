@@ -58,7 +58,7 @@ var MapPresentation = React.createClass({
                             key={ent.id}
                             entertainment = {ent}
                             position={{lon: ent.longitude, lat: ent.latitude}}
-                            icon = {this.getIcon({like: 1, cost: 3, checkin: 2},ent.type_en)}
+                            icon = {this.getIcon({ent})}
                         >
                             <Popup>
                                 <EntertainmentInfo
@@ -84,11 +84,14 @@ var MapPresentation = React.createClass({
         else return null;
     },
     // red - like green - cost blue - chechin
-    getIcon: function(clusters, type){
-
+    getIcon: function(ent){
+        if (this.context.store.getState().Routes.items.some(x=> x.id == ent.id)){
+         console.log(ent);
+        }
         var i;
-        var rgb = this.getColor(clusters);
-        switch (type){
+        ent.clusters = {like: 0, cost: 4,checkin: 4};
+        var rgb = this.getColor(ent.clusters);
+        switch (ent.type_en){
             case Properties.ENTERTAINMENT.TYPE.CAFE:
                 i = "fa fa-coffee fa-3";
                 break;
@@ -127,7 +130,7 @@ var MapPresentation = React.createClass({
         var blue = 0;
         for (var i = 0; i < cluster.getAllChildMarkers().length; i++) {
             var clusters = cluster.getAllChildMarkers()[i].entertainment.clusters;
-            clusters = {like: 0, cost: 4,checkin: 4}
+            clusters = {like: 0, cost: 4,checkin: 4};
             if (clusters.like) {
                 red += clusters.like;
             }
