@@ -29,11 +29,11 @@ var MenuElem = React.createClass({
     render: function(){
         var unKnownClass = classNames({
             'active': !this.state.unSelected,
-            '': this.state.unSelected
+            'disactive': this.state.unSelected
         });
         var knownClass = classNames({
             'active': this.state.unSelected,
-            '': !this.state.unSelected
+            'disactive': !this.state.unSelected
         });
         return  (
             <div id="navTabs">

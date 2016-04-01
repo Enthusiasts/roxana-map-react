@@ -123,6 +123,12 @@ body, html {
 .liked {
     color: red;
 }
+.show {
+    display: block;
+}
+.hide {
+    display: none;
+}
 
 #menu,
 #menuLink{
@@ -223,9 +229,12 @@ body, html {
     padding: 10px 14px;
 }
 #tabList .active a{
-    background: rgba(33,33,33,0.6);
+    background: rgba(33,33,33,0);
 }
 #tabList .active a:hover{
+    background: rgba(33,33,33,0);
+}
+#tabList .disactive a{
     background: rgba(33,33,33,0.6);
 }
 #tabList a{
@@ -267,6 +276,10 @@ body, html {
     margin-right: 2px;
     color: white;
     float: right;
+}
+#knownMenuList #addFilters{
+    width: 159px;
+    margin-bottom: 10px;
 }
 
 #knownMenuList{
@@ -353,13 +366,18 @@ body, html {
     float: right;
 
 }
+#buildRoute{
+    margin-top: 5px;
+    width: 159px;
+    margin-right: 2% ;
+}
 #routeList #clrBtn{
     margin-top: 15px;
     width: 49%;
     margin-right: 2% ;
 }
 #routeList #saveBtn{
-    margin-top: 15px;
+    margin-top: 5px;
     width: 49%;
 }
 #routeList br{

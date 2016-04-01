@@ -18,7 +18,7 @@ var NavKnown = React.createClass({
     },
 
     getInitialState: function () {
-        return {i1: false, i2: false, i3: false, i4: false}
+        return {i1: false, i2: false, i3: false, i4: false, showFiltesrs: false}
     },
 
     onclick1: function () {
@@ -47,10 +47,11 @@ var NavKnown = React.createClass({
     },
 
     addFilters: function () {
-        if (document.getElementById('filterScope').style.display == 'none') {
-            document.getElementById('filterScope').style.display = 'block';
-        } else {
-            document.getElementById('filterScope').style.display = 'none';
+        if (this.state.showFiltesrs) {
+            this.setState({showFiltesrs: false})
+        }
+        else {
+            this.setState({showFiltesrs: true})
         }
 
     },
@@ -85,6 +86,10 @@ var NavKnown = React.createClass({
             'fa fa-rub chosen': this.state.i4,
             'fa fa-rub': !this.state.i4
         });
+        var showFilters =  classNames ({
+            'show': this.state.showFiltesrs,
+            'hide': !this.state.showFiltesrs
+        });
 
         return (
             <div id="knownMenuList">
@@ -108,38 +113,39 @@ var NavKnown = React.createClass({
                             <i onClick={this.onclick3} className={classi3} title="1500-2500"/> &nbsp;
                             <i onClick={this.onclick4} className={classi4} title="Более 2500"/>
                         </div>
-                        <button id="clrBtn" className="btn btn-danger squaredBorders" onClick={this.offerRouteList}>
+                        <button id="addFilters"  className="btn btn-default squaredBorders"
+                                onClick={this.addFilters}>
+                            Добавить фильтр
+                        </button>
+                        <div id="filterScope" className={showFilters}
+                             style={{marginTop: 5 + "%", width: 100 +"%", display: "block"}}>
+                            <ul className="pure-menu-list col-xs-12 col-sm-6">
+                                <li style={{margin: 10 + "%", color: 'white'}}>
+                                    <input type="number" onChange={this.handleChange}/>
+                                </li>
+                                <li style={{margin: 10 + "%", color: 'white'}}>
+                                    <input type="checkbox" onClick={this.checkBoxHandler('rebuild')}/>
+                                </li>
+                                <li style={{margin: 10 + "%", color: 'white'}}>
+                                    <input type="checkbox" onClick={this.checkBoxHandler('useLikes')}/>
+                                </li>
+                                <li style={{margin: 10 + "%", color: 'white'}}>
+                                    <input type="checkbox" onClick={this.checkBoxHandler('useCost')}/>
+                                </li>
+                                <li style={{margin: 10 + "%", color: 'white'}}>
+                                    <input type="checkbox" onClick={this.checkBoxHandler('useNear')}/>
+                                </li>
+                            </ul>
+                        </div>
+                        <button id="buildRoute" className="btn btn-danger squaredBorders" onClick={this.offerRouteList}>
                             Построить маршрут
                         </button>
                     </div>
+
                 </div>
 
                 <RouteTrace/>
-                <button id="addFilters" style={{marginTop: 10 + "%"}} className="btn btn-danger squaredBorders"
-                        onClick={this.addFilters}>
-                    Добавить фильтр
-                </button>
-                <div id="filterScope" className="col-xs-6 .col-sm-4"
-                     style={{marginTop: 5 + "%", width: 100 +"%", display: "block"}}>
-                    <ul className="pure-menu-list col-xs-12 col-sm-6">
-                        <li style={{margin: 10 + "%", color: 'white'}}>
-                            <input type="number" onChange={this.handleChange}/>
-                        </li>
-                        <li style={{margin: 10 + "%", color: 'white'}}>
-                            <input type="checkbox" onClick={this.checkBoxHandler('rebuild')}/>
-                        </li>
-                        <li style={{margin: 10 + "%", color: 'white'}}>
-                            <input type="checkbox" onClick={this.checkBoxHandler('useLikes')}/>
-                        </li>
-                        <li style={{margin: 10 + "%", color: 'white'}}>
-                            <input type="checkbox" onClick={this.checkBoxHandler('useCost')}/>
-                        </li>
-                        <li style={{margin: 10 + "%", color: 'white'}}>
-                            <input type="checkbox" onClick={this.checkBoxHandler('useNear')}/>
-                        </li>
-                    </ul>
 
-                </div>
 
             </div>
 
