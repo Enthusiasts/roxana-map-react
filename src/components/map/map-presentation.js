@@ -135,30 +135,34 @@ var MapPresentation = React.createClass({
 
     // TODO: REwrite function for real data
     getClusterIcon: function (cluster) {
+        console.log("trata");
         var red = 0;
         var green = 0;
         var blue = 0;
 
         var current = this.props.clusters;
-        for (var i = 0; i < cluster.getAllChildMarkers().length; i++) {
-            var clusters = cluster.getAllChildMarkers()[i].entertainment.clusterInfo;
+        var markers = cluster.getAllChildMarkers();
+        for (var i = 0; i < markers.length; i++) {
+            var clusters = markers[i].entertainment.clusterInfo;
             //console.log(clusters);
             //clusters = {like: 0, cost: 4,checkin: 4};
-            if (clusters.likesValue /*&& current[Properties.CLUSTER.TYPE.LIKE].values.includes(clusters.likesValue)*/) {
+            if (clusters.likesValue && current[Properties.CLUSTER.TYPE.LIKE].values.includes(clusters.likesValue)) {
                 red += clusters.likesValue;
             }
-            if (clusters.costValue /*&& current[Properties.CLUSTER.TYPE.COST].values.includes(clusters.costValue)*/) {
+            if (clusters.costValue && current[Properties.CLUSTER.TYPE.COST].values.includes(clusters.costValue)) {
                 green += clusters.costValue;
             }
-            if (clusters.checkinsValue /*&& current[Properties.CLUSTER.TYPE.CHECKIN].values.includes(clusters.checkinsValue)*/) {
+            if (clusters.checkinsValue && current[Properties.CLUSTER.TYPE.CHECKIN].values.includes(clusters.checkinsValue)) {
                 blue += clusters.checkinsValue;
             }
         }
-        red /= cluster.getAllChildMarkers().length;
-        green /= cluster.getAllChildMarkers().length;
-        blue /= cluster.getAllChildMarkers().length;
+        red /= markers.length;
+        green /= markers.length;
+        blue /= markers.length;
 
         var rgb = this.getColor({likesValue: red, costValue: green, checkinsValue: blue});
+
+        console.log(rgb);
 
         return L.divIcon({
             iconSize: [100, 50],
