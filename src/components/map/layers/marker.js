@@ -18,6 +18,11 @@ class Marker extends ReactLeaflet.Marker {
         this.props.markers[this.props.entertainment.id] = undefined;
     }
 
+    /*componentDidUpdate() {
+        super.componentDidUpdate();
+        console.log('t');
+    }*/
+
 }
 
 Marker.propTypes = {

@@ -15,7 +15,8 @@ const mapStateToProps = (state) => {
         likedEntertainmentIds: state.User.likedEntIds,
         polyLine: state.Routes.polyLine,
         popUps: state.User.popUps,
-        isAuthorized: state.User.isAuthorized
+        isAuthorized: state.User.isAuthorized,
+        clusters: state.Entertainments.clusters
     };
 };
 

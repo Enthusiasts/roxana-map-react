@@ -26,15 +26,14 @@ var MapPresentation = React.createClass({
         store: React.PropTypes.object.isRequired
     },
 
-    setUserLocation: function(locationEvent)
-    {
+    setUserLocation: function (locationEvent) {
         var latlng = locationEvent.latlng;
         this.context.store.dispatch(UserActions.setLocation(latlng.lat, latlng.lng));
     },
-    openStartPointPopUp: function (mouseEvent){
+    openStartPointPopUp: function (mouseEvent) {
 
         var latlng = mouseEvent.latlng;
-        if (!this.props.popUps.startPointPopUpActive.active){
+        if (!this.props.popUps.startPointPopUpActive.active) {
             this.context.store.dispatch(UserActions.startPointPopUpActive(true, latlng.lat, latlng.lng));
         }
         else {
@@ -42,10 +41,8 @@ var MapPresentation = React.createClass({
         }
     },
 
-    renderEntertainments: function()
-    {
-        if (this.props.entertainments)
-        {
+    renderEntertainments: function () {
+        if (this.props.entertainments) {
             var t = _.chain(this.props.entertainments)
                 .mapObject(x => _.values(x))
                 .values()
@@ -56,15 +53,15 @@ var MapPresentation = React.createClass({
                     return (
                         <Marker
                             key={ent.id}
-                            entertainment = {ent}
+                            entertainment={ent}
                             position={{lon: ent.longitude, lat: ent.latitude}}
-                            icon = {this.getIcon({ent})}
+                            icon={this.getIcon(ent)}
                         >
                             <Popup>
                                 <EntertainmentInfo
                                     store={this.context.store}
                                     liked={this.props.likedEntertainmentIds.indexOf(ent.id) != -1}
-                                    entertainment={ent} />
+                                    entertainment={ent}/>
                             </Popup>
                         </Marker>
                     );
@@ -72,26 +69,27 @@ var MapPresentation = React.createClass({
             );
         } else return null;
     },
-    renderStartPointPopUp: function(){
+    renderStartPointPopUp: function () {
 
-        var popup= this.props.popUps.startPointPopUpActive;
-        if (popup.active){
+        var popup = this.props.popUps.startPointPopUpActive;
+        if (popup.active) {
             return (
-                <Popup position = {{lat: popup.latitude, lng: popup.longitude}}>
-                    <StartPointPU latitude = {popup.latitude} longitude = {popup.longitude} store = {this.context.store}/>
+                <Popup position={{lat: popup.latitude, lng: popup.longitude}}>
+                    <StartPointPU latitude={popup.latitude} longitude={popup.longitude} store={this.context.store}/>
                 </Popup>
-            )}
+            )
+        }
         else return null;
     },
     // red - like green - cost blue - chechin
-    getIcon: function(ent){
-        if (this.context.store.getState().Routes.items.some(x=> x.id == ent.id)){
-         console.log(ent);
+    getIcon: function (ent) {
+        if (this.context.store.getState().Routes.items.some(x=> x.id == ent.id)) {
+            console.log(ent);
         }
         var i;
-        ent.clusters = {like: 0, cost: 4,checkin: 4};
-        var rgb = this.getColor(ent.clusters);
-        switch (ent.type_en){
+        //ent.clusters = {like: 0, cost: 4,checkin: 4};
+        var rgb = this.getColor(ent.clusterInfo);
+        switch (ent.type_en) {
             case Properties.ENTERTAINMENT.TYPE.CAFE:
                 i = "fa fa-coffee fa-3";
                 break;
@@ -108,54 +106,69 @@ var MapPresentation = React.createClass({
                 i = "fa fa-map-marker fa-3";
         }
         return L.divIcon({
-            iconSize: [50,50],
+            iconSize: [50, 50],
             className: "mapMarker",
-            html: "<i class = \""+i+"\" style=\"color: rgb("+rgb.red+", "+rgb.green+", "+rgb.blue+")\" >"
+            html: "<i class = \"" + i + "\" style=\"color: rgb(" + rgb.red + ", " + rgb.green + ", " + rgb.blue + ")\" >"
         });
     },
-    getColor: function(clusters){
+    getColor: function (clusters) {
         var r = 0;
         var g = 0;
         var b = 0;
-        if (clusters.like) r = Math.round((clusters.like/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.LIKE))*100+100);
-        if (clusters.cost) g = Math.round((clusters.cost/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.COST))*100+100);
-        if (clusters.checkin) b = Math.round((clusters.checkin/Properties.CLUSTER.max(Properties.CLUSTER.TYPE.CHECKIN))*100+100);
+
+        var current = this.props.clusters;
+        //console.log(clusters, current);
+        if (clusters.likesValue /*&& current.like.values.includes(clusters.likesValue)*/) {
+            r = Math.round((clusters.likesValue / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.LIKE)) * 100 + 100);
+            //console.log('r');
+        }
+        if (clusters.costValue /*&& current.cost.values.includes(clusters.likesValue)*/) {
+            g = Math.round((clusters.costValues / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.COST)) * 100 + 100);
+            //console.log('g');
+        }
+        if (clusters.checkinsValue /*&& current.checkin.values.includes(clusters.likesValue)*/) {
+            b = Math.round((clusters.checkinsValue / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.CHECKIN)) * 100 + 100);
+            //console.log('b');
+        }
         return {red: r, green: g, blue: b}
     },
 
     // TODO: REwrite function for real data
-    getClusterIcon: function(cluster){
+    getClusterIcon: function (cluster) {
         var red = 0;
         var green = 0;
         var blue = 0;
+
+        var current = this.props.clusters;
         for (var i = 0; i < cluster.getAllChildMarkers().length; i++) {
-            var clusters = cluster.getAllChildMarkers()[i].entertainment.clusters;
-            clusters = {like: 0, cost: 4,checkin: 4};
-            if (clusters.like) {
-                red += clusters.like;
+            var clusters = cluster.getAllChildMarkers()[i].entertainment.clusterInfo;
+            //console.log(clusters);
+            //clusters = {like: 0, cost: 4,checkin: 4};
+            if (clusters.likesValue /*&& current[Properties.CLUSTER.TYPE.LIKE].values.includes(clusters.likesValue)*/) {
+                red += clusters.likesValue;
             }
-            if (clusters.cost) {
-                green += clusters.cost;
+            if (clusters.costValue /*&& current[Properties.CLUSTER.TYPE.COST].values.includes(clusters.costValue)*/) {
+                green += clusters.costValue;
             }
-            if (clusters.checkin) {
-                blue += clusters.checkin;
+            if (clusters.checkinsValue /*&& current[Properties.CLUSTER.TYPE.CHECKIN].values.includes(clusters.checkinsValue)*/) {
+                blue += clusters.checkinsValue;
             }
         }
         red /= cluster.getAllChildMarkers().length;
         green /= cluster.getAllChildMarkers().length;
         blue /= cluster.getAllChildMarkers().length;
 
-        var rgb = this.getColor({like: red, cost: green, checkin: blue});
+        var rgb = this.getColor({likesValue: red, costValue: green, checkinsValue: blue});
+
         return L.divIcon({
-          iconSize: [100,50],
-          className: "mapMarker",
-          html: "<i class = \"fa fa-dot-circle-o fa-3\" style=\"color: rgb("+rgb.red+", "+rgb.green+", "+rgb.blue+")\"></i><small> " + cluster.getChildCount() + "</small>"
-      })
+            iconSize: [100, 50],
+            className: "mapMarker",
+            html: "<i class = \"fa fa-dot-circle-o fa-3\" style=\"color: rgb(" + rgb.red + ", " + rgb.green + ", " + rgb.blue + ")\"></i><small> " + cluster.getChildCount() + "</small>"
+        })
     },
 
-    render: function()
-    {
-        return  (
+    render: function () {
+        return (
             <Map className="roxana-map"
                  center={{lat: Properties.MAP.CENTER.LATITUDE, lon: Properties.MAP.CENTER.LONGITUDE}}
                  zoom={Properties.MAP.ZOOM}
@@ -188,7 +201,8 @@ MapPresentation.propTypes = {
     entertainments: React.PropTypes.object.isRequired,
     likedEntertainmentIds: React.PropTypes.array.isRequired,
     polyLine: React.PropTypes.array.isRequired,
-    popUps: React.PropTypes.object.isRequired
+    popUps: React.PropTypes.object.isRequired,
+    clusters: React.PropTypes.object.isRequired
 };
 
 module.exports = MapPresentation;
