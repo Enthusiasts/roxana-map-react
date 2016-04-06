@@ -36,7 +36,6 @@ var NavKnown = React.createClass({
 
             this.setState({cost: temp});
             this.context.store.dispatch(Entertainments.showClusterType(Properties.CLUSTER.TYPE.COST,true, temp));
-            console.log(this.context.store.getState());
         }.bind(this)
     },
 

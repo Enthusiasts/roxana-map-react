@@ -69,7 +69,7 @@ var RouteList = React.createClass({
             }));
         }
         else if (this.inContext(Contexts.EDIT)) {
-            console.log(this.context.store.getState());
+            //console.log(this.context.store.getState());
             this.context.store.dispatch(Actions.updateRouteListAndSetEditContext(
                 this.props.context.extra.routeId, {
                     userId,

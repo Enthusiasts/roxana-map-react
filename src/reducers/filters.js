@@ -24,8 +24,8 @@ function filter(
                 points: action.payload.point
             };
         case Actions.SET_CHECKBOX:
-            console.log(state);
-            console.log(action);
+            //console.log(state);
+            //console.log(action);
             var tmp_val = {
                 ...state
             };

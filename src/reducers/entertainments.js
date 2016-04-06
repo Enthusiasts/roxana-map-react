@@ -19,7 +19,13 @@ function entertainments(state = {
             values: []
         }
     },
-    points: {}
+    points: {},
+    focus: {
+        latitude: Properties.MAP.CENTER.LATITUDE,
+        longitude: Properties.MAP.CENTER.LONGITUDE,
+        zoom: Properties.MAP.ZOOM,
+        focusPoints: []
+    }
 }, action) {
 
     const findEntertainment =  function (id){
@@ -108,8 +114,6 @@ function entertainments(state = {
                 }
             };
         case Actions.MARK_AS_WAY_POINT:
-            console.log(state);
-            console.log(action.payload.ids);
             var ent = [];
             for (var i = 0; i< action.payload.ids.length; i++){
                 var candidate = findEntertainment(action.payload.ids[i]);
@@ -123,6 +127,16 @@ function entertainments(state = {
                 points: {
                     ...state.points,
                     ..._.indexBy(ent, "id")
+                }
+            };
+        case Actions.SET_FOCUS:
+            return {
+                ...state,
+                focus: {
+                    latitude: action.payload.latitude,
+                    longitude: action.payload.longitude,
+                    zoom: action.payload.zoom,
+                    focusPoints: action.payload.focusPoints
                 }
             };
 

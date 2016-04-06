@@ -29,7 +29,7 @@ var LikeCluster = React.createClass({
 
             this.setState({like: temp});
             this.context.store.dispatch(Entertainments.showClusterType(Properties.CLUSTER.TYPE.LIKE,true, temp));
-            console.log(this.context.store.getState());
+            //console.log(this.context.store.getState());
         }.bind(this)
     },
 

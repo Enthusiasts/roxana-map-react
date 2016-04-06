@@ -125,6 +125,19 @@ const markAsWayPoint = function(is, ids){
         }
     }
 };
+const SET_FOCUS = 'SET_FOCUS';
+const setFocus = function(focusPoints, latitude, longitude, zoom){
+    return {
+        type: SET_FOCUS,
+        payload: {
+            latitude,
+            longitude,
+            zoom,
+            focusPoints
+        }
+    }
+
+};
 
 
 module.exports = {
@@ -136,12 +149,14 @@ module.exports = {
     SHOW_CLUSTER_TYPE,
     SHOW_ENT_LIKES,
     MARK_AS_WAY_POINT,
+    SET_FOCUS,
     errorEntertainments,
     fetchEntertainments,
     showNaturalTypeAndFetchEntertainments,
     showEntLikes,
     showClusterType,
-    markAsWayPoint
+    markAsWayPoint,
+    setFocus
 
     //addParticularEntertainments
 };

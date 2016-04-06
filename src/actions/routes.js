@@ -28,7 +28,7 @@ const setRouteList = function (entertainments) {
 
 const CLEAR_ROUTE_LIST = 'CLEAR_ROUTE_LIST';
 const clearRouteList = function () {
-    return function(dispatch, getState){
+    return function (dispatch, getState) {
         dispatch(Entertainments.markAsWayPoint(false, getState().Routes.items.map(x =>x.id)));
         dispatch({type: CLEAR_ROUTE_LIST});
 
@@ -297,6 +297,11 @@ const offerRouteList = function (lat, lon) {
                         var toPolyline = sliced.slice();
                         toPolyline.push({latitude: lat, longitude: lon});
                         dispatch(updatePolyLine(toPolyline));
+                        //var temp = sliced.map(x => {
+                        //    return {lat: x.latitude, lng: x.longitude}
+                        //});
+                        //console.log(temp);
+                        //dispatch(Entertainments.setFocus(sliced.map(x =>)))
                     }
                 }
             )

@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
         polyLine: state.Routes.polyLine,
         popUps: state.User.popUps,
         isAuthorized: state.User.isAuthorized,
-        clusters: state.Entertainments.clusters
+        clusters: state.Entertainments.clusters,
+        focus: state.Entertainments.focus
     };
 };
 

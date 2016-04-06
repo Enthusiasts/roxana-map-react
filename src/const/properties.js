@@ -76,5 +76,8 @@ module.exports = {
                     return 4
             }
         }
+    },
+    FOCUS: {
+        ZOOM: 16
     }
 };
