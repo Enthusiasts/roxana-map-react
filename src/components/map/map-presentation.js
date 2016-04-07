@@ -82,14 +82,24 @@ var MapPresentation = React.createClass({
         }
         else return null;
     },
+
+    _getClusterValuesFromEntertainment: function (ent) {
+        //ent.clustersCode is a string like '423' where each number is a value of cluster by order
+        return  {
+            costsValue: ent.clustersCode ? number(ent.clustersCode.charAt(0)) : 0,
+            likesValue: ent.clustersCode ? number(ent.clustersCode.charAt(1)) : 0,
+            checkinsValue: ent.clustersCode ? number(ent.clustersCode.charAt(2)) : 0
+        };
+    },
+
     // red - like green - cost blue - chechin
     getIcon: function (ent) {
         if (this.context.store.getState().Routes.items.some(x=> x.id == ent.id)) {
 
         }
-        var i;
 
-        var rgb = this.getColor(ent.clusterInfo);
+        var i;
+        var rgb = this.getColor(this._getClusterValuesFromEntertainment(ent));
         switch (ent.type_en) {
             case Properties.ENTERTAINMENT.TYPE.CAFE:
                 i = "fa fa-coffee fa-3";
@@ -106,31 +116,32 @@ var MapPresentation = React.createClass({
             default:
                 i = "fa fa-map-marker fa-3";
         }
+
         return L.divIcon({
             iconSize: [50, 50],
             className: "mapMarker",
             html: "<i class = \"" + i + "\" style=\"color: rgb(" + rgb.red + ", " + rgb.green + ", " + rgb.blue + ")\" >"
         });
     },
-    getColor: function (clusters) {
+
+    getColor: function (clusterValues) {
         var r = 0;
         var g = 0;
         var b = 0;
 
         var current = this.props.clusters;
-        if (clusters.likesValue /*&& current.like.values.includes(clusters.likesValue)*/) {
-            r = Math.round((clusters.likesValue / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.LIKE)) * 100 + 100);
+        if (clusterValues.likesValue /*&& current.like.values.includes(clusterValues.likesValue)*/) {
+            r = Math.round((clusterValues.likesValue / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.LIKE)) * 100 + 100);
         }
-        if (clusters.costValue /*&& current.cost.values.includes(clusters.likesValue)*/) {
-            g = Math.round((clusters.costValue / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.COST)) * 100 + 100);
+        if (clusterValues.costsValue /*&& current.cost.values.includes(clusterValues.costsValue)*/) {
+            g = Math.round((clusterValues.costsValue / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.COST)) * 100 + 100);
         }
-        if (clusters.checkinsValue /*&& current.checkin.values.includes(clusters.likesValue)*/) {
-            b = Math.round((clusters.checkinsValue / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.CHECKIN)) * 100 + 100);
+        if (clusterValues.checkinsValue /*&& current.checkin.values.includes(clusterValues.checkinsValue)*/) {
+            b = Math.round((clusterValues.checkinsValue / Properties.CLUSTER.max(Properties.CLUSTER.TYPE.CHECKIN)) * 100 + 100);
         }
         return {red: r, green: g, blue: b}
     },
 
-    // TODO: REwrite function for real data
     getClusterIcon: function (cluster) {
         var red = 0;
         var green = 0;
@@ -139,23 +150,24 @@ var MapPresentation = React.createClass({
         var current = this.props.clusters;
         var markers = cluster.getAllChildMarkers();
         for (var i = 0; i < markers.length; i++) {
-            var clusters = markers[i].entertainment.clusterInfo;
-            //clusters = {like: 0, cost: 4,checkin: 4};
-            if (clusters.likesValue && current[Properties.CLUSTER.TYPE.LIKE].values.includes(clusters.likesValue)) {
-                red += clusters.likesValue;
+            var clusterValues = this._getClusterValuesFromEntertainment(markers[i].entertainment);
+
+            if (clusterValues.likesValue && current[Properties.CLUSTER.TYPE.LIKE].values.includes(clusterValues.likesValue)) {
+                red += clusterValues.likesValue;
             }
-            if (clusters.costValue && current[Properties.CLUSTER.TYPE.COST].values.includes(clusters.costValue)) {
-                green = green + clusters.costValue;
+            if (clusterValues.costsValue && current[Properties.CLUSTER.TYPE.COST].values.includes(clusterValues.costsValue)) {
+                green = green + clusterValues.costsValue;
             }
-            if (clusters.checkinsValue && current[Properties.CLUSTER.TYPE.CHECKIN].values.includes(clusters.checkinsValue)) {
-                blue += clusters.checkinsValue;
+            if (clusterValues.checkinsValue && current[Properties.CLUSTER.TYPE.CHECKIN].values.includes(clusterValues.checkinsValue)) {
+                blue += clusterValues.checkinsValue;
             }
         }
+
         red /= markers.length;
         green /= markers.length;
         blue /= markers.length;
 
-        var rgb = this.getColor({likesValue: red, costValue: green, checkinsValue: blue});
+        var rgb = this.getColor({likesValue: red, costsValue: green, checkinsValue: blue});
 
         return L.divIcon({
             iconSize: [100, 50],
@@ -188,9 +200,16 @@ var MapPresentation = React.createClass({
                 <MarkerCluster iconCreateFunction={this.getClusterIcon}>
                     {this.renderEntertainments()}
                 </MarkerCluster>
-                <Focus latitude={this.props.focus.latitude} longitude={this.props.focus.longitude} zoom = {this.props.focus.zoom}  focusPoints = {this.props.focus.focusPoints}/>
             </Map>
         );
+        /*
+         <Focus
+         latitude={this.props.focus.latitude}
+         longitude={this.props.focus.longitude}
+         zoom = {this.props.focus.zoom}
+         focusPoints = {this.props.focus.focusPoints}
+         />
+        */
     }
 
 });
