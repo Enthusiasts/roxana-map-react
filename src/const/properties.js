@@ -5,7 +5,7 @@ var _ = require('underscore');
 
 //Spring
 const baseUri = window.location.protocol + "//" + window.location.host;
-const entTypePairs = [['CAFE', "Кафе"], ['RESTAURANT', "Ресторан"], ['BAR', "Бары"], ['CLUB', "Клуб"]];
+const entTypePairs = [['CAFE', "Кафе"], ['RESTAURANT', "Рестораны"], ['BAR', "Бары"], ['CLUB', "Клубы"]];
 const entTypePairsFirst = entTypePairs.map(x => x[0]);
 const entTypePairsLast = entTypePairs.map(x => x[1]);
 
