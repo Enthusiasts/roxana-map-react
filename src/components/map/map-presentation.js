@@ -86,9 +86,9 @@ var MapPresentation = React.createClass({
     _getClusterValuesFromEntertainment: function (ent) {
         //ent.clustersCode is a string like '423' where each number is a value of cluster by order
         return  {
-            costsValue: ent.clustersCode ? number(ent.clustersCode.charAt(0)) : 0,
-            likesValue: ent.clustersCode ? number(ent.clustersCode.charAt(1)) : 0,
-            checkinsValue: ent.clustersCode ? number(ent.clustersCode.charAt(2)) : 0
+            costsValue: ent.clustersCode ? Number(ent.clustersCode.charAt(0)) : 0,
+            likesValue: ent.clustersCode ? Number(ent.clustersCode.charAt(1)) : 0,
+            checkinsValue: ent.clustersCode ? Number(ent.clustersCode.charAt(2)) : 0
         };
     },
 
