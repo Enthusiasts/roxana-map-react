@@ -7,13 +7,14 @@ var L = require('leaflet');
 
 class Focus extends ReactLeaflet.MapComponent {
 
-    focus (array ,lat, lon, zoom){
-        if (lat || lon){
-            this.props.map.fitBounds(array);
+    focus(array, lat, lng, zoom) {
+        if (lat && lng && zoom) {
+            this.props.map.setZoomAround({lat, lng}, zoom);
         }
         else {
-            this.props.map.setZoomAround([lat,lon,zoom])
+            this.props.map.fitBounds(array);
         }
+        this.props.map.invalidateSize({reset: true});
     }
 
     componentDidMount() {
@@ -22,20 +23,25 @@ class Focus extends ReactLeaflet.MapComponent {
         var longitude = this.props.longitude;
         var zoom = this.props.zoom;
         var focusPoints = this.props.focusPoints;
-        this.focus(latitude,longitude,zoom,focusPoints);
+        this.focus(focusPoints, latitude, longitude, zoom);
 
     }
 
+    componentShouldUpdate(nextProps) {
+        return nextProps.focusPoints
+    }
+
     componentDidUpdate() {
-        super.componentDidUpdate;
+        //super.componentDidUpdate();
+        console.log(':(');
         var latitude = this.props.latitude;
         var longitude = this.props.longitude;
         var zoom = this.props.zoom;
         var focusPoints = this.props.focusPoints;
-        this.focus(latitude,longitude,zoom,focusPoints);
+        this.focus(focusPoints, latitude, longitude, zoom);
     }
 
-    render(){
+    render() {
         return null;
     }
 }

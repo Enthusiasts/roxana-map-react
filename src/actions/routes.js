@@ -299,11 +299,11 @@ const offerRouteList = function (lat, lon) {
                         var toPolyline = sliced.slice();
                         toPolyline.push({latitude: lat, longitude: lon});
                         dispatch(updatePolyLine(toPolyline));
-                        //var temp = sliced.map(x => {
-                        //    return {lat: x.latitude, lng: x.longitude}
-                        //});
+                        var temp = sliced.map(x => {
+                            return {lat: x.latitude, lng: x.longitude}
+                        });
                         //console.log(temp);
-                        //dispatch(Entertainments.setFocus(sliced.map(x =>)))
+                        dispatch(Entertainments.setFocus(temp));
                     }
                 }
             )
