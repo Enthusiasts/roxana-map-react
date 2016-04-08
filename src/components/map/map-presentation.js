@@ -205,6 +205,7 @@ var MapPresentation = React.createClass({
                     longitude={this.props.focus.longitude}
                     zoom = {this.props.focus.zoom}
                     focusPoints = {this.props.focus.focusPoints}
+                    store = {this.context.store}
                 />
             </Map>
         );

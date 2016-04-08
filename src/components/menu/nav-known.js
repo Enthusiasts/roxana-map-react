@@ -9,6 +9,7 @@ var Filters = require('../../actions/filters');
 var Entertainments = require('../../actions/entertainments');
 var LikeCluster = require('./RouteFilters/like-cluster');
 var CheckinCluster = require('./RouteFilters/checkin-cluster');
+var SearchLine = require('./MenuComponents/search-line');
 
 var NavKnownElem = require('./nav-known-elem');
 var RouteTrace = require('../route/route-container');
@@ -86,10 +87,7 @@ var NavKnown = React.createClass({
 
         return (
             <div id="knownMenuList">
-                <div className="form-group has-feedback ">
-                    <input type="text" className="form-control squaredBorders" placeholder="Выберите место"/>
-                    <i className="glyphicon glyphicon-search form-control-feedback"/>
-                </div>
+                <SearchLine/>
                 <div className="container-fluid typeFilter">
                     <div className="col-xs-12 col-sm-6">
                         <ul className="pure-menu-list">

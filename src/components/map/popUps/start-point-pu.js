@@ -14,7 +14,7 @@ var StartPointPU = React.createClass({
 
 
     onButtonClick: function(){
-        this.props.store.dispatch(RouteActions.offerRouteList(this.props.latitude, this.props.longitude, ["Бары"]));
+        this.props.store.dispatch(RouteActions.offerRouteList(this.props.latitude, this.props.longitude));
     },
     render: function(){
         return (

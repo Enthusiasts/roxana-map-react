@@ -4,6 +4,7 @@
 var React = require('react');
 var ReactLeaflet = require('react-leaflet');
 var L = require('leaflet');
+var Entertainments = require('../../../actions/entertainments');
 
 class Focus extends ReactLeaflet.MapComponent {
 
@@ -17,8 +18,16 @@ class Focus extends ReactLeaflet.MapComponent {
         this.props.map.invalidateSize({reset: true});
     }
 
+
     componentDidMount() {
         super.componentDidMount();
+        this.props.map.on("moveend", function(event){
+
+            var center = this.props.map.getCenter();
+            var zoom = this.props.map.getZoom();
+            this.props.store.dispatch(Entertainments.setFocus([],center.lat,center.lng,zoom));
+
+        }.bind(this));
         var latitude = this.props.latitude;
         var longitude = this.props.longitude;
         var zoom = this.props.zoom;
@@ -33,7 +42,15 @@ class Focus extends ReactLeaflet.MapComponent {
 
     componentDidUpdate() {
         //super.componentDidUpdate();
-        console.log(':(');
+
+        this.props.map.on("moveend", function(event){
+
+            var center = this.props.map.getCenter();
+            var zoom = this.props.map.getZoom();
+            this.props.store.dispatch(Entertainments.setFocus([],center.lat,center.lng,zoom));
+
+        }.bind(this));
+
         var latitude = this.props.latitude;
         var longitude = this.props.longitude;
         var zoom = this.props.zoom;

@@ -186,7 +186,7 @@ body, html {
     height: -moz-calc(100% - 50px);
     height: -webkit-calc(100% - 50px);
     top: 60px;
-    z-index: 1000;
+    z-index: 950;
     left: -500px;
     background: rgba(33, 33, 33, 0.7);
     overflow-y: auto;
@@ -277,8 +277,26 @@ body, html {
     color: white;
     float: right;
 }
-#knownMenuList #addFilters{
 
+#knownMenuList .searchComponent{
+    width: 100%;
+    margin-bottom: 15px;
+}
+#knownMenuList .searchComponent .form-group{
+    margin-bottom: 0px;
+}
+#knownMenuList .searchComponent #searchResult{
+
+    position: absolute;
+    background: white;
+    z-index: 1000;
+    height: 50px;
+    width: -moz-calc(100% - 100px);
+    width: -webkit-calc(100% - 100px);
+
+}
+
+#knownMenuList #addFilters{
     margin-bottom: 10px;
 }
 #knownMenuList #filterScope{
@@ -298,7 +316,7 @@ body, html {
     height: -moz-calc(100% - 50px);
     height: -webkit-calc(100% - 50px);
     margin: auto;
-    padding: 50px;
+    padding: 10px 50px;
 }
 #knownMenuList .typeFilter > div > ul >li {
     width: 118px;
@@ -322,7 +340,8 @@ body, html {
     text-transform: uppercase;
 }
 #knownMenuList .range {
-    margin: 1em 0;
+
+    margin: 0 0 1em 0;
     cursor: default;
 }
 #knownMenuList .range >i:hover {
