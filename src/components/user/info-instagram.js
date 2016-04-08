@@ -8,20 +8,20 @@ var UserInfo = React.createClass({
     render: function()
     {
         return (
-            <div className="historyList">
-                <div className="historyItem">
-                    <div className="span1">
+            <div className="authPanel">
+                    <div className="authPanelImg">
                         <a href={this.props.profileUrl} target="_blank">
-                            <img src={this.props.profileImage} alt="" />
+                            <img src={this.props.profileImage} alt="" className="img-circle" />
                         </a>
                     </div>
-                    <div className="span3">
+                    <div className="authPanelInfo">
                         <p>{this.props.profileLogin}</p>
                         <p><strong>{this.props.profileName}</strong></p>
-                        <span className="label label-success">{this.props.profilePhotosCount} фото</span>
-                        <span className="label label-primary">{this.props.profileFollowersCount} подписчиков</span>
+                        <span className="label label-success squaredBorders">{this.props.profilePhotosCount} фото</span> <br/>
+                        <span className="label label-primary squaredBorders">{this.props.profileFollowersCount} подписчиков</span>
+
+                        <a href="/logout" className="btn btn-danger squaredBorders">Выход</a>
                     </div>
-                </div>
             </div>
         );
     }

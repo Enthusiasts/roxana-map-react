@@ -138,6 +138,42 @@ const setFocus = function(focusPoints, latitude, longitude, zoom){
     }
 
 };
+const SEARCH_ENT_REQ = 'SEARCH_ENT_REQ';
+
+const searchEntReq = function () {
+    return {
+        type: SEARCH_ENT_REQ
+    }
+};
+const SEARCH_ENR_RES = 'SEARCH_ENR_RES';
+const searchEntRes = function (entName,candidates){
+    return {
+        type: SEARCH_ENR_RES,
+        payload: {
+            entName,
+            candidates
+        }
+    }
+};
+const searchEnt = function(entName){
+    return function (dispatch){
+        dispatch(searchEntReq());
+        if (entName === '') {
+            dispatch(searchEntRes(entName,[]))
+        }
+        else {
+            return fetch(Properties.API.ROOT +'entertainments/search/findByTitleContent?content=' + entName)
+                .then(response => response.json())
+                .then(json => {
+                    var temp = json._embedded.entertainments;
+                    var candidates = temp.map(ent => {
+                        return {id: ent.id, title: ent.title, longitude: ent.longitude, latitude: ent.latitude}
+                    }).slice(0,5);
+                    dispatch(searchEntRes(entName,candidates));
+                });
+        }
+    }
+};
 
 
 module.exports = {
@@ -150,13 +186,18 @@ module.exports = {
     SHOW_ENT_LIKES,
     MARK_AS_WAY_POINT,
     SET_FOCUS,
+    SEARCH_ENT_REQ,
+    SEARCH_ENR_RES,
     errorEntertainments,
     fetchEntertainments,
     showNaturalTypeAndFetchEntertainments,
     showEntLikes,
     showClusterType,
     markAsWayPoint,
-    setFocus
+    setFocus,
+    searchEntReq,
+    searchEntRes,
+    searchEnt
 
     //addParticularEntertainments
 };

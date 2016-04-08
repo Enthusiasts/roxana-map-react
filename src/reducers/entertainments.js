@@ -25,6 +25,11 @@ function entertainments(state = {
         longitude: Properties.MAP.CENTER.LONGITUDE,
         zoom: Properties.MAP.ZOOM,
         focusPoints: []
+    },
+    searchEnt: {
+        searching: false,
+        hasResp: false,
+        candidates: []
     }
 }, action) {
 
@@ -139,7 +144,35 @@ function entertainments(state = {
                     focusPoints: action.payload.focusPoints
                 }
             };
-
+        case Actions.SEARCH_ENT_REQ:
+            return {
+                ...state,
+                searchEnt: {
+                    searching: true,
+                    hasResp: false
+                }
+            };
+        case Actions.SEARCH_ENR_RES:
+            if (action.payload.entName === ''){
+                return {
+                    ...state,
+                    searchEnt: {
+                        searching: false,
+                        hasResp: false,
+                        candidates: action.payload.candidates
+                    }
+                };
+            }
+            else {
+                return {
+                    ...state,
+                    searchEnt: {
+                        searching: false,
+                        hasResp: true,
+                        candidates: action.payload.candidates
+                    }
+                };
+            }
         default:
             return state;
     }

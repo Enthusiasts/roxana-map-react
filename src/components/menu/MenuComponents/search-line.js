@@ -3,18 +3,59 @@
  */
 var React = require('react');
 
-var Actions = require('../../../actions/entertainments');
+var Entertainments = require('../../../actions/entertainments');
 var Properties = require('../../../const/properties');
 var classNames = require('classnames');
 
 var SearchLine = React.createClass({
+    contextTypes: {
+        store: React.PropTypes.object.isRequired
+    },
 
     changeHandler: function (event) {
-        console.log(event.target.value);
+        var value = event.target.value;
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => this.context.store.dispatch(Entertainments.searchEnt(value)), 1000);
+
+
     },
     renderSearchResults: function(){
+        if (this.props.searchEnt.searching){
+            return (
+                <div id="searchResult">
+                    &nbsp;&nbsp;<i className="fa fa-spinner animated rotateIn"/>
+                </div>
+            )
+        }
+        else {
+            console.log(this.props.searchEnt);
 
-        return (false) ?  (<div id="searchResult"></div>): null
+            if (this.props.searchEnt.candidates.length == 0 && this.props.searchEnt.hasResp) {
+                return (<div id="searchResult">
+                            Не найдено
+                        </div>)
+            }
+            if (this.props.searchEnt.candidates.length > 0){
+                return (
+                    <div id="searchResult" className="list-group">
+                        {this.renderResults(this.props.searchEnt.candidates)}
+                    </div>
+                )
+            }
+        }
+        return null
+    },
+    renderResults: function(results){
+      console.log(results);
+        return results.map (
+          ent => {
+              return (
+                  <li className="list-group-item" key = {ent.id}>
+                      <a>{ent.title}</a>
+                  </li>
+                  )
+          }
+      )
     },
 
     render: function(){
@@ -32,6 +73,9 @@ var SearchLine = React.createClass({
     }
 
 });
+SearchLine.propTypes = {
+    searchEnt: React.PropTypes.object.isRequired
+};
 
 module.exports = SearchLine;
 
