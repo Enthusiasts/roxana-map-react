@@ -41,6 +41,21 @@ var EntertainmentInfo = React.createClass({
                 });
         }
     },
+    renderImages: function () {
+        if (typeof this.state.medias !== "undefined") {
+            var temp = this.state.medias;
+            return temp.map (
+                ent => {
+                    if (ent.type == "image")
+                    return (
+                        <a href={ent.link} target="_blank">
+                            <img src={ent.thumbnail} alt=""/>
+                        </a>
+                    )
+                }).slice(0,12);
+        }
+        return null;
+    },
 
     getInitialState: function () {
         //var liked = this.props.store.getState().User.likedEntIds.indexOf(this.props.entertainment.id) >= 0;
@@ -95,6 +110,9 @@ var EntertainmentInfo = React.createClass({
         );
         return (
             <div className="pop-up">
+                <div className="imageHolder">
+                    {this.renderImages()}
+                </div>
                 <b>{this.props.entertainment.type}</b><br/>
                 <b>Название: </b>{this.props.entertainment.title} <br/>
                 <b>Район: </b>{this.props.entertainment.zoneTitle} <br/>

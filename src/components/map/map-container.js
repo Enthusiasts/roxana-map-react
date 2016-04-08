@@ -24,7 +24,6 @@ const mapStateToProps = (state) => {
         clusters: state.Entertainments.clusters,
         focus: state.Entertainments.focus
     };
-    console.log(t.entertainments);
     return t;
 };
 

@@ -80,7 +80,6 @@ function entertainments(state = {
             return state;
 
         case Actions.SHOW_NATURAL_TYPE:
-            console.log(state.naturalTypes);
             var index = state.naturalTypes.indexOf(action.payload.naturalType);
             if (index == -1) {
                 if (!action.payload.isShowing) return state;
