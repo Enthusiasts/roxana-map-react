@@ -200,6 +200,13 @@ var MapPresentation = React.createClass({
                 <MarkerCluster iconCreateFunction={this.getClusterIcon}>
                     {this.renderEntertainments()}
                 </MarkerCluster>
+                <Focus
+                    latitude={this.props.focus.latitude}
+                    longitude={this.props.focus.longitude}
+                    zoom = {this.props.focus.zoom}
+                    focusPoints = {this.props.focus.focusPoints}
+                    store = {this.context.store}
+                />
             </Map>
         );
         /*
