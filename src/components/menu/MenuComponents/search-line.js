@@ -49,7 +49,6 @@ var SearchLine = React.createClass({
         }.bind(this)
     },
     renderResults: function(results){
-      console.log(results);
         return results.map (
           ent => {
               return (

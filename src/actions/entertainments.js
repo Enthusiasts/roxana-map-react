@@ -176,6 +176,7 @@ const showEntFromSearchResult = function(ent){
     return function (dispatch, getState){
         var type = [ent.type_en];
         var place = [ent];
+        console.log(type,place);
         dispatch(receiveEntertainments(type, place));
         dispatch(setFocus([],ent.latitude,ent.longitude, Properties.FOCUS.ZOOM));
         //console.log(getState());

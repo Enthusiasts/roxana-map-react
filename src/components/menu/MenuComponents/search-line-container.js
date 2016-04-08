@@ -7,6 +7,7 @@ var SearchLine = require('./search-line');
 
 const mapStateToProps = (state) =>
 {
+
     return {
         searchEnt: state.Entertainments.searchEnt
     }

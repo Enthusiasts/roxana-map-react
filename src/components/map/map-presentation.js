@@ -94,6 +94,9 @@ var MapPresentation = React.createClass({
 
     // red - like green - cost blue - chechin
     getIcon: function (ent) {
+        if (ent.title == "b5534e557e2d06abb5c3d33d59e57b3d"){
+            console.log(ent);
+        }
 
 
         var i;
@@ -116,6 +119,7 @@ var MapPresentation = React.createClass({
         }
         var cheat = this.context.store.getState().Entertainments.points.CHEAT;
         if (typeof cheat !== "undefined" && typeof cheat[ent.id] !== "undefined") {
+            console.log("SUKA EBLIVAYA");
             i = "fa fa-map-marker fa-3";
         }
         return L.divIcon({
