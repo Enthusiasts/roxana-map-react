@@ -282,7 +282,7 @@ const offerRouteList = function (lat, lon) {
         if (routeFilter.useLikes) query += "&useLikes=" + routeFilter.useLikes;
         if (routeFilter.useCost) query += "&useCost=" + routeFilter.useCost;
         if (routeFilter.useNear) query += "&useNear=" + routeFilter.useNear;
-
+        console.log(query);
         return fetch(Properties.API.ROUTES + "calculate" + query, {
             method: 'GET',
             mode: 'same-origin'
