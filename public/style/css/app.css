@@ -262,8 +262,14 @@ body, html {
 }
 #unknownMenuList .authPanelInfo{
     width: 100%;
+
+}
+#unknownMenuList .authPanelInfo  .spanInfo{
+    width: 110px;
+    height: 40px;
 }
 #unknownMenuList .authPanelInfo > a{
+    width: 110px;
     margin-top: 10px;
 
 }

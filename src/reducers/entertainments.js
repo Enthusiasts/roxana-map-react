@@ -7,7 +7,7 @@ var Properties = require('../const/properties');
 
 function entertainments(state = {
     isFetching: false,
-    naturalTypes: [],
+    naturalTypes: ["CHEAT"],
     clusters: {
         cost: {
             values: []

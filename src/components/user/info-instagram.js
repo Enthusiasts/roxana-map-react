@@ -17,8 +17,10 @@ var UserInfo = React.createClass({
                     <div className="authPanelInfo">
                         <p>{this.props.profileLogin}</p>
                         <p><strong>{this.props.profileName}</strong></p>
-                        <span className="label label-success squaredBorders">{this.props.profilePhotosCount} фото</span> <br/>
-                        <span className="label label-primary squaredBorders">{this.props.profileFollowersCount} подписчиков</span>
+                        <div className="spanInfo">
+                            <span className="label label-success squaredBorders">{this.props.profilePhotosCount} фото</span> <br/>
+                            <span className="label label-primary squaredBorders">{this.props.profileFollowersCount} подписчиков</span>
+                        </div>
 
                         <a href="/logout" className="btn btn-danger squaredBorders">Выход</a>
                     </div>

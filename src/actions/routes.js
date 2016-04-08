@@ -231,9 +231,17 @@ const setRouteListAndRenderPath = function (items) {
     }
 };
 
-const updatePolyLine = function (points) {
+const updatePolyLine = function (input) {
     return (dispatch, getState) => {
-        dispatch(Entertainments.markAsWayPoint(true, getState().Routes.items.map(x => x.id)));
+        var points = input.slice();
+        points.forEach(x => x["type_en"] = Properties.ENTERTAINMENT.TYPE.CHEAT);
+        //dispatch(Entertainments.markAsWayPoint(true, getState().Routes.items.map(x => x.id)));
+        dispatch(Entertainments.receiveEntertainments([], points));
+        dispatch(Entertainments.setFocus(points.map(x => {
+            return {lat: x.latitude, lng: x.longitude}
+        })));
+
+        dispatch(Entertainments.setFocus());
         var query = points
             .map(ent => (ent.latitude + ',' + ent.longitude))
             .join('&loc=');
@@ -274,7 +282,7 @@ const offerRouteList = function (lat, lon) {
         if (routeFilter.useLikes) query += "&useLikes=" + routeFilter.useLikes;
         if (routeFilter.useCost) query += "&useCost=" + routeFilter.useCost;
         if (routeFilter.useNear) query += "&useNear=" + routeFilter.useNear;
-
+        console.log(query);
         return fetch(Properties.API.ROUTES + "calculate" + query, {
             method: 'GET',
             mode: 'same-origin'

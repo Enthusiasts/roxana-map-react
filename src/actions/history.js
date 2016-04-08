@@ -51,9 +51,9 @@ const _loadRoute = function (routeId, context) {
                     // Рисуем маршрут на карте и вносим его в менюшку
                     dispatch(RouteActions.setRouteListAndRenderPath(items));
                     // Ставим фокус на маршрут
-                    dispatch(EntertainmentActions.setFocus(items.map(x => {
-                        return {lat: x.latitude, lng: x.longitude}
-                    })));
+                    //dispatch(EntertainmentActions.setFocus(items.map(x => {
+                    //    return {lat: x.latitude, lng: x.longitude}
+                    //})));
                     // Меняем контекст менюшки на просмотр
                     dispatch(RouteActions.setContext(context, {routeId}));
 

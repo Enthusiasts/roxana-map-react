@@ -28,8 +28,6 @@ var SearchLine = React.createClass({
             )
         }
         else {
-            console.log(this.props.searchEnt);
-
             if (this.props.searchEnt.candidates.length == 0 && this.props.searchEnt.hasResp) {
                 return (<div id="searchResult">
                             Не найдено
@@ -45,13 +43,18 @@ var SearchLine = React.createClass({
         }
         return null
     },
+    clickOnLink: function(ent){
+        return function(){
+            this.context.store.dispatch(Entertainments.showEntFromSearchResult(ent));
+        }.bind(this)
+    },
     renderResults: function(results){
       console.log(results);
         return results.map (
           ent => {
               return (
                   <li className="list-group-item" key = {ent.id}>
-                      <a>{ent.title}</a>
+                      <a onClick={this.clickOnLink(ent)}>{ent.title}</a>
                   </li>
                   )
           }

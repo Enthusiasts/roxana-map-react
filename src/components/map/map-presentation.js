@@ -94,9 +94,7 @@ var MapPresentation = React.createClass({
 
     // red - like green - cost blue - chechin
     getIcon: function (ent) {
-        if (this.context.store.getState().Routes.items.some(x=> x.id == ent.id)) {
 
-        }
 
         var i;
         var rgb = this.getColor(this._getClusterValuesFromEntertainment(ent));
@@ -116,7 +114,10 @@ var MapPresentation = React.createClass({
             default:
                 i = "fa fa-map-marker fa-3";
         }
-
+        var cheat = this.context.store.getState().Entertainments.points.CHEAT;
+        if (typeof cheat !== "undefined" && typeof cheat[ent.id] !== "undefined") {
+            i = "fa fa-map-marker fa-3";
+        }
         return L.divIcon({
             iconSize: [50, 50],
             className: "mapMarker",

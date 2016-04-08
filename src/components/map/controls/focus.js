@@ -11,13 +11,15 @@ var Entertainments = require('../../../actions/entertainments');
 class Focus extends ReactLeaflet.MapComponent {
 
     focus(array, lat, lng, zoom) {
+
         if (typeof lat !== 'undefined' && typeof lng !== 'undefined' && typeof zoom !== 'undefined') {
-            this.props.map.setZoomAround({lat, lng}, zoom);
+            this.props.map.panTo({lat: Number(lat), lng: Number(lng)});
+            this.props.map.setZoom(Number(zoom));
         }
         else {
             this.props.map.fitBounds(array);
         }
-        //this.props.map.invalidateSize({reset: true});
+        this.props.map.invalidateSize({reset: true});
     }
 
 
@@ -38,14 +40,16 @@ class Focus extends ReactLeaflet.MapComponent {
     }
 
     shouldComponentUpdate(nextProps) {
-        const eps = 0.01;
+        const eps = 0.001;
         return _.difference(nextProps.focusPoints, this.props.focusPoints).length > 0
             || (typeof nextProps.latitude !== 'undefined'
                 && typeof this.props.latitude !== 'undefined'
-                && (nextProps.latitude - this.props.latitude) > eps)
+                && (((nextProps.latitude - this.props.latitude) > eps)
+                || ((nextProps.latitude - this.props.latitude) < -1*eps)))
             || (typeof nextProps.longitude !== 'undefined'
                 && typeof this.props.longitude !== 'undefined'
-                && (nextProps.longitude - this.props.longitude) > eps)
+                && (((nextProps.longitude - this.props.longitude) > eps)
+                || ((nextProps.longitude - this.props.longitude) < -1*eps)))
             || (typeof nextProps.zoom !== 'undefined'
                 && typeof this.props.zoom !== 'undefined'
                 && nextProps.zoom != this.props.zoom);
@@ -62,12 +66,13 @@ class Focus extends ReactLeaflet.MapComponent {
          this.props.store.dispatch(Entertainments.setFocus([], center.lat, center.lng, zoom));
 
          }.bind(this));*/
-
+        console.log("start "+this.props.map.getCenter());
         var latitude = this.props.latitude;
         var longitude = this.props.longitude;
         var zoom = this.props.zoom;
         var focusPoints = this.props.focusPoints;
         this.focus(focusPoints, latitude, longitude, zoom);
+        console.log("end "+this.props.map.getCenter());
     }
 
     render() {

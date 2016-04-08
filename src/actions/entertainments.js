@@ -165,13 +165,20 @@ const searchEnt = function(entName){
             return fetch(Properties.API.ROOT +'entertainments/search/findByTitleContent?content=' + entName)
                 .then(response => response.json())
                 .then(json => {
-                    var temp = json._embedded.entertainments;
-                    var candidates = temp.map(ent => {
-                        return {id: ent.id, title: ent.title, longitude: ent.longitude, latitude: ent.latitude}
-                    }).slice(0,5);
+                    var candidates = json._embedded.entertainments.slice(0,5);
+                    candidates.forEach(ent => {ent['type_en'] = Properties.ENTERTAINMENT.TYPE.CHEAT});
                     dispatch(searchEntRes(entName,candidates));
                 });
         }
+    }
+};
+const showEntFromSearchResult = function(ent){
+    return function (dispatch, getState){
+        var type = [ent.type_en];
+        var place = [ent];
+        dispatch(receiveEntertainments(type, place));
+        dispatch(setFocus([],ent.latitude,ent.longitude, Properties.FOCUS.ZOOM));
+        //console.log(getState());
     }
 };
 
@@ -197,7 +204,9 @@ module.exports = {
     setFocus,
     searchEntReq,
     searchEntRes,
-    searchEnt
+    searchEnt,
+    showEntFromSearchResult,
+    receiveEntertainments
 
     //addParticularEntertainments
 };
