@@ -11,7 +11,7 @@ var Entertainments = require('../../../actions/entertainments');
 class Focus extends ReactLeaflet.MapComponent {
 
     focus(array, lat, lng, zoom) {
-        if (lat && lng && zoom) {
+        if (typeof lat !== 'undefined' && typeof lng !== 'undefined' && typeof zoom !== 'undefined') {
             this.props.map.setZoomAround({lat, lng}, zoom);
         }
         else {
@@ -28,7 +28,6 @@ class Focus extends ReactLeaflet.MapComponent {
          var center = this.props.map.getCenter();
          var zoom = this.props.map.getZoom();
          this.props.store.dispatch(Entertainments.setFocus([], center.lat, center.lng, zoom));
-
          }.bind(this));*/
         var latitude = this.props.latitude;
         var longitude = this.props.longitude;
