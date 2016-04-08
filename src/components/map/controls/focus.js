@@ -56,7 +56,6 @@ class Focus extends ReactLeaflet.MapComponent {
     }
 
     componentDidUpdate() {
-        console.log('Focus updated :)');
         //super.componentDidUpdate();
 
         /*this.props.map.on("moveend", function (event) {
@@ -66,13 +65,11 @@ class Focus extends ReactLeaflet.MapComponent {
          this.props.store.dispatch(Entertainments.setFocus([], center.lat, center.lng, zoom));
 
          }.bind(this));*/
-        console.log("start "+this.props.map.getCenter());
         var latitude = this.props.latitude;
         var longitude = this.props.longitude;
         var zoom = this.props.zoom;
         var focusPoints = this.props.focusPoints;
         this.focus(focusPoints, latitude, longitude, zoom);
-        console.log("end "+this.props.map.getCenter());
     }
 
     render() {
