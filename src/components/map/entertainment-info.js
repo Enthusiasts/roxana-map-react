@@ -15,15 +15,31 @@ var EntertainmentInfo = React.createClass({
      },*/
 
     componentWillMount: function () {
-        fetch(Properties.API.ROOT + "entertainments/" + this.props.entertainment.id)
-            .then(response => response.json())
-            .then(json => {
-                this.setState({
-                    isShown: true,
-                    numLikes: json.likesNumberTotal,
-                    liked: this.props.liked
+        if (this.props.store.getState().User.isAuthorized) {
+            fetch(Properties.API.ENTERTAINMENTS + "/medias?id=" + this.props.entertainment.id, {
+                mode: "same-origin",
+                credentials: "same-origin"
+            })
+                .then(response => response.json())
+                .then(json => {
+                    this.setState({
+                        isShown: true,
+                        numLikes: json.left.likesNumberTotal,
+                        medias: json.middle,
+                        liked: this.props.liked
+                    });
                 });
-            });
+        } else {
+            fetch(Properties.API.ROOT + "/entertainments/" + this.props.entertainment.id)
+                .then(response => response.json())
+                .then(json => {
+                    this.setState({
+                        isShown: true,
+                        numLikes: json.likesNumberTotal,
+                        liked: this.props.liked
+                    });
+                });
+        }
     },
 
     getInitialState: function () {

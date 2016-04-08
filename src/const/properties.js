@@ -15,7 +15,8 @@ module.exports = {
         ROOT: baseUri + "/spring/",
         ROUTES: baseUri + "/routes/",
         LOGIN: baseUri + "/login",
-        USER: baseUri + "/user"
+        USER: baseUri + "/user",
+        ENTERTAINMENTS: baseUri + "/entertainments"
     },
 
     // Map settings
