@@ -181,6 +181,18 @@ const showEntFromSearchResult = function(ent){
         //console.log(getState());
     }
 };
+const DELETE_ENTERTAINMENTS = "DELETE_ENTERTAINMENTS";
+const deleteEntertainments = function(ent){
+    return {
+        type: DELETE_ENTERTAINMENTS,
+        payload: {
+            ent
+        }
+    }
+
+
+
+};
 
 
 module.exports = {
@@ -195,6 +207,7 @@ module.exports = {
     SET_FOCUS,
     SEARCH_ENT_REQ,
     SEARCH_ENR_RES,
+    DELETE_ENTERTAINMENTS,
     errorEntertainments,
     fetchEntertainments,
     showNaturalTypeAndFetchEntertainments,
@@ -206,7 +219,8 @@ module.exports = {
     searchEntRes,
     searchEnt,
     showEntFromSearchResult,
-    receiveEntertainments
+    receiveEntertainments,
+    deleteEntertainments
 
     //addParticularEntertainments
 };

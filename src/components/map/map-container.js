@@ -8,10 +8,15 @@ var _ = require('underscore');
 var Map = require('./map-presentation');
 
 const mapStateToProps = (state) => {
-    return {
+
+    var t =  {
         entertainments: _.chain(state.Entertainments.points)
-            .pick((value, key) => state.Entertainments.naturalTypes.indexOf(key) !== -1)
+            .pick((value, key) => {
+                //console.log(value, key, state.Entertainments.naturalTypes.indexOf(key));
+                return state.Entertainments.naturalTypes.indexOf(key) > 0
+                })
             .value(),
+        //entertainments: ,
         likedEntertainmentIds: state.User.likedEntIds,
         polyLine: state.Routes.polyLine,
         popUps: state.User.popUps,
@@ -19,6 +24,8 @@ const mapStateToProps = (state) => {
         clusters: state.Entertainments.clusters,
         focus: state.Entertainments.focus
     };
+    console.log(t.entertainments);
+    return t;
 };
 
 const MapContainer = ReactRedux.connect(mapStateToProps)(Map);

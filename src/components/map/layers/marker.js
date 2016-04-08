@@ -15,7 +15,8 @@ class Marker extends ReactLeaflet.Marker {
 
     componentWillUnmount() {
         super.componentWillUnmount();
-        this.props.markers[this.props.entertainment.id] = undefined;
+        this.props.markers['_'+this.props.entertainment.id] = undefined;
+
     }
 
 
