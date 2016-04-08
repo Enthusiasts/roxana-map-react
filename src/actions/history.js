@@ -2,7 +2,7 @@
  * Created by debal on 11.03.2016.
  */
 var Properites = require('../const/properties');
-
+var EntertainmentActions = require('./entertainments');
 var RouteActions = require('./routes');
 
 const FETCH_USER_HISTORY_BEGIN = 'FETCH_USER_HISTORY_BEGIN';
@@ -50,6 +50,10 @@ const _loadRoute = function (routeId, context) {
                     var items = json._embedded.entertainments;
                     // Рисуем маршрут на карте и вносим его в менюшку
                     dispatch(RouteActions.setRouteListAndRenderPath(items));
+                    // Ставим фокус на маршрут
+                    dispatch(EntertainmentActions.setFocus(items.map(x => {
+                        return {lat: x.latitude, lng: x.longitude}
+                    })));
                     // Меняем контекст менюшки на просмотр
                     dispatch(RouteActions.setContext(context, {routeId}));
 

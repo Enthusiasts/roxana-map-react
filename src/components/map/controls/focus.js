@@ -17,7 +17,7 @@ class Focus extends ReactLeaflet.MapComponent {
         else {
             this.props.map.fitBounds(array);
         }
-        this.props.map.invalidateSize({reset: true});
+        //this.props.map.invalidateSize({reset: true});
     }
 
 
