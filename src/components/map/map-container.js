@@ -13,7 +13,6 @@ const mapStateToProps = (state) => {
     var t =  {
         entertainments: _.chain(state.Entertainments.points)
             .pick((value, key) => {
-                //console.log(value, key, state.Entertainments.naturalTypes.indexOf(key));
                 return state.Entertainments.naturalTypes.indexOf(key) >= 0
                 })
             .value(),

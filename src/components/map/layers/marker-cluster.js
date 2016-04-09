@@ -5,6 +5,7 @@ var _ = require('underscore');
 var React = require('react');
 var ReactLeaflet = require('react-leaflet');
 var L = require('leaflet');
+//var Properties = require('../../../const/properties');
 require('leaflet.markercluster');
 
 class MarkerCluster extends ReactLeaflet.MapLayer {
@@ -15,7 +16,9 @@ class MarkerCluster extends ReactLeaflet.MapLayer {
             chunkedLoading: true,
             chunkInterval: 50,
             chunkDelay: 100,
+            disableClusteringAtZoom: 16,
             maxClusterRadius: 200
+
         });
         this.markers = {};
     }
