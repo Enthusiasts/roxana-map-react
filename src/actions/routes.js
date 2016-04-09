@@ -3,6 +3,7 @@
  */
 var Properties = require('../const/properties');
 var Polyline = require('polyline');
+var _ = require('underscore');
 var Entertainments = require('./entertainments');
 
 const ADD_ROUTE_ITEM = 'ADD_ROUTE_ITEM';
@@ -282,7 +283,29 @@ const offerRouteList = function (lat, lon) {
         if (routeFilter.useLikes) query += "&useLikes=" + routeFilter.useLikes;
         if (routeFilter.useCost) query += "&useCost=" + routeFilter.useCost;
         if (routeFilter.useNear) query += "&useNear=" + routeFilter.useNear;
+
+        // TODO: remade :(
+        var clusters = state.Entertainments.clusters;
+        function cartesianProductOf() {
+            return _.reduce(arguments, function(a, b) {
+                return _.flatten(_.map(a, function(x) {
+                    return _.map(b, function(y) {
+                        return x.concat([y]);
+                    });
+                }), true);
+            }, [ [] ]);
+        };
+        const num = [1, 2, 3, 4];
+        var clusterValuesCartesian = cartesianProductOf(
+            clusters.cost.values.length > 0 ? clusters.cost.values : num.slice(),
+            clusters.like.values.length > 0 ? clusters.like.values : num.slice(),
+            clusters.checkin.values.length > 0 ? clusters.checkin.values : num.slice());
+        var clustersQuery = clusterValuesCartesian.map(x => x.reduce((a, b) => a.toString() + b.toString()));
+
+        query += "&cluster=" + clustersQuery.join('&cluster=');
+
         console.log(query);
+
         return fetch(Properties.API.ROUTES + "calculate" + query, {
             method: 'GET',
             mode: 'same-origin'
