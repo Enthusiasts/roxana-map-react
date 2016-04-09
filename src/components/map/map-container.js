@@ -8,7 +8,6 @@ var _ = require('underscore');
 var Map = require('./map-presentation');
 
 const mapStateToProps = (state) => {
-    console.log(state);
 
     var t =  {
         entertainments: _.chain(state.Entertainments.points)
@@ -24,7 +23,6 @@ const mapStateToProps = (state) => {
         clusters: state.Entertainments.clusters,
         focus: state.Entertainments.focus
     };
-    console.log(t.entertainments);
     return t;
 };
 

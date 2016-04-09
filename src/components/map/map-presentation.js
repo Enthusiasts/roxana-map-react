@@ -119,7 +119,6 @@ var MapPresentation = React.createClass({
         }
         var cheat = this.context.store.getState().Entertainments.points.CHEAT;
         if (typeof cheat !== "undefined" && typeof cheat[ent.id] !== "undefined") {
-            console.log("SUKA EBLIVAYA");
             i = "fa fa-map-marker fa-3";
         }
         return L.divIcon({
