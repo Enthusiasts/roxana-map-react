@@ -10,12 +10,26 @@ var configureStore = require('./configureStore');
 const Provider = ReactRedux.Provider;
 const store = configureStore();
 
-// TODO: hack... remove
-/*var HistoryActions = require('./actions/history');
-setInterval(() => {
-    var userId = store.getState().User.userInfo.id;
-    if (userId) store.dispatch(HistoryActions.fetchUserHistory(userId))
-}, 5000);*/
+var HistoryActions = require('./actions/history');
+if (window.location.search != '') {
+    var splitten = window.location.search.substring(1).split('&');
+    var route = '';
+    splitten.forEach(
+        x => {
+            var t = x.match(/route=(.*)/i);
+            if (t && t[1]) {
+                route = t[1];
+            }
+        }
+    );
+    if (route != '') {
+        var id = parseInt(atob(route), 10);
+        if (!isNaN(id)) {
+            console.log('Route is: ', id);
+            store.dispatch(HistoryActions.watchRoute(id));
+        }
+    }
+}
 
 ReactDOM.render(
     <Provider store={store}>

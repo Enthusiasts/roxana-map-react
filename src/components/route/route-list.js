@@ -111,6 +111,18 @@ var RouteList = React.createClass({
             : null;
     },
 
+    renderLink: function() {
+        console.log(this.props.context);
+        if (typeof this.props.context.extra === 'undefined' || typeof this.props.context.extra.routeId === 'undefined') return null;
+        return (
+            <div>
+                <small style={{color: 'white'}}>
+                    {window.location.protocol + '//' + window.location.hostname + "/?route=" + btoa(this.props.context.extra.routeId)}
+                </small>
+            </div>
+        );
+    },
+
     render: function () {
         if (this.props.items.length <= 0) return null;
         const contextLabel = () => {
@@ -127,6 +139,7 @@ var RouteList = React.createClass({
                 {this.renderEntertainments()}
                 {this.renderClearButton()}
                 {this.renderSaveButton()}
+                {this.renderLink()}
             </div>
         );
     }

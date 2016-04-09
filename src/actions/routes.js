@@ -304,7 +304,7 @@ const offerRouteList = function (lat, lon) {
 
         query += "&cluster=" + clustersQuery.join('&cluster=');
 
-        console.log(query);
+       // console.log(query);
 
         return fetch(Properties.API.ROUTES + "calculate" + query, {
             method: 'GET',
