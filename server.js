@@ -1,6 +1,3 @@
-/**
- * Created by debal on 12.03.2016.
- */
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
@@ -16,27 +13,27 @@ var server = new WebpackDevServer(compiler, {
     hot: true,
     historyApiFallback: true,
     proxy: {
-        '/spring*': {
+        '/spring/*': {
             target: "http://127.0.0.1:8090",
             secure: false,
             xfwd: true
         },
-        '/routes*': {
+        '/routes/*': {
             target: "http://127.0.0.1:8090",
             secure: false,
             xfwd: true
         },
-        '/entertainments*': {
+        '/entertainments/*': {
             target: "http://127.0.0.1:8090",
             secure: false,
             xfwd: true
         },
-        '/login*': {
+        '/login/*': {
             target: "http://127.0.0.1:8090",
             secure: false,
             xfwd: true
         },
-        '/user*': {
+        '/user/*': {
             target: "http://127.0.0.1:8090",
             secure: false,
             xfwd: true
